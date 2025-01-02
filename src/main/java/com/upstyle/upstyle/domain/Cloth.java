@@ -30,6 +30,10 @@ public class Cloth extends BaseEntity {
     private Color color;
 
     @ManyToOne
+    @JoinColumn(name = "ootd_id", nullable = false)
+    private Ootd ootd;
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -37,4 +38,7 @@ public class User extends BaseEntity {
     private String status;
 
     private LocalDate inactiveDate;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Ootd> ootds;
 }
