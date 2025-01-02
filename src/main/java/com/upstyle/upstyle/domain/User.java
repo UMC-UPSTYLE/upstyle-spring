@@ -32,6 +32,9 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(10)")
     private com.upstyle.upstyle.domain.enums.Gender gender;
 
+    @Column(nullable = true, length = 255)
+    private String imageUrl;
+
     private Integer reward;
 
     @Column(length = 15)
