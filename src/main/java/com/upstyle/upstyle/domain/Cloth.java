@@ -23,15 +23,15 @@ public class Cloth extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    private ClothCategory category;
 
     @ManyToOne
     @JoinColumn(name = "fit_id", nullable = false)
-    private Fit fit;
+    private ClothFit fit;
 
     @ManyToOne
     @JoinColumn(name = "color_id", nullable = false)
-    private Color color;
+    private ClothColor color;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

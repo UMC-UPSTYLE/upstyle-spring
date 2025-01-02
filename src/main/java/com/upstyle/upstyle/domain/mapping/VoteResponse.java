@@ -1,6 +1,6 @@
 package com.upstyle.upstyle.domain.mapping;
 
-import com.upstyle.upstyle.domain.Option;
+import com.upstyle.upstyle.domain.VoteOption;
 import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.domain.common.BaseEntity;
 import jakarta.persistence.*;
@@ -25,5 +25,5 @@ public class VoteResponse extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "option_id", nullable = false)
-    private Option option;
+    private VoteOption option;
 }

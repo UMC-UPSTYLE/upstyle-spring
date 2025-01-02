@@ -28,5 +28,5 @@ public class Vote extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "vote", cascade = CascadeType.ALL)
-    private List<Option> optionList = new ArrayList<>();
+    private List<VoteOption> optionList = new ArrayList<>();
 }
