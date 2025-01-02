@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,5 +33,5 @@ public class Comment extends BaseEntity {
     private Ootd ootd;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
-    private List<CommentLike> commentLikes;
+    private List<CommentLike> commentLikeList = new ArrayList<>();
 }

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,5 +28,5 @@ public class Vote extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "vote", cascade = CascadeType.ALL)
-    private List<Option> options;
+    private List<Option> optionList = new ArrayList<>();
 }

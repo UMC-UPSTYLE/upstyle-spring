@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -43,17 +44,17 @@ public class User extends BaseEntity {
     private LocalDate inactiveDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Ootd> ootds;
+    private List<Ootd> ootdList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<OotdBookmark> ootdBookmarks;
+    private List<OotdBookmark> ootdBookmarkList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Vote> votes;
+    private List<Vote> voteList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<OotdRequest> ootdRequests;
+    private List<OotdRequest> ootdRequestList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<OotdResponse> ootdResponses;
+    private List<OotdResponse> ootdResponseList = new ArrayList<>();
 }

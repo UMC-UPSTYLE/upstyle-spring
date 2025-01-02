@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,5 +26,5 @@ public class Ootd extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL)
-    private List<Cloth> clothes;
+    private List<Cloth> clothList = new ArrayList<>();
 }
