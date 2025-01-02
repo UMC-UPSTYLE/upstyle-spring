@@ -7,25 +7,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Vote extends BaseEntity {
+public class Option extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, length = 255)
-    private String body;
+    private String imageUrl;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @OneToMany(mappedBy = "vote", cascade = CascadeType.ALL)
-    private List<Option> options;
+    @JoinColumn(name = "vote_id", nullable = false)
+    private Vote vote;
 }
