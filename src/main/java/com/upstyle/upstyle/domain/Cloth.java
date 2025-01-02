@@ -1,11 +1,15 @@
 package com.upstyle.upstyle.domain;
 
 import com.upstyle.upstyle.domain.common.BaseEntity;
+import com.upstyle.upstyle.domain.mapping.OotdCloth;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,10 +34,9 @@ public class Cloth extends BaseEntity {
     private Color color;
 
     @ManyToOne
-    @JoinColumn(name = "ootd_id", nullable = false)
-    private Ootd ootd;
-
-    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "cloth", cascade = CascadeType.ALL)
+    private List<OotdCloth> ootdClothList = new ArrayList<>();
 }

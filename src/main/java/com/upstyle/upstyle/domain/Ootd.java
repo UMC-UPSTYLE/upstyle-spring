@@ -1,6 +1,7 @@
 package com.upstyle.upstyle.domain;
 
 import com.upstyle.upstyle.domain.common.BaseEntity;
+import com.upstyle.upstyle.domain.mapping.OotdCloth;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,5 +27,5 @@ public class Ootd extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL)
-    private List<Cloth> clothList = new ArrayList<>();
+    private List<OotdCloth> ootdClothList = new ArrayList<>();
 }
