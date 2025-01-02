@@ -1,6 +1,5 @@
 package com.upstyle.upstyle.domain;
 
-import com.nimbusds.openid.connect.sdk.claims.Gender;
 import com.upstyle.upstyle.domain.common.BaseEntity;
 import com.upstyle.upstyle.domain.mapping.OotdBookmark;
 import jakarta.persistence.*;
@@ -30,8 +29,8 @@ public class User extends BaseEntity {
     private Float weight;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 6)
-    private Gender gender;
+    @Column(columnDefinition = "VARCHAR(10)")
+    private com.upstyle.upstyle.domain.enums.Gender gender;
 
     private Integer reward;
 
