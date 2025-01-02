@@ -4,6 +4,7 @@ import com.upstyle.upstyle.domain.common.BaseEntity;
 import com.upstyle.upstyle.domain.mapping.OotdBookmark;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class User extends BaseEntity {
     @Column(nullable = true, length = 255)
     private String imageUrl;
 
+    @ColumnDefault("0")
     private Integer reward;
 
     @Column(length = 15)

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
@@ -21,7 +22,8 @@ public class VoteOption extends BaseEntity {
     private String imageUrl;
 
     @Column(nullable = false)
-    private Integer responseCount = 0;
+    @ColumnDefault("0")
+    private Integer responseCount;
 
     @ManyToOne
     @JoinColumn(name = "vote_id", nullable = false)

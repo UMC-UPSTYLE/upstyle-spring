@@ -18,8 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 public class Comment extends BaseEntity {
     @Id
-    @Column(length = 255)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(columnDefinition = "TEXT")
     private String body;
