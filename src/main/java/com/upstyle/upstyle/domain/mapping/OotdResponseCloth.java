@@ -2,6 +2,7 @@ package com.upstyle.upstyle.domain.mapping;
 
 import com.upstyle.upstyle.domain.Cloth;
 import com.upstyle.upstyle.domain.OotdResponse;
+import com.upstyle.upstyle.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OotdResponseCloth {
+public class OotdResponseCloth extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

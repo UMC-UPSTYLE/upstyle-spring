@@ -2,6 +2,7 @@ package com.upstyle.upstyle.domain;
 
 import com.nimbusds.openid.connect.sdk.claims.Gender;
 import com.upstyle.upstyle.domain.common.BaseEntity;
+import com.upstyle.upstyle.domain.mapping.OotdBookmark;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -41,6 +42,9 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Ootd> ootds;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<OotdBookmark> ootdBookmarks;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Vote> votes;

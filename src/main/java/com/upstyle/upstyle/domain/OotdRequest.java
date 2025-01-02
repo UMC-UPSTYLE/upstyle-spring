@@ -1,5 +1,6 @@
 package com.upstyle.upstyle.domain;
 
+import com.upstyle.upstyle.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OotdRequest {
+public class OotdRequest extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
