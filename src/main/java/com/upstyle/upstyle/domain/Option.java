@@ -20,6 +20,9 @@ public class Option extends BaseEntity {
     @Column(nullable = true, length = 255)
     private String imageUrl;
 
+    @Column(nullable = false)
+    private Integer responseCount = 0;
+
     @ManyToOne
     @JoinColumn(name = "vote_id", nullable = false)
     private Vote vote;
