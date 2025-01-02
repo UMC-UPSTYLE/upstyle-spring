@@ -1,6 +1,7 @@
 package com.upstyle.upstyle.domain;
 
 import com.upstyle.upstyle.domain.common.BaseEntity;
+import com.upstyle.upstyle.domain.mapping.CommentLike;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

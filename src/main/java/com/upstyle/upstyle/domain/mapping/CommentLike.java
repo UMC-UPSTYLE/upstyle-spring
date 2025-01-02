@@ -1,5 +1,7 @@
-package com.upstyle.upstyle.domain;
+package com.upstyle.upstyle.domain.mapping;
 
+import com.upstyle.upstyle.domain.Comment;
+import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,6 +23,7 @@ public class CommentLike extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = false, length = 255)
-    private String commentId;
+    @ManyToOne
+    @JoinColumn(name = "comment_id", nullable = false)
+    private Comment comment;
 }
