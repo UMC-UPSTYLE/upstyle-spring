@@ -23,7 +23,7 @@ public class OotdRequest extends BaseEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String body;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

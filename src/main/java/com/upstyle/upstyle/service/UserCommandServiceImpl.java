@@ -21,7 +21,8 @@ public class UserCommandServiceImpl implements UserCommandService {
     @Transactional
     public User joinUser(UserRequestDTO.JoinDto request){
         User newUser = UserConverter.toUser(request);
-        return null;
+        newUser.encodePassword(passwordEncoder.encode(request.getPassword()));
+        return userRepository.save(newUser);
     }
 
 }

@@ -25,7 +25,7 @@ public class VoteOption extends BaseEntity {
     @ColumnDefault("0")
     private Integer responseCount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vote_id", nullable = false)
     private Vote vote;
 }
