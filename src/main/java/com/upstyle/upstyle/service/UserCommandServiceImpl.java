@@ -24,5 +24,4 @@ public class UserCommandServiceImpl implements UserCommandService {
         newUser.encodePassword(passwordEncoder.encode(request.getPassword()));
         return userRepository.save(newUser);
     }
-
 }
