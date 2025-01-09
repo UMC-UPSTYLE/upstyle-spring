@@ -32,7 +32,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
 
         String nickname = (String) properties.get("");
-        String email = nickname + "@kakao.com"; // 임시 이메일 생성
+        String email = nickname + "@google.com"; // 임시 이메일 생성
 
         // 사용자 정보 저장 또는 업데이트
         User user = saveOrUpdateUser(email, nickname);
@@ -40,7 +40,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         // 이메일을 Principal로 사용하기 위해 attributes 수정
         Map<String, Object> modifiedAttributes = new HashMap<>(attributes);
         modifiedAttributes.put("email", email);
-
+        //테스트 로그
+        System.out.println("OAuth2 인증 완료, 사용자 정보 로드 중...");
         return new DefaultOAuth2User(
                 oAuth2User.getAuthorities(),
                 modifiedAttributes,
@@ -57,7 +58,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                         .gender(Gender.NONE)  // 기본값 설정
                         .role(Role.USER)
                         .build());
-
+        //테스트 로그
+        System.out.println("사용자 정보 저장 중: " + email + ", " + nickname);
         return userRepository.save(user);
     }
 }
