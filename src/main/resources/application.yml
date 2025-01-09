@@ -22,8 +22,8 @@ spring:
         registration:
           google:
             client-authentication-method: client_secret_post
-            client-id: ${GOOGLE_CLIENT_ID}
-            client-secret: ${GOOGLE_CLIENT_SECRET}
+            client-id:
+            client-secret:
             redirect-uri: http://localhost:8080/login/oauth2/code/google
             authorization-grant-type: authorization_code
             scope:
