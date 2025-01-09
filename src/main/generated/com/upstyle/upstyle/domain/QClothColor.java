@@ -19,7 +19,7 @@ public class QClothColor extends EntityPathBase<ClothColor> {
 
     public static final QClothColor clothColor = new QClothColor("clothColor");
 
-    public final NumberPath<Integer> id = createNumber("id", Integer.class);
+    public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath name = createString("name");
 

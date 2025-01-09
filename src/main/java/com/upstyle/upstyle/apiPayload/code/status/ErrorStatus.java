@@ -19,7 +19,14 @@ public enum ErrorStatus implements BaseErrorCode {
 
     // 멤버 관려 에러
     USER_NOT_FOUND(HttpStatus.BAD_REQUEST, "USER4001", "사용자가 없습니다."),
-    NICKNAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "USER4002", "닉네임은 필수 입니다.");
+    NICKNAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "USER4002", "닉네임은 필수 입니다."),
+
+
+    //옷 관련 에러
+
+    CLOTH_CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4001", "옷 카테고리가 없습니다."),
+    CLOTH_COLOR_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4002", "옷 색깔이 없습니다."),
+    CLOTH_FIT_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4003", "옷 핏이 없습니다.");
 
 
     private final HttpStatus httpStatus;
