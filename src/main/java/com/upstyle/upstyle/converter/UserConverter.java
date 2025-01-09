@@ -36,8 +36,8 @@ public class UserConverter {
                 .nickname(request.getNickname())
                 .email(request.getEmail())
                 .password(request.getPassword())
-                .height(request.getHeight())
-                .weight(request.getWeight())
+//                .height(request.getHeight())
+//                .weight(request.getWeight())
                 .role(request.getRole())
                 .build();
     }

@@ -4,6 +4,7 @@ import com.upstyle.upstyle.domain.common.BaseEntity;
 import com.upstyle.upstyle.domain.enums.Role;
 import com.upstyle.upstyle.domain.mapping.OotdBookmark;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -28,8 +29,10 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-
+    @Column(nullable = false)
+    @Email
     private String email;
+
     private Float height;
     private Float weight;
 

@@ -21,10 +21,10 @@ public class UserRequestDTO {
         String email;
         @NotBlank
         String password;
-        @NotNull
-        Float height;
-        @NotNull
-        Float weight;
+//        @NotNull
+//        Float height;
+//        @NotNull
+//        Float weight;
         @NotNull
         Integer gender;
         @NotNull
