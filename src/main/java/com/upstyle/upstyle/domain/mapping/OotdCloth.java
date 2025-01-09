@@ -18,11 +18,11 @@ public class OotdCloth {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ootd_id", nullable = false)
     private Ootd ootd;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cloth_id", nullable = false)
     private Cloth cloth;
 }

@@ -10,12 +10,11 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum SuccessStatus implements BaseCode {
 
-    // 일반적인 응답
     _OK(HttpStatus.OK, "COMMON200", "성공입니다.");
 
-    private final HttpStatus httpStatus;
-    private final String code;
-    private final String message;
+    private HttpStatus httpStatus;
+    private String message;
+    private String code;
 
     @Override
     public ReasonDTO getReason() {
@@ -26,14 +25,12 @@ public enum SuccessStatus implements BaseCode {
                 .build();
     }
 
-    @Override
-    public ReasonDTO getReasonHttpStatus() {
+    public ReasonDTO getReasonHttpStatus(){
         return ReasonDTO.builder()
                 .message(message)
                 .code(code)
                 .isSuccess(true)
                 .httpStatus(httpStatus)
-                .build()
-                ;
+                .build();
     }
 }

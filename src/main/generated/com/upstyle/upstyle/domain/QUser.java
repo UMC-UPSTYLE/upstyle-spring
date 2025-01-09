@@ -25,6 +25,8 @@ public class QUser extends EntityPathBase<User> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
+    public final StringPath email = createString("email");
+
     public final EnumPath<com.upstyle.upstyle.domain.enums.Gender> gender = createEnum("gender", com.upstyle.upstyle.domain.enums.Gender.class);
 
     public final NumberPath<Float> height = createNumber("height", Float.class);
@@ -48,6 +50,8 @@ public class QUser extends EntityPathBase<User> {
     public final StringPath password = createString("password");
 
     public final NumberPath<Integer> reward = createNumber("reward", Integer.class);
+
+    public final EnumPath<com.upstyle.upstyle.domain.enums.Role> role = createEnum("role", com.upstyle.upstyle.domain.enums.Role.class);
 
     public final StringPath status = createString("status");
 

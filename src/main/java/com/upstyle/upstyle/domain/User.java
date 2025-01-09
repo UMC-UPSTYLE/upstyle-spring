@@ -1,6 +1,7 @@
 package com.upstyle.upstyle.domain;
 
 import com.upstyle.upstyle.domain.common.BaseEntity;
+import com.upstyle.upstyle.domain.enums.Role;
 import com.upstyle.upstyle.domain.mapping.OotdBookmark;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,9 +28,14 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
+
+    private String email;
     private Float height;
     private Float weight;
 
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(10)")
+    private Role role;
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10)")
     private com.upstyle.upstyle.domain.enums.Gender gender;
@@ -59,4 +65,8 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<OotdResponse> ootdResponseList = new ArrayList<>();
+
+    public void encodePassword(String password) {
+        this.password = password;
+    }
 }
