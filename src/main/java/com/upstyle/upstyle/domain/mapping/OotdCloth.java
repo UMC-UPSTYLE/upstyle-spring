@@ -3,16 +3,14 @@ package com.upstyle.upstyle.domain.mapping;
 import com.upstyle.upstyle.domain.Cloth;
 import com.upstyle.upstyle.domain.Ootd;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class OotdCloth {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
