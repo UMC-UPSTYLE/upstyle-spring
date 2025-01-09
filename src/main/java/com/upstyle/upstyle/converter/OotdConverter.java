@@ -28,7 +28,7 @@ public class OotdConverter {
     }
 
     //ootd 엔티티를 addOotdResultDTO로 변환.
-    public OotdResponseDTO.addOotdResultDTO toAddOotdResultDTO(Ootd ootd) {
+    public static OotdResponseDTO.addOotdResultDTO toAddOotdResultDTO(Ootd ootd) {
         List<OotdResponseDTO.ClothResponseDTO> clothResponseDTOList = ootd.getOotdClothList().stream()
                 .map(ootdCloth -> {
                     Cloth cloth = ootdCloth.getCloth();
