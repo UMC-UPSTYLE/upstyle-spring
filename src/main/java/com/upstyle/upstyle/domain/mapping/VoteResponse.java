@@ -1,5 +1,6 @@
 package com.upstyle.upstyle.domain.mapping;
 
+import com.upstyle.upstyle.domain.Vote;
 import com.upstyle.upstyle.domain.VoteOption;
 import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.domain.common.BaseEntity;
@@ -25,6 +26,10 @@ public class VoteResponse extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vote_id", nullable = false)
+    private Vote vote;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "option_id", nullable = false)
