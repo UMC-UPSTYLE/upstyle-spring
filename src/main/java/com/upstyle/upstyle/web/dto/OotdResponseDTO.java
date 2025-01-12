@@ -26,6 +26,7 @@ public class OotdResponseDTO {
     @AllArgsConstructor
     public static class ClothResponseDTO {
         Long clothId;
+        Long kindId;
         Long categoryId;
         Long fitId;
         Long colorId;
