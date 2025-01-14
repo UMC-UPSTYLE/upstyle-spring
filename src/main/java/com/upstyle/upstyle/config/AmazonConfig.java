@@ -1,5 +1,11 @@
 package com.upstyle.upstyle.config;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 @Getter
-public class AmazonConfing {
+public class AmazonConfig {
     private AWSCredentials awsCredentials;
 
     @Value("${cloud.aws.credentials.accessKey}")
@@ -19,6 +25,12 @@ public class AmazonConfing {
 
     @Value("${cloud.aws.region.static}")
     private String region;
+
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
+
+    @Value("${cloud.aws.s3.path.ootd}")
+    private String ootdPath;
 
     @PostConstruct
     public void init() {
