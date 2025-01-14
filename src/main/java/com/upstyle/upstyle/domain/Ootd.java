@@ -27,4 +27,7 @@ public class Ootd extends BaseEntity {
 
     @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL)
     private List<OotdCloth> ootdClothList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL)
+    private List<OotdImage> ootdImageList = new ArrayList<>();
 }

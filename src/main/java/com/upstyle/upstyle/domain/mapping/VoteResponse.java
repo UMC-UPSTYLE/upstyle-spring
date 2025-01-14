@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id", "vote_id"})
+        @UniqueConstraint(columnNames = {"user_id", "option_id"})
 })
 public class VoteResponse extends BaseEntity {
     @Id
