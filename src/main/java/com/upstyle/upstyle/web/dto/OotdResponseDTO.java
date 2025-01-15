@@ -51,7 +51,8 @@ public class OotdResponseDTO {
     @AllArgsConstructor
     public static class ClothPreviewDTO {
         Long id;
-        String imageUrl;
+        Long ootdId;
+        String ootdImageUrl;
         Long clothKindId;
         Long clothCategoryId;
         Long clothFitId;
