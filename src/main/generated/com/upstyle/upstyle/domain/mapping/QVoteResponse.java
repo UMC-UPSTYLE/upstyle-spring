@@ -36,6 +36,8 @@ public class QVoteResponse extends EntityPathBase<VoteResponse> {
 
     public final com.upstyle.upstyle.domain.QUser user;
 
+    public final com.upstyle.upstyle.domain.QVote vote;
+
     public QVoteResponse(String variable) {
         this(VoteResponse.class, forVariable(variable), INITS);
     }
@@ -56,6 +58,7 @@ public class QVoteResponse extends EntityPathBase<VoteResponse> {
         super(type, metadata, inits);
         this.option = inits.isInitialized("option") ? new com.upstyle.upstyle.domain.QVoteOption(forProperty("option"), inits.get("option")) : null;
         this.user = inits.isInitialized("user") ? new com.upstyle.upstyle.domain.QUser(forProperty("user")) : null;
+        this.vote = inits.isInitialized("vote") ? new com.upstyle.upstyle.domain.QVote(forProperty("vote"), inits.get("vote")) : null;
     }
 
 }
