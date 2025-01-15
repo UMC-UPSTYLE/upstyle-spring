@@ -23,6 +23,10 @@ public class Cloth extends BaseEntity {
     private ClothCategory category;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "kind_id", nullable = false)
+    private ClothKind kind;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fit_id", nullable = false)
     private ClothFit fit;
 
