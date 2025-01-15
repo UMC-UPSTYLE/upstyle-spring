@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,22 +18,35 @@ public class QClothCategory extends EntityPathBase<ClothCategory> {
 
     private static final long serialVersionUID = -1176819797L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QClothCategory clothCategory = new QClothCategory("clothCategory");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final QClothKind kind;
+
     public final StringPath name = createString("name");
 
     public QClothCategory(String variable) {
-        super(ClothCategory.class, forVariable(variable));
+        this(ClothCategory.class, forVariable(variable), INITS);
     }
 
     public QClothCategory(Path<? extends ClothCategory> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QClothCategory(PathMetadata metadata) {
-        super(ClothCategory.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QClothCategory(PathMetadata metadata, PathInits inits) {
+        this(ClothCategory.class, metadata, inits);
+    }
+
+    public QClothCategory(Class<? extends ClothCategory> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.kind = inits.isInitialized("kind") ? new QClothKind(forProperty("kind")) : null;
     }
 
 }

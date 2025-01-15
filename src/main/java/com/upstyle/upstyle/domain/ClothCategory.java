@@ -18,4 +18,8 @@ public class ClothCategory {
 
     @Column(nullable = false, length = 50)
     private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "kind_id", nullable = false)
+    private ClothKind kind;
 }
