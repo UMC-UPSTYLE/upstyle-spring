@@ -26,7 +26,8 @@ public enum ErrorStatus implements BaseErrorCode {
 
     CLOTH_CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4001", "옷 카테고리가 없습니다."),
     CLOTH_COLOR_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4002", "옷 색깔이 없습니다."),
-    CLOTH_FIT_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4003", "옷 핏이 없습니다.");
+    CLOTH_FIT_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4003", "옷 핏이 없습니다."),
+    CLOTH_KIND_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4004", "옷 종류가 없습니다.");
 
 
     private final HttpStatus httpStatus;

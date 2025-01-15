@@ -32,31 +32,4 @@ public class OotdResponseDTO {
         Long colorId;
     }
 
-    @Builder
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ClothPreviewListDTO {
-        List<ClothPreviewDTO> clothPreviewList;
-        Integer listSize;
-        Integer totalPage;
-        Long totalElements;
-        Boolean isFirst;
-        Boolean isLast;
-    }
-
-    @Builder
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ClothPreviewDTO {
-        Long id;
-        Long ootdId;
-        String ootdImageUrl;
-        Long clothKindId;
-        Long clothCategoryId;
-        Long clothFitId;
-        Long clothColorId;
-    }
-
 }

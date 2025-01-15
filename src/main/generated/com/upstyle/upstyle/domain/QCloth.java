@@ -35,6 +35,8 @@ public class QCloth extends EntityPathBase<Cloth> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final QClothKind kind;
+
     public final ListPath<com.upstyle.upstyle.domain.mapping.OotdCloth, com.upstyle.upstyle.domain.mapping.QOotdCloth> ootdClothList = this.<com.upstyle.upstyle.domain.mapping.OotdCloth, com.upstyle.upstyle.domain.mapping.QOotdCloth>createList("ootdClothList", com.upstyle.upstyle.domain.mapping.OotdCloth.class, com.upstyle.upstyle.domain.mapping.QOotdCloth.class, PathInits.DIRECT2);
 
     //inherited
@@ -63,6 +65,7 @@ public class QCloth extends EntityPathBase<Cloth> {
         this.category = inits.isInitialized("category") ? new QClothCategory(forProperty("category")) : null;
         this.color = inits.isInitialized("color") ? new QClothColor(forProperty("color")) : null;
         this.fit = inits.isInitialized("fit") ? new QClothFit(forProperty("fit")) : null;
+        this.kind = inits.isInitialized("kind") ? new QClothKind(forProperty("kind")) : null;
         this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
     }
 

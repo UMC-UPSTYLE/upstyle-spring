@@ -62,7 +62,7 @@ public class OotdCommandServiceImpl implements OotdCommandService {
                     newCloth.setColor(color);
 
                     ClothKind kind = clothKindRepository.findById(ClothRequest.getClothKindId())
-                            .orElseThrow(()-> new ClothHandler((ErrorStatus.CLOTH_KIND_NOT_FOUNT)));
+                            .orElseThrow(()-> new ClothHandler((ErrorStatus.CLOTH_KIND_NOT_FOUND)));
                     newCloth.setKind(kind);
 
                     clothRepository.save(newCloth);
