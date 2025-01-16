@@ -29,8 +29,6 @@ public class QUser extends EntityPathBase<User> {
 
     public final EnumPath<com.upstyle.upstyle.domain.enums.Gender> gender = createEnum("gender", com.upstyle.upstyle.domain.enums.Gender.class);
 
-    public final NumberPath<Float> height = createNumber("height", Float.class);
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath imageUrl = createString("imageUrl");
@@ -49,6 +47,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath password = createString("password");
 
+    public final StringPath picture = createString("picture");
+
     public final NumberPath<Integer> reward = createNumber("reward", Integer.class);
 
     public final EnumPath<com.upstyle.upstyle.domain.enums.Role> role = createEnum("role", com.upstyle.upstyle.domain.enums.Role.class);
@@ -59,8 +59,6 @@ public class QUser extends EntityPathBase<User> {
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public final ListPath<Vote, QVote> voteList = this.<Vote, QVote>createList("voteList", Vote.class, QVote.class, PathInits.DIRECT2);
-
-    public final NumberPath<Float> weight = createNumber("weight", Float.class);
 
     public QUser(String variable) {
         super(User.class, forVariable(variable));
