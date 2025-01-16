@@ -25,7 +25,7 @@ public class ClothResponseDTO {
     @AllArgsConstructor
     public static class ClothKindDTO {
         Long id;
-        String imageUrl;
+        OotdDTO ootd;
     }
 
     @Builder
@@ -47,10 +47,19 @@ public class ClothResponseDTO {
     @AllArgsConstructor
     public static class ClothPreviewDTO {
         Long id;
-        String imageUrl;
         Long kindId;
         Long categoryId;
         Long fitId;
         Long colorId;
+        OotdDTO ootd;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class OotdDTO {
+        Long id;
+        String imageUrl;
     }
 }
