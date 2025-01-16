@@ -33,8 +33,11 @@ public class User extends BaseEntity {
     @Email
     private String email;
 
-    private Float height;
-    private Float weight;
+    @Column
+    private String picture;
+    
+//    private Float height;
+//    private Float weight;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10)")
@@ -49,7 +52,7 @@ public class User extends BaseEntity {
     @ColumnDefault("0")
     private Integer reward;
 
-    @Column(length = 15)
+    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
     private String status;
 
     private LocalDate inactiveDate;
