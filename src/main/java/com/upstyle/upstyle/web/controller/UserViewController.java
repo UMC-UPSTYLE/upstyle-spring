@@ -10,9 +10,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/users")
 public class UserViewController {
 
     private final UserCommandService userCommandService;
@@ -38,7 +40,7 @@ public class UserViewController {
         return "admin";
     }
 
-    @PostMapping("/users/signup")
+    @PostMapping("/login")
     public String JoinMember(@ModelAttribute("userJoinDto") UserRequestDTO.JoinDto request, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "signup";

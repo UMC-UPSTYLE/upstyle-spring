@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://upstyle-db.cjwwi4eyogmp.ap-northeast-2.rds.amazonaws.com:3306/upstyle
+    username: admin
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     properties:
@@ -22,11 +22,9 @@ spring:
         registration:
           google:
             client-authentication-method: client_secret_post
-
-            client-id: 698248660337qiq5orai985jarf8gbgr0tl13hk1b0sb.apps.googleusercontent.com
-            client-secret: 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
-
-            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            client-id:
+            client-secret:
+            redirect-uri: http://3.36.75.32:8080/login/oauth2/code/google
             authorization-grant-type: authorization_code
             scope:
               - openid
@@ -42,13 +40,13 @@ spring:
 cloud:
   aws:
     s3:
-      bucket: ${AWS_S3_BUCKET}
+      bucket: upstyle
       path:
         ootd: ootd
     region:
-      static: ${AWS_REGION}
+      static: ap-northeast-2
     stack:
       auto: false
     credentials:
-      accessKey: ${AWS_ACCESS_KEY}
-      secretKey: ${AWS_SECRET_KEY}
+      accessKey:
+      secretKey:
