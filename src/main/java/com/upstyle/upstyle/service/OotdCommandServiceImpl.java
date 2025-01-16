@@ -35,6 +35,7 @@ public class OotdCommandServiceImpl implements OotdCommandService {
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
         Ootd newOotd = OotdConverter.toOotd(ootdRequest,user);
+        ootdRepository.save(newOotd);
 
         List<OotdCloth> OotdclothList = ootdRequest.getClothRequestDTOList().stream()
                 .map(ClothRequest -> {
