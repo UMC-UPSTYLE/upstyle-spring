@@ -35,7 +35,9 @@ public class QCloth extends EntityPathBase<Cloth> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+
     public final StringPath imageUrl = createString("imageUrl");
+
 
     public final QClothKind kind;
 
