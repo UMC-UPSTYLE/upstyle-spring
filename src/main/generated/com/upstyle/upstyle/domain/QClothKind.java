@@ -8,6 +8,9 @@ import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
 
+import com.querydsl.core.types.dsl.PathInits;
+
+
 
 /**
  * QClothKind is a Querydsl query type for ClothKind
@@ -18,6 +21,10 @@ public class QClothKind extends EntityPathBase<ClothKind> {
     private static final long serialVersionUID = 689767617L;
 
     public static final QClothKind clothKind = new QClothKind("clothKind");
+
+
+    public final ListPath<ClothCategory, QClothCategory> categories = this.<ClothCategory, QClothCategory>createList("categories", ClothCategory.class, QClothCategory.class, PathInits.DIRECT2);
+
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

@@ -3,6 +3,7 @@ package com.upstyle.upstyle.service;
 import com.upstyle.upstyle.apiPayload.code.status.ErrorStatus;
 import com.upstyle.upstyle.apiPayload.exception.handler.ClothHandler;
 import com.upstyle.upstyle.apiPayload.exception.handler.UserHandler;
+import com.upstyle.upstyle.aws.s3.AmazonS3Manager;
 import com.upstyle.upstyle.converter.OotdConverter;
 import com.upstyle.upstyle.domain.*;
 import com.upstyle.upstyle.domain.mapping.OotdCloth;
@@ -11,8 +12,10 @@ import com.upstyle.upstyle.web.dto.OotdRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,16 +24,20 @@ public class OotdCommandServiceImpl implements OotdCommandService {
 
     private final ClothKindRepository clothKindRepository;
     private final OotdRepository ootdRepository;
+    private final OotdImageRepository ootdImageRepository;
     private final ClothRepository clothRepository;
     private final UserRepository userRepository;
     private final ClothCategoryRepository clothCategoryRepository;
     private final ClothFitRepository clothFitRepository;
     private final ClothColorRepository clothColorRepository;
     private final OotdClothRepository ootdClothRepository;
+    private final UuidRepository uuidRepository;
+    private final AmazonS3Manager s3Manager;
+
 
     @Override
     @Transactional
-    public Ootd addOotd(OotdRequestDTO.addOotdDTO ootdRequest){
+    public Ootd addOotd(OotdRequestDTO.addOotdDTO ootdRequest, MultipartFile[] ootdImages){
         User user = userRepository.findById(ootdRequest.getUserId())
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
@@ -56,7 +63,9 @@ public class OotdCommandServiceImpl implements OotdCommandService {
                     newCloth.setColor(color);
 
                     ClothKind kind = clothKindRepository.findById(ClothRequest.getClothKindId())
+
                                     .orElseThrow(()-> new ClothHandler((ErrorStatus.CLOTH_KIND_NOT_FOUNT)));
+
                     newCloth.setKind(kind);
 
                     clothRepository.save(newCloth);
@@ -71,6 +80,17 @@ public class OotdCommandServiceImpl implements OotdCommandService {
                 }).collect(Collectors.toList());
 
         newOotd.setOotdClothList(OotdclothList);
+        ootdRepository.save(newOotd);
+
+        // 다중 이미지 업로드 처리
+        for (MultipartFile ootdImage : ootdImages) {
+            String uuid = UUID.randomUUID().toString();
+            Uuid savedUuid = uuidRepository.save(Uuid.builder().uuid(uuid).build());
+            String imageUrl = s3Manager.uploadFile(s3Manager.generateOotdKeyName(savedUuid), ootdImage);
+
+            OotdImage ootdImageEntity = OotdConverter.toOotdImage(imageUrl, newOotd);
+            ootdImageRepository.save(ootdImageEntity);
+        }
 
         return ootdRepository.save(newOotd);
 
