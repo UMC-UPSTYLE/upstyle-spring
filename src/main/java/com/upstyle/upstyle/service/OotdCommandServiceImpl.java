@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OotdCommandServiceImpl implements OotdCommandService {
 
+    private final ClothKindRepository clothKindRepository;
     private final OotdRepository ootdRepository;
     private final OotdImageRepository ootdImageRepository;
     private final ClothRepository clothRepository;
@@ -59,6 +60,10 @@ public class OotdCommandServiceImpl implements OotdCommandService {
                     ClothColor color = clothColorRepository.findById(ClothRequest.getColorCategoryId())
                             .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_COLOR_NOT_FOUND));
                     newCloth.setColor(color);
+
+                    ClothKind kind = clothKindRepository.findById(ClothRequest.getClothKindId())
+                            .orElseThrow(()-> new ClothHandler((ErrorStatus.CLOTH_KIND_NOT_FOUND)));
+                    newCloth.setKind(kind);
 
                     clothRepository.save(newCloth);
 

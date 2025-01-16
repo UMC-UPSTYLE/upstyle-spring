@@ -9,11 +9,11 @@ public class OotdRequestDTO {
     public static class addOotdDTO {
         Long userId;
         List<ClothRequestDTO> clothRequestDTOList;
-
     }
 
     @Getter
     public static class ClothRequestDTO{
+        Long clothKindId;
         Long clothCategoryId;
         Long fitCategoryId;
         Long colorCategoryId;
