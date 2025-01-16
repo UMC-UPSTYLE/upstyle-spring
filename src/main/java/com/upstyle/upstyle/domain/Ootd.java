@@ -13,7 +13,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Ootd extends BaseEntity {
@@ -27,4 +26,7 @@ public class Ootd extends BaseEntity {
 
     @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL)
     private List<OotdCloth> ootdClothList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL)
+    private List<OotdImage> ootdImageList = new ArrayList<>();
 }

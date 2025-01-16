@@ -8,11 +8,12 @@ public class OotdRequestDTO {
     @Getter
     public static class addOotdDTO {
         Long userId;
-        List<ClothRequestDTO> ClothRequestDTOList;
+        List<ClothRequestDTO> clothRequestDTOList;
     }
 
     @Getter
     public static class ClothRequestDTO{
+        Long clothKindId;
         Long clothCategoryId;
         Long fitCategoryId;
         Long colorCategoryId;

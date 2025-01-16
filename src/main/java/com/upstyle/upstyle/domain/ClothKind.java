@@ -6,12 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClothCategory {
+public class ClothKind {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +24,8 @@ public class ClothCategory {
     @Column(nullable = false, length = 50)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "kind_id", nullable = false)
-    private ClothKind kind;
+
+    @OneToMany(mappedBy = "kind", cascade = CascadeType.ALL)
+    private List<ClothCategory> categories = new ArrayList<>();
 }
+

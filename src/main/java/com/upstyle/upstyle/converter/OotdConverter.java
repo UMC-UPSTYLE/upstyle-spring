@@ -1,9 +1,6 @@
 package com.upstyle.upstyle.converter;
 
-import com.upstyle.upstyle.domain.Cloth;
-import com.upstyle.upstyle.domain.ClothCategory;
-import com.upstyle.upstyle.domain.Ootd;
-import com.upstyle.upstyle.domain.User;
+import com.upstyle.upstyle.domain.*;
 import com.upstyle.upstyle.domain.mapping.OotdCloth;
 import com.upstyle.upstyle.web.dto.OotdRequestDTO;
 import com.upstyle.upstyle.web.dto.OotdResponseDTO;
@@ -48,5 +45,12 @@ public class OotdConverter {
                 .build();
     }
 
+    // imageUrl과 Ootd를 이용해 OotdImage를 생성
+    public static OotdImage toOotdImage(String imageUrl, Ootd ootd) {
+        return OotdImage.builder()
+                .imageUrl(imageUrl)
+                .ootd(ootd)
+                .build();
+    }
 
 }
