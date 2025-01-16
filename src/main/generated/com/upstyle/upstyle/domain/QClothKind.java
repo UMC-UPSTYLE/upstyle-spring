@@ -7,7 +7,9 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+
 import com.querydsl.core.types.dsl.PathInits;
+
 
 
 /**
@@ -20,7 +22,9 @@ public class QClothKind extends EntityPathBase<ClothKind> {
 
     public static final QClothKind clothKind = new QClothKind("clothKind");
 
+
     public final ListPath<ClothCategory, QClothCategory> categories = this.<ClothCategory, QClothCategory>createList("categories", ClothCategory.class, QClothCategory.class, PathInits.DIRECT2);
+
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 

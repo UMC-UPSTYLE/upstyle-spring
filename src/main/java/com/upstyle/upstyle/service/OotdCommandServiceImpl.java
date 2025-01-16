@@ -42,6 +42,7 @@ public class OotdCommandServiceImpl implements OotdCommandService {
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
         Ootd newOotd = OotdConverter.toOotd(ootdRequest,user);
+        ootdRepository.save(newOotd);
 
         List<OotdCloth> OotdclothList = ootdRequest.getClothRequestDTOList().stream()
                 .map(ClothRequest -> {
@@ -62,7 +63,9 @@ public class OotdCommandServiceImpl implements OotdCommandService {
                     newCloth.setColor(color);
 
                     ClothKind kind = clothKindRepository.findById(ClothRequest.getClothKindId())
-                            .orElseThrow(()-> new ClothHandler((ErrorStatus.CLOTH_KIND_NOT_FOUND)));
+
+                                    .orElseThrow(()-> new ClothHandler((ErrorStatus.CLOTH_KIND_NOT_FOUNT)));
+
                     newCloth.setKind(kind);
 
                     clothRepository.save(newCloth);
