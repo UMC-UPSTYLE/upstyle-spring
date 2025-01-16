@@ -22,9 +22,9 @@ spring:
         registration:
           google:
             client-authentication-method: client_secret_post
-            client-id:
-            client-secret:
-            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            client-id: 698248660337-qiq5orai985jarf8gbgr0tl13hk1b0sb.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://3.36.75.32:8080/login/oauth2/code/google
             authorization-grant-type: authorization_code
             scope:
               - openid
