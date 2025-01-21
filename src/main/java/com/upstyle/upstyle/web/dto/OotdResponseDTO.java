@@ -36,7 +36,7 @@ public class OotdResponseDTO {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CalenderResponseDTO{
+    public static class CalendarResponseDTO{
         Long userId;
         List<DateOotdDTO> dateOotdDTOList;
     }

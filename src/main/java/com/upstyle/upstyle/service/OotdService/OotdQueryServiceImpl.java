@@ -21,7 +21,7 @@ public class OotdQueryServiceImpl implements OotdQueryService{
 
     @Override
     @Transactional
-    public OotdResponseDTO.CalenderResponseDTO getCalenderResponseDTO(Long userId, int year, int month){
+    public OotdResponseDTO.CalendarResponseDTO getCalendarResponseDTO(Long userId, int year, int month){
         List<Object[]> results = ootdRepository.findAllByUserIdAndYearAndMonth(userId,year,month);
 
         List<OotdResponseDTO.DateOotdDTO> dateOotdDTOList = results.stream()
@@ -32,6 +32,6 @@ public class OotdQueryServiceImpl implements OotdQueryService{
                 ))
                 .collect(Collectors.toList());
 
-        return OotdConverter.toCalenderResponseDTO(userId,dateOotdDTOList);
+        return OotdConverter.toCalendarResponseDTO(userId,dateOotdDTOList);
     }
 }

@@ -23,7 +23,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf
 
-                        .ignoringRequestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/ootds/**", "/clothes/**", "/users/**", "/auth/**", "/login/**") // CSRF 비활성화 경로
+                        .ignoringRequestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/ootds/**", "/clothes/**", "/users/**", "/auth/**", "/login/**","/calendar/") // CSRF 비활성화 경로
 
                 )
                 .authorizeHttpRequests((requests) -> requests
@@ -32,7 +32,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**"
                         ).permitAll() // Swagger 및 기타 공개 경로 허용
 
-                        .requestMatchers("/ootds/**", "/clothes/**", "/users/**", "/auth/**", "/login/**").permitAll()
+                        .requestMatchers("/ootds/**", "/clothes/**", "/users/**", "/auth/**", "/login/**","/calendar/").permitAll()
 
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated() // 그 외 요청은 인증 필요
