@@ -3,7 +3,8 @@ package com.upstyle.upstyle.web.controller;
 import com.upstyle.upstyle.apiPayload.ApiResponse;
 import com.upstyle.upstyle.converter.OotdConverter;
 import com.upstyle.upstyle.domain.Ootd;
-import com.upstyle.upstyle.service.OotdCommandService;
+import com.upstyle.upstyle.service.OotdService.OotdCommandService;
+import com.upstyle.upstyle.service.OotdService.OotdQueryService;
 import com.upstyle.upstyle.web.dto.OotdRequestDTO;
 import com.upstyle.upstyle.web.dto.OotdResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,6 +27,7 @@ public class OotdController {
 
     private final OotdCommandService ootdCommandService;
 
+
     @PostMapping("/")
     @Operation(summary = "ootd 생성 API")
     public ApiResponse<OotdResponseDTO.addOotdResultDTO> addOotd(
@@ -39,4 +41,5 @@ public class OotdController {
         Ootd ootd = ootdCommandService.addOotd(request, ootdImages);
         return ApiResponse.onSuccess(OotdConverter.toAddOotdResultDTO(ootd));
     }
+
 }
