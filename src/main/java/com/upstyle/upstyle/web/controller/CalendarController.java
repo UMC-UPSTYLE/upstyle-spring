@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @Validated
-@RequestMapping(value = "/calender")
-public class CalenderController {
+@RequestMapping(value = "/calendar")
+public class CalendarController {
     private final OotdQueryService ootdQueryService;
 
     @GetMapping("/")
-    public ApiResponse<OotdResponseDTO.CalenderResponseDTO> getDateOotd(@RequestParam(value = "userId") Long userId,
+    public ApiResponse<OotdResponseDTO.CalendarResponseDTO> getDateOotd(@RequestParam(value = "userId") Long userId,
                                                                         @RequestParam(value = "year") int year,
                                                                         @RequestParam(value = "month") int month){
-        OotdResponseDTO.CalenderResponseDTO CalenderResponse = ootdQueryService.getCalenderResponseDTO(userId, year, month);
-        return ApiResponse.onSuccess(CalenderResponse);
+        OotdResponseDTO.CalendarResponseDTO CalendarResponse = ootdQueryService.getCalendarResponseDTO(userId, year, month);
+        return ApiResponse.onSuccess(CalendarResponse);
     }
 }
