@@ -22,7 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/ootds/**", "/clothes/**", "/users/**", "/auth/**", "/login/**") // CSRF 비활성화 경로
+                        .ignoringRequestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/ootds/**", "/clothes/**", "/users/**", "/auth/**", "/auth/login/google", "/login/**") // CSRF 비활성화 경로
                 )
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(
@@ -33,22 +33,11 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated() // 그 외 요청은 인증 필요
                 )
-                .formLogin(form -> form
-                        .loginPage("/login") // 사용자 정의 로그인 페이지로 설정
-                        .defaultSuccessUrl("/more_info", true)
-                        .permitAll()
-                )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
-                        //.defaultSuccessUrl("/more_info", true)
-                        .authorizationEndpoint(authorization ->
-                                authorization.baseUri("/oauth2/authorization") // OAuth 요청 엔드포인트
-                        )
-                        .redirectionEndpoint(redirection ->
-                                redirection.baseUri("/login/oauth2/code/**") // Redirect 엔드포인트
-                        )
+                        .defaultSuccessUrl("/more_info", true) // 성공 시 /more_info로 리디렉션
                         .userInfoEndpoint(userInfo ->
-                                userInfo.userService(customOAuth2UserService) // 사용자 정보 처리 서비스
+                                userInfo.userService(customOAuth2UserService)
                         )
                 );
 

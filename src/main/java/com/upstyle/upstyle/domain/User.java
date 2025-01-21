@@ -27,21 +27,21 @@ public class User extends BaseEntity {
     private String nickname;
 
     @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
     @Email
     private String email;
 
     @Column
     private String picture;
-    
-//    private Float height;
-//    private Float weight;
+
+    @Column
+    private Float height;
+    @Column
+    private Float weight;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10)")
     private Role role;
+
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10)")
     private com.upstyle.upstyle.domain.enums.Gender gender;
@@ -77,7 +77,4 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<OotdResponse> ootdResponseList = new ArrayList<>();
 
-    public void encodePassword(String password) {
-        this.password = password;
-    }
 }
