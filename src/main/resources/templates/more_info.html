@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additional Information</title>
+    <script>
+        function submitAdditionalInfo() {
+            const nickname = document.getElementById('nickname').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+
+            const token = localStorage.getItem('jwt'); // JWT를 localStorage에서 가져옴
+
+            fetch('http://localhost:8080/auth/additional-info', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({
+                    nickname: nickname,
+                    gender: gender,
+                    height: parseFloat(height),
+                    weight: parseFloat(weight)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Information saved successfully!');
+                console.log('Server response:', data);
+                // 추가 정보를 입력한 후 다른 페이지로 리다이렉트
+                window.location.href = '/home';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to save information!');
+            });
+        }
+    </script>
+</head>
+<body>
+<h2>Provide Additional Information</h2>
+<form id="additional-info-form" onsubmit="event.preventDefault(); submitAdditionalInfo();">
+    <div>
+        <label for="nickname">Nickname:</label>
+        <input type="text" id="nickname" name="nickname" required>
+    </div>
+    <div>
+        <label>Gender:</label>
+        <label><input type="radio" name="gender" value="MALE" required> Male</label>
+        <label><input type="radio" name="gender" value="FEMALE"> Female</label>
+        <label><input type="radio" name="gender" value="NONE"> Prefer not to say</label>
+    </div>
+    <div>
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" name="height" required>
+    </div>
+    <div>
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" name="weight" required>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

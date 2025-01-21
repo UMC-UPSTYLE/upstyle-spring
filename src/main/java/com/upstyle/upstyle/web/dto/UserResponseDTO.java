@@ -1,19 +1,22 @@
 package com.upstyle.upstyle.web.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.upstyle.upstyle.domain.User;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 public class UserResponseDTO {
+
     @Builder
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class JoinResultDTO{
-        Long userId;
-        LocalDateTime createdAt;
+    public static class UserInfoDTO {
+        private Long id;
+        private String nickname;
+        private String email;
+        private String gender;
+        private Float height;
+        private Float weight;
     }
 }
