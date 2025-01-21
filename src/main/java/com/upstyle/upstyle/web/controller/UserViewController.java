@@ -10,11 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/users")
 public class UserViewController {
 
     private final UserCommandService userCommandService;
@@ -22,12 +20,6 @@ public class UserViewController {
     @GetMapping("/login")
     public String loginPage() {
         return "login";
-    }
-
-    @GetMapping("/signup")
-    public String signupPage(Model model) {
-        model.addAttribute("userJoinDto", new UserRequestDTO.JoinDto());
-        return "signup";
     }
 
     @GetMapping("/home")
@@ -40,18 +32,4 @@ public class UserViewController {
         return "admin";
     }
 
-    @PostMapping("/login")
-    public String JoinMember(@ModelAttribute("userJoinDto") UserRequestDTO.JoinDto request, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "signup";
-        }
-        try {
-            userCommandService.joinUser(request);
-            return "redirect:/login";
-        } catch (Exception e) {
-            // 회원가입 과정에서 에러가 발생할 경우 에러 메시지를 보내고, signup 페이디를 유지합니다.
-            model.addAttribute("error", e.getMessage());
-            return "signup";
-        }
-    }
 }

@@ -36,8 +36,8 @@ public class User extends BaseEntity {
     @Column
     private String picture;
     
-//    private Float height;
-//    private Float weight;
+    private Float height;
+    private Float weight;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(10)")

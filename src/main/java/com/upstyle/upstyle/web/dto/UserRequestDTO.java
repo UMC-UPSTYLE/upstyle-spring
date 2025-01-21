@@ -5,29 +5,23 @@ import com.upstyle.upstyle.domain.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class UserRequestDTO {
 
     @Getter
     @Setter
-    public static class JoinDto{
-        public JoinDto() {}
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class AdditionalInfoRequestDTO {
         @NotBlank
-        String nickname;
-        @NotBlank
-        @Email
-        String email;
-        @NotBlank
-        String password;
-//        @NotNull
-//        Float height;
-//        @NotNull
-//        Float weight;
+        private String nickname;  // 닉네임
         @NotNull
-        Integer gender;
-        @NotNull
-        Role role;
+        private Gender gender;    // 성별: MALE, FEMALE, NONE
+        private Float height;     // 키
+        private Float weight;     // 몸무게
     }
 }

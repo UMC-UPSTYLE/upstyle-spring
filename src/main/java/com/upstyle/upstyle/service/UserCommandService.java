@@ -4,5 +4,5 @@ import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.web.dto.UserRequestDTO;
 
 public interface UserCommandService {
-    public User joinUser(UserRequestDTO.JoinDto request);
+    User addAdditionalInfo(String email, UserRequestDTO.AdditionalInfoRequestDTO additionalInfoRequestDTO);
 }
