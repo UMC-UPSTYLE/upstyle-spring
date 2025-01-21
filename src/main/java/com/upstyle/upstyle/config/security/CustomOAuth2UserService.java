@@ -22,44 +22,43 @@ import java.util.UUID;
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        // OAuth2 기본 사용자 정보 가져오기
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
+        // 사용자 정보 속성 가져오기
         Map<String, Object> attributes = oAuth2User.getAttributes();
-        Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
+        String email = (String) attributes.get("email");
+        String name = (String) attributes.get("name");
 
-        String nickname = (String) properties.get("");
-        String email = nickname + "@google.com"; // 임시 이메일 생성
+        // 사용자 저장 또는 업데이트
+        User user = saveOrUpdateUser(email, name);
 
-        // 사용자 정보 저장 또는 업데이트
-        User user = saveOrUpdateUser(email, nickname);
+        // JWT 생성
+        String jwt = jwtTokenProvider.createToken(user.getId(), user.getRole().name());
 
-        // 이메일을 Principal로 사용하기 위해 attributes 수정
+        // 속성 정보에 추가 데이터(JWT 등) 삽입 가능
         Map<String, Object> modifiedAttributes = new HashMap<>(attributes);
-        modifiedAttributes.put("email", email);
-        //테스트 로그
-        System.out.println("OAuth2 인증 완료, 사용자 정보 로드 중...");
+        modifiedAttributes.put("jwt", jwt);
+
         return new DefaultOAuth2User(
                 oAuth2User.getAuthorities(),
                 modifiedAttributes,
-                "email"  // email Principal로 설정
+                "email" // 사용자 Principal로 사용할 필드
         );
     }
 
-    private User saveOrUpdateUser(String email, String nickname) {
-        User user = userRepository.findByEmail(email)
-                .orElse(User.builder()
-                        .email(email)
-                        .nickname(nickname)
-                        .password(passwordEncoder.encode("OAUTH_USER_" + UUID.randomUUID()))
-                        .gender(Gender.NONE)  // 기본값 설정
-                        .role(Role.USER)
-                        .build());
-        //테스트 로그
-        System.out.println("사용자 정보 저장 중: " + email + ", " + nickname);
-        return userRepository.save(user);
+    private User saveOrUpdateUser(String email, String name) {
+        return userRepository.findByEmail(email)
+                .orElseGet(() -> userRepository.save(
+                        User.builder()
+                                .email(email)
+                                .nickname(name)
+                                .role(Role.USER)
+                                .build()
+                ));
     }
 }

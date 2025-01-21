@@ -9,36 +9,23 @@ import java.time.LocalDateTime;
 
 public class UserConverter {
 
-    public static UserResponseDTO.JoinResultDTO toJoinResultDTO(User user) {
-        return UserResponseDTO.JoinResultDTO.builder()
-                .userId(user.getId())
-                .createdAt(LocalDateTime.now())
+    // User 엔티티를 UserInfoDTO로 변환
+    public static UserResponseDTO.UserInfoDTO toUserInfoDTO(User user) {
+        return UserResponseDTO.UserInfoDTO.builder()
+                .id(user.getId())
+                .nickname(user.getNickname())
+                .email(user.getEmail())
+                .gender(user.getGender() != null ? user.getGender().name() : null)
+                .height(user.getHeight())
+                .weight(user.getWeight())
                 .build();
     }
-    public static User toUser(UserRequestDTO.JoinDto request) {
 
-        Gender gender = null;
-
-        switch (request.getGender()) {
-            case 1:
-                gender = Gender.MALE;
-                break;
-            case 2:
-                gender = Gender.FEMALE;
-                break;
-            case 3:
-                gender = Gender.NONE;
-                break;
-        }
-
-        return User.builder()
-                .gender(gender)
-                .nickname(request.getNickname())
-                .email(request.getEmail())
-                .password(request.getPassword())
-//                .height(request.getHeight())
-//                .weight(request.getWeight())
-                .role(request.getRole())
-                .build();
+    // AdditionalInfoRequestDTO를 사용하여 User 엔티티를 업데이트
+    public static void updateUserWithAdditionalInfo(User user, UserRequestDTO.AdditionalInfoRequestDTO additionalInfoRequestDTO) {
+        user.setNickname(additionalInfoRequestDTO.getNickname());
+        user.setGender(additionalInfoRequestDTO.getGender());
+        user.setHeight(additionalInfoRequestDTO.getHeight());
+        user.setWeight(additionalInfoRequestDTO.getWeight());
     }
 }

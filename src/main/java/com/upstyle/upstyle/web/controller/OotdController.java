@@ -6,6 +6,7 @@ import com.upstyle.upstyle.domain.Ootd;
 import com.upstyle.upstyle.service.OotdCommandService;
 import com.upstyle.upstyle.web.dto.OotdRequestDTO;
 import com.upstyle.upstyle.web.dto.OotdResponseDTO;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,6 +27,7 @@ public class OotdController {
     private final OotdCommandService ootdCommandService;
 
     @PostMapping("/")
+    @Operation(summary = "ootd 생성 API")
     public ApiResponse<OotdResponseDTO.addOotdResultDTO> addOotd(
             @Parameter(description = "OOTD 데이터", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
             @RequestPart("request") @Valid OotdRequestDTO.addOotdDTO request,
