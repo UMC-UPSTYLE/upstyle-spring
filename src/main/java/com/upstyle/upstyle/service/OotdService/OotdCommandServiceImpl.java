@@ -1,4 +1,4 @@
-package com.upstyle.upstyle.service;
+package com.upstyle.upstyle.service.OotdService;
 
 import com.upstyle.upstyle.apiPayload.code.status.ErrorStatus;
 import com.upstyle.upstyle.apiPayload.exception.handler.ClothHandler;

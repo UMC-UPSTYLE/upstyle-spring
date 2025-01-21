@@ -16,14 +16,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/ootds/**", "/users/**") // CSRF 비활성화 경로
+                        .ignoringRequestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/ootds/**", "/users/**","/clothes/**","/calender/") // CSRF 비활성화 경로
                 )
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(
                                 "/", "/home", "/signup", "/users/signup", "/css/**",
                                 "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**"
                         ).permitAll() // Swagger 및 기타 공개 경로 허용
-                        .requestMatchers("/ootds/**", "/users/**").permitAll()
+                        .requestMatchers("/ootds/**", "/users/**","/clothes/**","/calender/").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated() // 그 외 요청은 인증 필요
                 )
