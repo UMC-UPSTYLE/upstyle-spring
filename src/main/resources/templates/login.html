@@ -1,12 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Login</title>
 </head>
 <body>
-<h2>Login</h2>
+<h2>Google Social Login</h2>
+<div id="g_id_onload"
+     data-client_id="698248660337-qiq5orai985jarf8gbgr0tl13hk1b0sb.apps.googleusercontent.com"
+     data-callback="handleCredentialResponse"
+     data-login_uri="http://localhost:8080/login/oauth2/code/google">
+</div>
 
-<a th:href="@{/oauth2/authorization/google}">구글로 로그인</a>
+<div class="g_id_signin"
+     data-type="standard"
+     data-theme="outline"
+     data-text="sign_in_with"
+     data-size="large">
+</div>
 
+<script>
+    function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token: " + response.credential);
+
+        // 서버로 전송
+        fetch('http://localhost:8080/auth/login/google', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: response.credential })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Server response:', data);
+                alert('Login successful! Welcome, ' + data.nickname);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Login failed!');
+            });
+    }
+</script>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </body>
 </html>
