@@ -13,6 +13,7 @@ public class OotdRequestDTO {
 
     @Getter
     public static class ClothRequestDTO{
+        Long clothId;
         Long clothKindId;
         Long clothCategoryId;
         Long fitCategoryId;

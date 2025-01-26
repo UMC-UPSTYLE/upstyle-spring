@@ -28,8 +28,8 @@ public class SecurityConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/ootds/**", "/clothes/**", "/users/**", "/auth/**", "/calendar/**", "/login/oauth2/code/google", "/login", "/signin/**", "/more_info") // CSRF 비활성화 경로
 
-                        .ignoringRequestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/ootds/**", "/clothes/**", "/users/**", "/auth/**", "/login/oauth2/code/google", "/login", "/signin/**", "/more_info") // CSRF 비활성화 경로
 
                 )
                 .authorizeHttpRequests((requests) -> requests
@@ -38,8 +38,9 @@ public class SecurityConfig{
                                 "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**"
                         ).permitAll() // Swagger 및 기타 공개 경로 허용
 
-                        .requestMatchers("/ootds/**", "/clothes/**", "/users/**", "/auth/**", "/login/oauth2/code/google", "/login", "/signin/**", "/more_info").permitAll()
+                        .requestMatchers("/ootds/**", "/clothes/**", "/users/**", "/auth/**", "/calendar/**", "/login/oauth2/code/google", "/login", "/signin/**", "/more_info").permitAll()
 
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated() // 그 외 요청은 인증 필요
                 )
                 // oauth2 설정
