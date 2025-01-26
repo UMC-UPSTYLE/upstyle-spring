@@ -1,4 +1,4 @@
-package com.upstyle.upstyle.service;
+package com.upstyle.upstyle.service.OotdService;
 
 import com.upstyle.upstyle.domain.Ootd;
 import com.upstyle.upstyle.web.dto.OotdRequestDTO;

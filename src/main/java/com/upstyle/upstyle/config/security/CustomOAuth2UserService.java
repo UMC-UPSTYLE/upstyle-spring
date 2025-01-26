@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -25,8 +26,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private final UserRepository userRepository;
 
     @Override
-    public OAuth2User loadUser(OAuth2UserRequest userRequest) {
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException{
+        System.out.println("로그인 중1");
         OAuth2User oAuth2User = super.loadUser(userRequest);
+        System.out.println("로그인 중2");
+        System.out.println(oAuth2User.getAttributes());
 
         // Google에서 제공하는 사용자 정보 가져오기
         String email = oAuth2User.getAttribute("email");
@@ -41,6 +45,13 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                                 .role(Role.USER)
                                 .build()
                 ));
+
+        // JWT 생성
+        String jwt = new JwtTokenProvider().createToken(user.getId(), user.getRole().name());
+
+        // JWT를 사용자 정보에 추가
+        Map<String, Object> attributes = new HashMap<>(oAuth2User.getAttributes());
+        attributes.put("jwt", jwt);
 
         // 사용자 정보를 포함한 OAuth2User 반환
         return new DefaultOAuth2User(

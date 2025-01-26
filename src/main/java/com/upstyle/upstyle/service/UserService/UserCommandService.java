@@ -1,4 +1,4 @@
-package com.upstyle.upstyle.service;
+package com.upstyle.upstyle.service.UserService;
 
 import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.web.dto.UserRequestDTO;
