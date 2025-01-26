@@ -1,15 +1,10 @@
 package com.upstyle.upstyle.web.controller;
 
 
-import com.upstyle.upstyle.service.UserCommandService;
-import com.upstyle.upstyle.web.dto.UserRequestDTO;
+import com.upstyle.upstyle.service.UserService.UserCommandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,6 +15,11 @@ public class UserViewController {
     @GetMapping("/login")
     public String loginPage() {
         return "login";
+    }
+
+    @GetMapping("/more_info")
+    public String moreInfoPage() {
+        return "more_info"; // resources/templates/more_info.html
     }
 
     @GetMapping("/home")

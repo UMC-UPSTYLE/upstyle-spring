@@ -27,6 +27,8 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle  # Gradle을 사용하여 프로젝트 빌드
+        env:
+          SPRING_PROFILES_ACTIVE: test 
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build

@@ -35,8 +35,9 @@ public class User extends BaseEntity {
 
     @Column
     private String picture;
-    
+    @Column
     private Float height;
+    @Column
     private Float weight;
 
     @Enumerated(EnumType.STRING)

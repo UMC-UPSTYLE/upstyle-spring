@@ -53,4 +53,11 @@ public class OotdConverter {
                 .build();
     }
 
+    public static OotdResponseDTO.CalendarResponseDTO toCalendarResponseDTO(Long userid, List<OotdResponseDTO.DateOotdDTO> dateOotdDTOList) {
+        return OotdResponseDTO.CalendarResponseDTO.builder()
+                .userId(userid)
+                .dateOotdDTOList(dateOotdDTOList)
+                .build();
+    }
+
 }

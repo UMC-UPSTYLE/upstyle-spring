@@ -1,13 +1,11 @@
-package com.upstyle.upstyle.service;
+package com.upstyle.upstyle.service.UserService;
 
-import com.upstyle.upstyle.converter.UserConverter;
 import com.upstyle.upstyle.domain.User;
-import com.upstyle.upstyle.domain.enums.Gender;
 import com.upstyle.upstyle.repository.UserRepository;
+import com.upstyle.upstyle.service.UserService.UserCommandService;
 import com.upstyle.upstyle.web.dto.UserRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 @Slf4j

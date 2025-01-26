@@ -32,4 +32,23 @@ public class OotdResponseDTO {
         Long colorId;
     }
 
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CalendarResponseDTO{
+        Long userId;
+        List<DateOotdDTO> dateOotdDTOList;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DateOotdDTO{
+        Long ootdId;
+        LocalDateTime createdAt;
+        String imageUrl;
+    }
+
 }

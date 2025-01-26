@@ -1,4 +1,4 @@
-package com.upstyle.upstyle.service;
+package com.upstyle.upstyle.service.OotdService;
 
 import com.upstyle.upstyle.apiPayload.code.status.ErrorStatus;
 import com.upstyle.upstyle.apiPayload.exception.handler.ClothHandler;
@@ -47,36 +47,48 @@ public class OotdCommandServiceImpl implements OotdCommandService {
         List<OotdCloth> OotdclothList = ootdRequest.getClothRequestDTOList().stream()
                 .map(ClothRequest -> {
                     //OotdConverter로 ClothRequestDTO -> Cloth 엔티티로 변환.
-                    Cloth newCloth = OotdConverter.toCloth(ClothRequest, user);
+                    if(ClothRequest.getClothId() == 0){
+                        Cloth newCloth = OotdConverter.toCloth(ClothRequest, user);
 
-                    //ClothRequestDTO로 받은 Cloth의 각 속성 id, 레포지토리에서 찾아 Cloth 엔티티에 set.
-                    ClothCategory category = clothCategoryRepository.findById(ClothRequest.getClothCategoryId())
-                            .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_CATEGORY_NOT_FOUND));
-                    newCloth.setCategory(category);
+                        //ClothRequestDTO로 받은 Cloth의 각 속성 id, 레포지토리에서 찾아 Cloth 엔티티에 set.
+                        ClothCategory category = clothCategoryRepository.findById(ClothRequest.getClothCategoryId())
+                                .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_CATEGORY_NOT_FOUND));
+                        newCloth.setCategory(category);
 
-                    ClothFit fit = clothFitRepository.findById(ClothRequest.getFitCategoryId())
-                            .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_FIT_NOT_FOUND));
-                    newCloth.setFit(fit);
+                        ClothFit fit = clothFitRepository.findById(ClothRequest.getFitCategoryId())
+                                .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_FIT_NOT_FOUND));
+                        newCloth.setFit(fit);
 
-                    ClothColor color = clothColorRepository.findById(ClothRequest.getColorCategoryId())
-                            .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_COLOR_NOT_FOUND));
-                    newCloth.setColor(color);
+                        ClothColor color = clothColorRepository.findById(ClothRequest.getColorCategoryId())
+                                .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_COLOR_NOT_FOUND));
+                        newCloth.setColor(color);
 
-                    ClothKind kind = clothKindRepository.findById(ClothRequest.getClothKindId())
+                        ClothKind kind = clothKindRepository.findById(ClothRequest.getClothKindId())
 
-                                    .orElseThrow(()-> new ClothHandler((ErrorStatus.CLOTH_KIND_NOT_FOUND)));
+                                .orElseThrow(()-> new ClothHandler((ErrorStatus.CLOTH_KIND_NOT_FOUND)));
 
-                    newCloth.setKind(kind);
+                        newCloth.setKind(kind);
 
-                    clothRepository.save(newCloth);
+                        clothRepository.save(newCloth);
 
-                    //ootd와 Cloth 매핑 설정
-                    OotdCloth NewOotdCloth = new OotdCloth();
-                    NewOotdCloth.setOotd(newOotd);
-                    NewOotdCloth.setCloth(newCloth);
-                    ootdClothRepository.save(NewOotdCloth);
+                        OotdCloth NewOotdCloth = new OotdCloth();
+                        NewOotdCloth.setOotd(newOotd);
+                        NewOotdCloth.setCloth(newCloth);
+                        ootdClothRepository.save(NewOotdCloth);
+                        return NewOotdCloth;
 
-                    return NewOotdCloth;
+
+                    }
+                    else{
+                        Cloth cloth = clothRepository.findById(ClothRequest.getClothId())
+                                .orElseThrow(() -> new UserHandler(ErrorStatus.CLOTH_ID_NOT_FOUND));
+                        OotdCloth NewOotdCloth = new OotdCloth();
+                        NewOotdCloth.setOotd(newOotd);
+                        NewOotdCloth.setCloth(cloth);
+                        ootdClothRepository.save(NewOotdCloth);
+                        return NewOotdCloth;
+                    }
+
                 }).collect(Collectors.toList());
 
         newOotd.setOotdClothList(OotdclothList);
