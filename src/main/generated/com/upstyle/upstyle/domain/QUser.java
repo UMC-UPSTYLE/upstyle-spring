@@ -47,6 +47,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final ListPath<OotdResponse, QOotdResponse> ootdResponseList = this.<OotdResponse, QOotdResponse>createList("ootdResponseList", OotdResponse.class, QOotdResponse.class, PathInits.DIRECT2);
 
+    public final StringPath password = createString("password");
+
     public final StringPath picture = createString("picture");
 
     public final NumberPath<Integer> reward = createNumber("reward", Integer.class);
