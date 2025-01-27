@@ -24,9 +24,6 @@ jobs:
           echo "${{ secrets.APPLICATION_TEST_YML }}" > ./application-test.yml
         shell: bash
 
-      - name: Debug application.yml content
-        run: cat ./src/main/resources/application.yml
-
       - name: Check generated files  # 생성된 파일 확인
         run: ls -al ./src/main/resources/
 
