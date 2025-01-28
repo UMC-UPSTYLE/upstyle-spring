@@ -22,6 +22,7 @@ public class OotdConverter {
     public static Cloth toCloth(OotdRequestDTO.ClothRequestDTO request, User user) {
         Cloth newCloth = new Cloth();
         newCloth.setUser(user);
+        newCloth.setAdditionalInfo(request.getAdditionalInfo());
         return newCloth;
     }
 

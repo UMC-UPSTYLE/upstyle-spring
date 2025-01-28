@@ -21,6 +21,9 @@ public class Cloth extends BaseEntity {
     @Column
     private String imageUrl;
 
+    @Column(length = 500, nullable = true)
+    private String additionalInfo;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private ClothCategory category;

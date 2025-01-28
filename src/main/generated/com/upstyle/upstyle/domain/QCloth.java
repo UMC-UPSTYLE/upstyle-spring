@@ -24,6 +24,8 @@ public class QCloth extends EntityPathBase<Cloth> {
 
     public final com.upstyle.upstyle.domain.common.QBaseEntity _super = new com.upstyle.upstyle.domain.common.QBaseEntity(this);
 
+    public final StringPath additionalInfo = createString("additionalInfo");
+
     public final QClothCategory category;
 
     public final QClothColor color;

@@ -20,5 +20,6 @@ public class OotdRequestDTO {
         Long clothCategoryId;
         Long fitCategoryId;
         Long colorCategoryId;
+        String additionalInfo;
     }
 }

@@ -31,6 +31,7 @@ public class OotdResponseDTO {
         Long categoryId;
         Long fitId;
         Long colorId;
+        String additionalInfo;
     }
 
     @Builder
