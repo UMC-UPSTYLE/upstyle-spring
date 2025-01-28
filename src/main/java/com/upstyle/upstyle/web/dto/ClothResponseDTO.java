@@ -36,6 +36,7 @@ public class ClothResponseDTO {
         String fitName;
         Long colorId;
         String colorName;
+        String additionalInfo;
         OotdDTO ootd;
     }
 

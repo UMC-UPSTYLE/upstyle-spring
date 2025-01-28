@@ -20,14 +20,14 @@ public class ClosetController {
     private final ClosetQueryService closetQueryService;
 
     @GetMapping("/")
-    @Operation(summary = "사용자 옷장 조회 API")
+    @Operation(summary = "특정 사용자 옷장 조회 API")
     public ApiResponse<ClosetResponseDTO.ClothKindListDTO> getClothKindList(@RequestParam(value = "userId") Long userId) {
         ClosetResponseDTO.ClothKindListDTO clothKindList = closetQueryService.getClothKindList(userId);
         return ApiResponse.onSuccess(clothKindList);
     }
 
     @GetMapping("/categories")
-    @Operation(summary = "사용자 옷장 내 카테고리별 조회 API")
+    @Operation(summary = "특정 사용자 옷장 내 카테고리별 조회 API")
     public ApiResponse<ClothResponseDTO.ClothPreviewListDTO> getClothPreviewList(
             @RequestParam(value = "userId") Long userId,
             @RequestParam(value = "kindId", required = false) Long kindId,

@@ -34,7 +34,6 @@ public class OotdCommandServiceImpl implements OotdCommandService {
     private final UuidRepository uuidRepository;
     private final AmazonS3Manager s3Manager;
 
-
     @Override
     @Transactional
     public Ootd addOotd(OotdRequestDTO.addOotdDTO ootdRequest, MultipartFile[] ootdImages){

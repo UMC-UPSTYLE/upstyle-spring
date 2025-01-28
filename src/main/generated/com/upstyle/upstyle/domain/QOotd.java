@@ -27,6 +27,8 @@ public class QOotd extends EntityPathBase<Ootd> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
+    public final DatePath<java.time.LocalDate> date = createDate("date", java.time.LocalDate.class);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final ListPath<com.upstyle.upstyle.domain.mapping.OotdCloth, com.upstyle.upstyle.domain.mapping.QOotdCloth> ootdClothList = this.<com.upstyle.upstyle.domain.mapping.OotdCloth, com.upstyle.upstyle.domain.mapping.QOotdCloth>createList("ootdClothList", com.upstyle.upstyle.domain.mapping.OotdCloth.class, com.upstyle.upstyle.domain.mapping.QOotdCloth.class, PathInits.DIRECT2);

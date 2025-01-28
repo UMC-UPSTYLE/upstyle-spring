@@ -14,6 +14,7 @@ public class OotdConverter {
     public static Ootd toOotd(OotdRequestDTO.addOotdDTO request, User user) {
         Ootd newOotd = new Ootd();
         newOotd.setUser(user);
+        newOotd.setDate(request.getDate());
         return newOotd;
     }
 
@@ -21,6 +22,7 @@ public class OotdConverter {
     public static Cloth toCloth(OotdRequestDTO.ClothRequestDTO request, User user) {
         Cloth newCloth = new Cloth();
         newCloth.setUser(user);
+        newCloth.setAdditionalInfo(request.getAdditionalInfo());
         return newCloth;
     }
 
@@ -30,7 +32,7 @@ public class OotdConverter {
                 .map(ootdCloth -> {
                     Cloth cloth = ootdCloth.getCloth();
                     return OotdResponseDTO.ClothResponseDTO.builder()
-                            .clothId(cloth.getId())
+                            .id(cloth.getId())
                             .categoryId(cloth.getCategory().getId())
                             .fitId(cloth.getFit().getId())
                             .colorId(cloth.getColor().getId())
@@ -38,10 +40,10 @@ public class OotdConverter {
                 }).collect(Collectors.toList());
 
         return OotdResponseDTO.addOotdResultDTO.builder()
-                .ootdId(ootd.getId())
+                .id(ootd.getId())
                 .userId(ootd.getUser().getId())
-                .clothResponseDTOList(clothResponseDTOList)
-                .createdAt(ootd.getCreatedAt())
+                .clothResponseList(clothResponseDTOList)
+                .date(ootd.getDate())
                 .build();
     }
 
@@ -53,10 +55,44 @@ public class OotdConverter {
                 .build();
     }
 
-    public static OotdResponseDTO.CalendarResponseDTO toCalendarResponseDTO(Long userid, List<OotdResponseDTO.DateOotdDTO> dateOotdDTOList) {
+    public static OotdResponseDTO.CalendarResponseDTO toCalendarResponseDTO(Long userid, List<OotdResponseDTO.OotdPreviewDTO> ootdPreviewList) {
         return OotdResponseDTO.CalendarResponseDTO.builder()
                 .userId(userid)
-                .dateOotdDTOList(dateOotdDTOList)
+                .ootdPreviewList(ootdPreviewList)
+                .build();
+    }
+
+    public static OotdResponseDTO.OotdDTO toOotdDTO(Ootd ootd) {
+        // ClothDTO 리스트 변환
+        List<OotdResponseDTO.ClothDTO> clothList = ootd.getOotdClothList().stream()
+                .map(ootdCloth -> {
+                    Cloth cloth = ootdCloth.getCloth();
+                    return OotdResponseDTO.ClothDTO.builder()
+                            .id(cloth.getId())
+                            .kindId(cloth.getKind().getId())
+                            .kindName(cloth.getKind().getName())
+                            .categoryId(cloth.getCategory().getId())
+                            .categoryName(cloth.getCategory().getName())
+                            .fitId(cloth.getFit().getId())
+                            .fitName(cloth.getFit().getName())
+                            .colorId(cloth.getColor().getId())
+                            .colorName(cloth.getColor().getName())
+                            .build();
+                }).collect(Collectors.toList());
+
+        // UserDTO 생성
+        OotdResponseDTO.User userDTO = OotdResponseDTO.User.builder()
+                .id(ootd.getUser().getId())
+                .nickname(ootd.getUser().getNickname())
+                .build();
+
+        // OotdDTO 생성
+        return OotdResponseDTO.OotdDTO.builder()
+                .id(ootd.getId())
+                .user(userDTO)
+                .date(ootd.getDate())
+                .imageUrl(ootd.getOotdImageList().isEmpty() ? null : ootd.getOotdImageList().get(0).getImageUrl())
+                .clothList(clothList)
                 .build();
     }
 

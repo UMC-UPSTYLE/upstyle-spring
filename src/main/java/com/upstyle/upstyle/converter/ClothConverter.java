@@ -15,6 +15,7 @@ public class ClothConverter {
     public static ClothResponseDTO.ClothPreviewDTO toClothPreviewDTO(Cloth cloth) {
         // OOTD 이미지 가져오기
         String ootdImageUrl = getOotdImageUrl(cloth);
+        String additionalInfo = cloth.getAdditionalInfo() != null ? cloth.getAdditionalInfo() : ""; // null이면 빈 문자열
 
         return ClothResponseDTO.ClothPreviewDTO.builder()
                 .id(cloth.getId())
@@ -26,6 +27,7 @@ public class ClothConverter {
                 .fitName(cloth.getFit().getName())
                 .colorId(cloth.getColor().getId())
                 .colorName(cloth.getColor().getName())
+                .additionalInfo(additionalInfo)
                 .ootd(ClothResponseDTO.OotdDTO.builder()
                         .id(getOotdId(cloth))
                         .imageUrl(ootdImageUrl)
