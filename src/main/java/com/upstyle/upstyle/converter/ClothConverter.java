@@ -3,34 +3,13 @@ package com.upstyle.upstyle.converter;
 import com.upstyle.upstyle.domain.Cloth;
 import com.upstyle.upstyle.domain.OotdImage;
 import com.upstyle.upstyle.web.dto.ClothResponseDTO;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ClothConverter {
-
-    // ClothKindDTO 변환
-    public static ClothResponseDTO.ClothKindDTO toClothKindDTO(Object[] data) {
-        return ClothResponseDTO.ClothKindDTO.builder()
-                .id(((Number) data[0]).longValue()) // kindId
-                .ootd(ClothResponseDTO.OotdDTO.builder()
-                        .id(((Number) data[2]).longValue()) // OOTD ID
-                        .imageUrl((String) data[3])        // OOTD Image URL
-                        .build())
-                .build();
-    }
-
-    public static ClothResponseDTO.ClothKindListDTO toClothKindListDTO(Long userId, List<Object[]> data) {
-        List<ClothResponseDTO.ClothKindDTO> clothKindList = data.stream()
-                .map(ClothConverter::toClothKindDTO)
-                .collect(Collectors.toList());
-
-        return ClothResponseDTO.ClothKindListDTO.builder()
-                .userId(userId)
-                .clothKindList(clothKindList)
-                .build();
-    }
 
     // ClothPreviewDTO 변환
     public static ClothResponseDTO.ClothPreviewDTO toClothPreviewDTO(Cloth cloth) {
@@ -40,13 +19,33 @@ public class ClothConverter {
         return ClothResponseDTO.ClothPreviewDTO.builder()
                 .id(cloth.getId())
                 .kindId(cloth.getKind().getId())
+                .kindName(cloth.getKind().getName())
                 .categoryId(cloth.getCategory().getId())
-                .colorId(cloth.getColor().getId())
+                .categoryName(cloth.getCategory().getName())
                 .fitId(cloth.getFit().getId())
+                .fitName(cloth.getFit().getName())
+                .colorId(cloth.getColor().getId())
+                .colorName(cloth.getColor().getName())
                 .ootd(ClothResponseDTO.OotdDTO.builder()
                         .id(getOotdId(cloth))
                         .imageUrl(ootdImageUrl)
                         .build())
+                .build();
+    }
+
+    // ClothPreviewListDTO 변환
+    public static ClothResponseDTO.ClothPreviewListDTO toClothPreviewListDTO(Page<Cloth> clothPage) {
+        List<ClothResponseDTO.ClothPreviewDTO> clothPreviewList = clothPage.stream()
+                .map(ClothConverter::toClothPreviewDTO)
+                .collect(Collectors.toList());
+
+        return ClothResponseDTO.ClothPreviewListDTO.builder()
+                .clothPreviewList(clothPreviewList)
+                .listSize(clothPreviewList.size())
+                .totalPage(clothPage.getTotalPages())
+                .totalElements(clothPage.getTotalElements())
+                .isFirst(clothPage.isFirst())
+                .isLast(clothPage.isLast())
                 .build();
     }
 
