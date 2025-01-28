@@ -27,7 +27,7 @@ public class OotdQueryServiceImpl implements OotdQueryService{
         List<OotdResponseDTO.DateOotdDTO> dateOotdDTOList = results.stream()
                 .map (result -> new OotdResponseDTO.DateOotdDTO(
                         (Long) result[0],  // ootdId
-                        (LocalDateTime) result[1], //date
+                        (LocalDate) result[1], //date
                         (String) result[2] // imageUrl
                 ))
                 .collect(Collectors.toList());

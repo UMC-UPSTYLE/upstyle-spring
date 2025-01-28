@@ -14,6 +14,7 @@ public class OotdConverter {
     public static Ootd toOotd(OotdRequestDTO.addOotdDTO request, User user) {
         Ootd newOotd = new Ootd();
         newOotd.setUser(user);
+        newOotd.setDate(request.getDate());
         return newOotd;
     }
 
@@ -41,7 +42,7 @@ public class OotdConverter {
                 .ootdId(ootd.getId())
                 .userId(ootd.getUser().getId())
                 .clothResponseDTOList(clothResponseDTOList)
-                .createdAt(ootd.getCreatedAt())
+                .date(ootd.getDate())
                 .build();
     }
 

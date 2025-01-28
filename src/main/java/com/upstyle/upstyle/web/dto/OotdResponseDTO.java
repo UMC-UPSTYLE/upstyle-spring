@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class OotdResponseDTO {
         Long ootdId;
         Long userId;
         List<ClothResponseDTO> clothResponseDTOList;
-        LocalDateTime createdAt;
+        LocalDate date;
 
     }
     @Builder
@@ -47,7 +48,7 @@ public class OotdResponseDTO {
     @AllArgsConstructor
     public static class DateOotdDTO{
         Long ootdId;
-        LocalDateTime createdAt;
+        LocalDate date;
         String imageUrl;
     }
 

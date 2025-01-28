@@ -24,6 +24,9 @@ public class Ootd extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Column(nullable = false)
+    private LocalDate date;
+
     @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL)
     private List<OotdCloth> ootdClothList = new ArrayList<>();
 
