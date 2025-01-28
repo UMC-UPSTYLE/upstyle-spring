@@ -24,9 +24,9 @@ public class OotdQueryServiceImpl implements OotdQueryService{
     public OotdResponseDTO.CalendarResponseDTO getCalendarResponseDTO(Long userId, int year, int month){
         List<Object[]> results = ootdRepository.findAllByUserIdAndYearAndMonth(userId,year,month);
 
-        List<OotdResponseDTO.DateOotdDTO> dateOotdDTOList = results.stream()
-                .map (result -> new OotdResponseDTO.DateOotdDTO(
-                        (Long) result[0],  // ootdId
+        List<OotdResponseDTO.OotdPreviewDTO> dateOotdDTOList = results.stream()
+                .map (result -> new OotdResponseDTO.OotdPreviewDTO(
+                        (Long) result[0],  // id
                         (LocalDate) result[1], //date
                         (String) result[2] // imageUrl
                 ))

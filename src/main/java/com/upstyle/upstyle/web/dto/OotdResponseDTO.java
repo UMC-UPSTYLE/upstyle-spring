@@ -15,18 +15,18 @@ public class OotdResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class addOotdResultDTO{
-        Long ootdId;
+        Long id;
         Long userId;
-        List<ClothResponseDTO> clothResponseDTOList;
         LocalDate date;
-
+        List<ClothResponseDTO> clothResponseList;
     }
+
     @Builder
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ClothResponseDTO {
-        Long clothId;
+        Long id;
         Long kindId;
         Long categoryId;
         Long fitId;
@@ -40,17 +40,55 @@ public class OotdResponseDTO {
     @AllArgsConstructor
     public static class CalendarResponseDTO{
         Long userId;
-        List<DateOotdDTO> dateOotdDTOList;
+        List<OotdPreviewDTO> ootdPreviewList;
     }
 
     @Builder
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DateOotdDTO{
-        Long ootdId;
+    public static class OotdPreviewDTO{
+        Long id;
         LocalDate date;
         String imageUrl;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class OotdDTO{
+        Long id;
+        User user;
+        LocalDate date;
+        String imageUrl;
+        List<ClothDTO> clothList;
+    }
+
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ClothDTO {
+        Long id;
+        Long kindId;
+        String KindName;
+        Long categoryId;
+        String categoryName;
+        Long fitId;
+        String fitName;
+        Long colorId;
+        String colorName;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class User{
+        Long id;
+        String nickname;
     }
 
 }

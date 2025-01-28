@@ -1,6 +1,5 @@
 package com.upstyle.upstyle.web.dto;
 
-import com.upstyle.upstyle.domain.Ootd;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
