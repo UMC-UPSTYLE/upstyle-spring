@@ -4,6 +4,7 @@ import com.upstyle.upstyle.domain.common.BaseEntity;
 import com.upstyle.upstyle.domain.mapping.OotdCloth;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,9 +28,11 @@ public class Ootd extends BaseEntity {
     @Column(nullable = false)
     private LocalDate date;
 
-    @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @BatchSize(size = 10)
     private List<OotdCloth> ootdClothList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ootd", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @BatchSize(size = 10)
     private List<OotdImage> ootdImageList = new ArrayList<>();
 }

@@ -44,6 +44,6 @@ public class Cloth extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "cloth", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cloth", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OotdCloth> ootdClothList = new ArrayList<>();
 }

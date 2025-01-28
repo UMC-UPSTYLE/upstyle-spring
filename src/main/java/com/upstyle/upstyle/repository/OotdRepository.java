@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OotdRepository extends JpaRepository<Ootd, Long> {
@@ -21,4 +22,14 @@ public interface OotdRepository extends JpaRepository<Ootd, Long> {
             @Param("year") int year,
             @Param("month") int month
     );
+
+    @Query("SELECT o FROM Ootd o " +
+            "LEFT JOIN FETCH o.ootdClothList " +
+            "WHERE o.id = :ootdId")
+    Optional<Ootd> findWithClothList(@Param("ootdId") Long ootdId);
+
+    @Query("SELECT o FROM Ootd o " +
+            "LEFT JOIN FETCH o.ootdImageList " +
+            "WHERE o.id = :ootdId")
+    Optional<Ootd> findWithImageList(@Param("ootdId") Long ootdId);
 }

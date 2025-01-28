@@ -65,7 +65,6 @@ public class OotdResponseDTO {
         List<ClothDTO> clothList;
     }
 
-
     @Builder
     @Getter
     @NoArgsConstructor
@@ -73,7 +72,7 @@ public class OotdResponseDTO {
     public static class ClothDTO {
         Long id;
         Long kindId;
-        String KindName;
+        String kindName;
         Long categoryId;
         String categoryName;
         Long fitId;
