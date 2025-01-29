@@ -49,4 +49,12 @@ public class OotdController {
         return ApiResponse.onSuccess(ootdDTO);
     }
 
+    @GetMapping("/calendar")
+    public ApiResponse<OotdResponseDTO.CalendarResponseDTO> getDateOotd(@RequestParam(value = "userId") Long userId,
+                                                                        @RequestParam(value = "year") int year,
+                                                                        @RequestParam(value = "month") int month){
+        OotdResponseDTO.CalendarResponseDTO CalendarResponse = ootdQueryService.getCalendarResponseDTO(userId, year, month);
+        return ApiResponse.onSuccess(CalendarResponse);
+    }
+
 }
