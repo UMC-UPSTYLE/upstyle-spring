@@ -2,7 +2,7 @@ package com.upstyle.upstyle.domain;
 
 import com.upstyle.upstyle.domain.common.BaseEntity;
 import com.upstyle.upstyle.domain.enums.Role;
-import com.upstyle.upstyle.domain.mapping.OotdBookmark;
+import com.upstyle.upstyle.domain.mapping.ClothBookmark;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -64,7 +64,7 @@ public class User extends BaseEntity {
 
     @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<OotdBookmark> ootdBookmarkList = new ArrayList<>();
+    private List<ClothBookmark> clothBookmarkList = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
