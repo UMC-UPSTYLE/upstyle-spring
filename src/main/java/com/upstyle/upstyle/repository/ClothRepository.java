@@ -24,12 +24,12 @@ public interface ClothRepository extends JpaRepository<Cloth, Long> {
             "WHERE (:userId IS NULL OR c.user.id = :userId) " +
             "AND (:kindId IS NULL OR c.kind.id = :kindId) " +
             "AND (:categoryId IS NULL OR c.category.id = :categoryId) " +
-            "AND (:colorId IS NULL OR c.color.id = :colorId) " +
+            "AND (:colorIds IS NULL OR c.color.id IN :colorIds) " +
             "AND (:fitId IS NULL OR c.fit.id = :fitId)")
     Page<Cloth> findClothesByFilters(@Param("userId") Long userId,
                                      @Param("kindId") Long kindId,
                                      @Param("categoryId") Long categoryId,
-                                     @Param("colorId") Long colorId,
+                                     @Param("colorIds") List<Long> colorIds,
                                      @Param("fitId") Long fitId,
                                      Pageable pageable);
 
