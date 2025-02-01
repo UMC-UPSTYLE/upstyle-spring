@@ -24,7 +24,7 @@ public class ClosetQueryServiceImpl implements ClosetQueryService {
     }
 
     @Override
-    public ClothResponseDTO.ClothPreviewListDTO getClothPreviewList(Long userId, Long kindId, Long categoryId, Long colorId, Long fitId, int page, int size) {
+    public ClothResponseDTO.ClothPreviewListDTO getClothPreviewList(Long userId, Long kindId, Long categoryId, List<Long> colorId, Long fitId, int page, int size) {
         Page<Cloth> clothPage = clothRepository.findClothesByFilters(userId, kindId, categoryId, colorId, fitId, PageRequest.of(page, size));
         return ClosetConverter.toClothPreviewListDTO(clothPage);
     }

@@ -19,7 +19,7 @@ public class ClothQueryServiceImpl implements ClothQueryService{
     private final ClothRepository clothRepository;
 
     @Override
-    public ClothResponseDTO.ClothPreviewListDTO getClothPreviewList(Long kindId, Long categoryId, Long colorId, Long fitId, int page, int size) {
+    public ClothResponseDTO.ClothPreviewListDTO getClothPreviewList(Long kindId, Long categoryId, List<Long> colorId, Long fitId, int page, int size) {
         Page<Cloth> clothPage = clothRepository.findClothesByFilters(null, kindId, categoryId, colorId, fitId, PageRequest.of(page, size));
         return ClothConverter.toClothPreviewListDTO(clothPage);
     }

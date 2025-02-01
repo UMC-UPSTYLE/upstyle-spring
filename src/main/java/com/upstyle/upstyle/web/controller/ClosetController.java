@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Validated
@@ -32,7 +34,7 @@ public class ClosetController {
             @RequestParam(value = "userId") Long userId,
             @RequestParam(value = "kindId", required = false) Long kindId,
             @RequestParam(value = "categoryId", required = false) Long categoryId,
-            @RequestParam(value = "colorId", required = false) Long colorId,
+            @RequestParam(value = "colorId", required = false) List<Long> colorId,
             @RequestParam(value = "fitId", required = false) Long fitId,
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
             @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
