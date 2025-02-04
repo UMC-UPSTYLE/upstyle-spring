@@ -33,6 +33,8 @@ public class QVote extends EntityPathBase<Vote> {
 
     public final ListPath<VoteOption, QVoteOption> optionList = this.<VoteOption, QVoteOption>createList("optionList", VoteOption.class, QVoteOption.class, PathInits.DIRECT2);
 
+    public final StringPath title = createString("title");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 

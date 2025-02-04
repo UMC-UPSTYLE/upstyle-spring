@@ -24,6 +24,8 @@ public class QVoteOption extends EntityPathBase<VoteOption> {
 
     public final com.upstyle.upstyle.domain.common.QBaseEntity _super = new com.upstyle.upstyle.domain.common.QBaseEntity(this);
 
+    public final NumberPath<Long> clothId = createNumber("clothId", Long.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
@@ -31,7 +33,7 @@ public class QVoteOption extends EntityPathBase<VoteOption> {
 
     public final StringPath imageUrl = createString("imageUrl");
 
-    public final NumberPath<Integer> responseCount = createNumber("responseCount", Integer.class);
+    public final StringPath name = createString("name");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;

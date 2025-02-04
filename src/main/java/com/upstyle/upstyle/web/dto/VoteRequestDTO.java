@@ -12,12 +12,11 @@ public class VoteRequestDTO {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UploadVoteDTO {
+    public static class AddVoteDTO {
         private Long userId;
         private String title;
         private String body;
         private List<VoteOptionDTO> optionList;
-
     }
 
     @Getter
@@ -26,7 +25,7 @@ public class VoteRequestDTO {
     @AllArgsConstructor
     public static class VoteOptionDTO {
         private Long clothId;
-        private String image_url;
+        private String imageUrl;
         private String name;
     }
 }
