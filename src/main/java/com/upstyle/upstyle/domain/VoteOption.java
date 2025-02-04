@@ -18,8 +18,14 @@ public class VoteOption extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = true, length = 255)
+    @Column
+    private Long clothId;
+
+    @Column(nullable = false)
     private String imageUrl;
+
+    @Column(nullable = true, length = 255)
+    private String name;
 
     @Column(nullable = false)
     @ColumnDefault("0")

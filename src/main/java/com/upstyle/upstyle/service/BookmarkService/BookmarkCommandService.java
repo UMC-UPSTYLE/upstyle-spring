@@ -1,4 +1,4 @@
-package com.upstyle.upstyle.service;
+package com.upstyle.upstyle.service.BookmarkService;
 
 import com.upstyle.upstyle.domain.mapping.ClothBookmark;
 import com.upstyle.upstyle.web.dto.BookmarkRequestDTO;
