@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Validated
-@RequestMapping(value = "/closet")
+@RequestMapping(value = "/closets")
 public class ClosetController {
     private final ClosetQueryService closetQueryService;
 

@@ -1,16 +1,16 @@
-package com.upstyle.upstyle.service;
+package com.upstyle.upstyle.service.BookmarkService;
 
 import com.upstyle.upstyle.apiPayload.code.status.ErrorStatus;
 import com.upstyle.upstyle.apiPayload.exception.handler.ClothHandler;
 import com.upstyle.upstyle.apiPayload.exception.handler.UserHandler;
 import com.upstyle.upstyle.converter.BookmarkConverter;
-import com.upstyle.upstyle.converter.ClosetConverter;
 import com.upstyle.upstyle.domain.Cloth;
 import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.domain.mapping.ClothBookmark;
 import com.upstyle.upstyle.repository.BookmarkRepository;
 import com.upstyle.upstyle.repository.ClothRepository;
 import com.upstyle.upstyle.repository.UserRepository;
+import com.upstyle.upstyle.service.BookmarkService.BookmarkCommandService;
 import com.upstyle.upstyle.web.dto.BookmarkRequestDTO;
 import com.upstyle.upstyle.web.dto.BookmarkResponseDTO;
 import lombok.RequiredArgsConstructor;
