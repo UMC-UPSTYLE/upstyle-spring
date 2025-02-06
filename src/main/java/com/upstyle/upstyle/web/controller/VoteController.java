@@ -52,7 +52,7 @@ public class VoteController {
     @Operation(summary = "투표 응답 API")
     public ApiResponse<VoteResponseDTO.ResponseVoteResultDTO> responseVote(@PathVariable Long voteId, @RequestBody VoteRequestDTO.ResponseVoteDTO responseVoteDTO) {
 
-        VoteResponseDTO.ResponseVoteResultDTO resultDTO = voteCommandService.responseVote(responseVoteDTO);
+        VoteResponseDTO.ResponseVoteResultDTO resultDTO = voteCommandService.responseVote(voteId, responseVoteDTO);
 
         return ApiResponse.onSuccess(resultDTO);
     }

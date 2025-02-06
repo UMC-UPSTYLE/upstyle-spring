@@ -32,7 +32,8 @@ public enum ErrorStatus implements BaseErrorCode {
 
     //투표 관련 에러
     VOTE_NOT_FOUND(HttpStatus.BAD_REQUEST, "VOTE4001", "투표 글이 없습니다."),
-    VOTE_OPTION_NOT_FOUND(HttpStatus.BAD_REQUEST, "VOTE4002", "투표 옵션이 없습니다.");
+    VOTE_OPTION_NOT_FOUND(HttpStatus.BAD_REQUEST, "VOTE4002", "투표 옵션이 없습니다."),
+    VOTE_OPTION_MISMATCH(HttpStatus.BAD_REQUEST, "VOTE4003", "투표 글과 투표 옵션이 매치하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
