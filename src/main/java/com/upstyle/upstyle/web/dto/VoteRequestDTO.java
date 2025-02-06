@@ -28,4 +28,13 @@ public class VoteRequestDTO {
         private String imageUrl;
         private String name;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ResponseVoteDTO {
+        private Long userId;
+        private Long optionId;
+    }
 }

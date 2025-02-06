@@ -14,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/votes")
 @RequiredArgsConstructor
@@ -43,5 +46,14 @@ public class VoteController {
     public ApiResponse<VoteResponseDTO.VoteDTO> getVote(@PathVariable Long voteId){
         VoteResponseDTO.VoteDTO voteDTO = voteQueryService.getVoteById(voteId);
         return ApiResponse.onSuccess(voteDTO);
+    }
+
+    @PostMapping(value = "/{voteId}/response", consumes = "application/json")
+    @Operation(summary = "투표 응답 API")
+    public ApiResponse<VoteResponseDTO.ResponseVoteResultDTO> responseVote(@PathVariable Long voteId, @RequestBody VoteRequestDTO.ResponseVoteDTO responseVoteDTO) {
+
+        VoteResponseDTO.ResponseVoteResultDTO resultDTO = voteCommandService.responseVote(responseVoteDTO);
+
+        return ApiResponse.onSuccess(resultDTO);
     }
 }

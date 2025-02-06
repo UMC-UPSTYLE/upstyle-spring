@@ -89,4 +89,13 @@ public class VoteConverter {
                 .isLast(votePage.isLast())
                 .build();
     }
+
+    // ResponseVoteResultDTO 변환
+    public static VoteResponseDTO.ResponseVoteResultDTO toResponseVoteResultDTO(List<VoteOption> options) {
+        List<VoteResponseDTO.VoteOptionDTO> optionDTOs = options.stream()
+                .map(VoteConverter::toVoteOptionDTO)
+                .collect(Collectors.toList());
+
+        return new VoteResponseDTO.ResponseVoteResultDTO(optionDTOs);
+    }
 }

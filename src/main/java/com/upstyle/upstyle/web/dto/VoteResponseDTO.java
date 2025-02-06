@@ -62,4 +62,12 @@ public class VoteResponseDTO {
         Long id;
         String nickname;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ResponseVoteResultDTO {
+        List<VoteResponseDTO.VoteOptionDTO> voteResultList;
+    }
 }
