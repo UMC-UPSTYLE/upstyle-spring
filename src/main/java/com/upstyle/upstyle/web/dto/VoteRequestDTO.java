@@ -16,16 +16,25 @@ public class VoteRequestDTO {
         private Long userId;
         private String title;
         private String body;
-        private List<VoteOptionDTO> optionList;
+        private List<VoteRequestDTO.AddVoteOptionDTO> optionList;
     }
 
     @Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class VoteOptionDTO {
+    public static class AddVoteOptionDTO {
         private Long clothId;
         private String imageUrl;
         private String name;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ResponseVoteDTO {
+        private Long userId;
+        private Long optionId;
     }
 }
