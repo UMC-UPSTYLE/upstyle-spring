@@ -6,6 +6,7 @@ import com.upstyle.upstyle.converter.VoteConverter;
 import com.upstyle.upstyle.domain.Vote;
 import com.upstyle.upstyle.service.VoteService.VoteCommandService;
 import com.upstyle.upstyle.service.VoteService.VoteQueryService;
+import com.upstyle.upstyle.web.dto.OotdResponseDTO;
 import com.upstyle.upstyle.web.dto.VoteRequestDTO;
 import com.upstyle.upstyle.web.dto.VoteResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,5 +36,12 @@ public class VoteController {
                                                                                    @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
             VoteResponseDTO.VotePreviewListDTO previewList = voteQueryService.getVotePreviewList(page, size);
             return ApiResponse.onSuccess(previewList);
+    }
+
+    @GetMapping("/{voteId}")
+    @Operation(summary = "투표 글 상세 조회 API")
+    public ApiResponse<VoteResponseDTO.VoteDTO> getVote(@PathVariable Long voteId){
+        VoteResponseDTO.VoteDTO voteDTO = voteQueryService.getVoteById(voteId);
+        return ApiResponse.onSuccess(voteDTO);
     }
 }

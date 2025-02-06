@@ -29,7 +29,10 @@ public enum ErrorStatus implements BaseErrorCode {
     CLOTH_COLOR_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4002", "옷 색깔이 없습니다."),
     CLOTH_FIT_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4003", "옷 핏이 없습니다."),
     CLOTH_KIND_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4004", "옷 종류가 없습니다."),
-    CLOTH_ID_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4005", "옷이 존재하지 않습니다.");
+    CLOTH_ID_NOT_FOUND(HttpStatus.BAD_REQUEST, "CLOTH4005", "옷이 존재하지 않습니다."),
+
+    //투표 관련 에러
+    VOTE_NOT_FOUND(HttpStatus.BAD_REQUEST, "VOTE4001", "투표 글이 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

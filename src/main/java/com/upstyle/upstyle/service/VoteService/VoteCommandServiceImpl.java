@@ -28,26 +28,24 @@ public class VoteCommandServiceImpl implements VoteCommandService{
         User user = userRepository.findById(voteRequestDTO.getUserId())
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
-        // 2. Vote 생성 및 저장
+        // Vote 엔티티 생성 및 저장
         Vote vote = new Vote();
         vote.setUser(user);
         vote.setTitle(voteRequestDTO.getTitle());
         vote.setBody(voteRequestDTO.getBody());
-        voteRepository.save(vote);  // 저장 후 업데이트된 객체 받기
+        vote = voteRepository.save(vote);  // 저장 후 업데이트된 객체 받기
 
-        // 3. VoteOption 저장 로직
-        voteRequestDTO.getOptionList().forEach(option -> {
+        // VoteOption 저장 로직
+        for (VoteRequestDTO.VoteOptionDTO option : voteRequestDTO.getOptionList()) {
             VoteOption voteOption = new VoteOption();
             voteOption.setImageUrl(option.getImageUrl());
             voteOption.setName(option.getName());
-            voteOption.setClothId(option.getClothId());  // clothId 설정 (0일 경우에도 저장)
-
-            voteOption.setVote(vote);
+            voteOption.setClothId(option.getClothId());
+            voteOption.setResponseCount(0);
+            voteOption.setVote(vote);  // 외래 키 설정
             voteOptionRepository.save(voteOption);
-        });
+        }
 
-        // 데이터베이스에서 가져올 때 fetch join 사용
-        return voteRepository.findVoteWithOptions(vote.getId())
-                .orElseThrow(() -> new RuntimeException("Vote not found after creation"));
+        return vote;
     }
 }

@@ -2,6 +2,7 @@ package com.upstyle.upstyle.web.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class VoteResponseDTO {
@@ -11,7 +12,7 @@ public class VoteResponseDTO {
     @AllArgsConstructor
     public static class VoteDTO{
         private Long id;
-        private Long userId;
+        private VoteResponseDTO.User user;
         private String title;
         private String body;
         private List<VoteResponseDTO.VoteOptionDTO> optionList;
@@ -27,6 +28,7 @@ public class VoteResponseDTO {
         private Long clothId;
         private String imageUrl;
         private String name;
+        private Integer responseCount;
     }
 
     @Builder
@@ -50,5 +52,14 @@ public class VoteResponseDTO {
         Long id;
         String title;
         Integer totalResponseCount;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class User{
+        Long id;
+        String nickname;
     }
 }
