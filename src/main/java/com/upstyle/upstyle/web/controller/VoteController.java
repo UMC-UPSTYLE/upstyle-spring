@@ -12,10 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/votes")
@@ -28,6 +25,13 @@ public class VoteController {
     @PostMapping(value = "/", consumes = "application/json")
     @Operation(summary = "투표 글 작성 API")
     public ResponseEntity<ApiResponse<VoteResponseDTO.VoteDTO>> createVote(@RequestBody VoteRequestDTO.AddVoteDTO voteRequestDTO) {
+        Vote vote = voteCommandService.addVote(voteRequestDTO);
+        return ResponseEntity.ok(ApiResponse.onSuccess(VoteConverter.toVoteDTO(vote)));
+    }
+
+    @GetMapping(value = "/")
+    @Operation(summary = "투표 글 미리보기 리스트 조회 API")
+    public ResponseEntity<ApiResponse<VoteResponseDTO.VoteDTO>> getVoteList(@RequestBody VoteRequestDTO.AddVoteDTO voteRequestDTO) {
         Vote vote = voteCommandService.addVote(voteRequestDTO);
         return ResponseEntity.ok(ApiResponse.onSuccess(VoteConverter.toVoteDTO(vote)));
     }

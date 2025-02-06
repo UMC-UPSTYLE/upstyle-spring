@@ -28,4 +28,27 @@ public class VoteResponseDTO {
         private String imageUrl;
         private String name;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class VotePreviewListDTO {
+        List<VoteResponseDTO.VotePreviewDTO> votePreviewList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class VotePreviewDTO {
+        Long id;
+        String title;
+        Integer totalResponseCount;
+    }
 }
