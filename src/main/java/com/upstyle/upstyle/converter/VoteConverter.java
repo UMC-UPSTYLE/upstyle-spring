@@ -5,6 +5,7 @@ import com.upstyle.upstyle.domain.Vote;
 import com.upstyle.upstyle.domain.VoteOption;
 import com.upstyle.upstyle.web.dto.VoteRequestDTO;
 import com.upstyle.upstyle.web.dto.VoteResponseDTO;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,6 +53,36 @@ public class VoteConverter {
                 .imageUrl(voteOption.getImageUrl())
                 .name(voteOption.getName())
                 .clothId(voteOption.getClothId())
+                .build();
+    }
+
+    // VotePreviewDTO 변환
+    public static VoteResponseDTO.VotePreviewDTO toVotePreviewDTO(Vote vote) {
+        // 각 VoteOption의 responseCount 값을 합산
+        int totalResponseCount = vote.getOptionList().stream()
+                .mapToInt(VoteOption::getResponseCount)
+                .sum();
+
+        return VoteResponseDTO.VotePreviewDTO.builder()
+                .id(vote.getId())
+                .title(vote.getTitle())
+                .totalResponseCount(totalResponseCount)
+                .build();
+    }
+
+    // VotePreviewListDTO 변환
+    public static VoteResponseDTO.VotePreviewListDTO toVotePreviewListDTO(Page<Vote> votePage) {
+        List<VoteResponseDTO.VotePreviewDTO> votePreviewList = votePage.stream()
+                .map(VoteConverter::toVotePreviewDTO)
+                .collect(Collectors.toList());
+
+        return VoteResponseDTO.VotePreviewListDTO.builder()
+                .votePreviewList(votePreviewList)
+                .listSize(votePreviewList.size())
+                .totalPage(votePage.getTotalPages())
+                .totalElements(votePage.getTotalElements())
+                .isFirst(votePage.isFirst())
+                .isLast(votePage.isLast())
                 .build();
     }
 }

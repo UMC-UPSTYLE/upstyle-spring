@@ -35,6 +35,8 @@ public class QVoteOption extends EntityPathBase<VoteOption> {
 
     public final StringPath name = createString("name");
 
+    public final NumberPath<Integer> responseCount = createNumber("responseCount", Integer.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
