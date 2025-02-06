@@ -25,7 +25,8 @@ public interface ClothRepository extends JpaRepository<Cloth, Long> {
             "AND (:kindId IS NULL OR c.kind.id = :kindId) " +
             "AND (:categoryId IS NULL OR c.category.id = :categoryId) " +
             "AND (:colorIds IS NULL OR c.color.id IN :colorIds) " +
-            "AND (:fitId IS NULL OR c.fit.id = :fitId)")
+            "AND (:fitId IS NULL OR c.fit.id = :fitId)" +
+            "ORDER BY c.createdAt DESC")
     Page<Cloth> findClothesByFilters(@Param("userId") Long userId,
                                      @Param("kindId") Long kindId,
                                      @Param("categoryId") Long categoryId,

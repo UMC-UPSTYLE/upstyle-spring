@@ -41,7 +41,10 @@ public class VoteConverter {
                 .id(vote.getId())
                 .title(vote.getTitle())
                 .body(vote.getBody())
-                .userId(vote.getUser().getId())
+                .user(VoteResponseDTO.User.builder()
+                        .id(vote.getUser().getId())
+                        .nickname(vote.getUser().getNickname())
+                        .build())
                 .optionList(optionDTOs)
                 .build();
     }
@@ -53,6 +56,7 @@ public class VoteConverter {
                 .imageUrl(voteOption.getImageUrl())
                 .name(voteOption.getName())
                 .clothId(voteOption.getClothId())
+                .responseCount(voteOption.getResponseCount())
                 .build();
     }
 
