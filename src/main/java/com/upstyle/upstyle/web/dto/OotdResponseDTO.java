@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,22 +15,23 @@ public class OotdResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class addOotdResultDTO{
-        Long ootdId;
+        Long id;
         Long userId;
-        List<ClothResponseDTO> clothResponseDTOList;
-        LocalDateTime createdAt;
-
+        LocalDate date;
+        List<ClothResponseDTO> clothResponseList;
     }
+
     @Builder
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ClothResponseDTO {
-        Long clothId;
+        Long id;
         Long kindId;
         Long categoryId;
         Long fitId;
         Long colorId;
+        String additionalInfo;
     }
 
     @Builder
@@ -38,17 +40,54 @@ public class OotdResponseDTO {
     @AllArgsConstructor
     public static class CalendarResponseDTO{
         Long userId;
-        List<DateOotdDTO> dateOotdDTOList;
+        List<OotdPreviewDTO> ootdPreviewList;
     }
 
     @Builder
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DateOotdDTO{
-        Long ootdId;
-        LocalDateTime createdAt;
+    public static class OotdPreviewDTO{
+        Long id;
+        LocalDate date;
         String imageUrl;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class OotdDTO{
+        Long id;
+        User user;
+        LocalDate date;
+        String imageUrl;
+        List<ClothDTO> clothList;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ClothDTO {
+        Long id;
+        Long kindId;
+        String kindName;
+        Long categoryId;
+        String categoryName;
+        Long fitId;
+        String fitName;
+        Long colorId;
+        String colorName;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class User{
+        Long id;
+        String nickname;
     }
 
 }

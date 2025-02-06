@@ -22,6 +22,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final com.upstyle.upstyle.domain.common.QBaseEntity _super = new com.upstyle.upstyle.domain.common.QBaseEntity(this);
 
+    public final ListPath<com.upstyle.upstyle.domain.mapping.ClothBookmark, com.upstyle.upstyle.domain.mapping.QClothBookmark> clothBookmarkList = this.<com.upstyle.upstyle.domain.mapping.ClothBookmark, com.upstyle.upstyle.domain.mapping.QClothBookmark>createList("clothBookmarkList", com.upstyle.upstyle.domain.mapping.ClothBookmark.class, com.upstyle.upstyle.domain.mapping.QClothBookmark.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
@@ -38,8 +40,6 @@ public class QUser extends EntityPathBase<User> {
     public final DatePath<java.time.LocalDate> inactiveDate = createDate("inactiveDate", java.time.LocalDate.class);
 
     public final StringPath nickname = createString("nickname");
-
-    public final ListPath<com.upstyle.upstyle.domain.mapping.OotdBookmark, com.upstyle.upstyle.domain.mapping.QOotdBookmark> ootdBookmarkList = this.<com.upstyle.upstyle.domain.mapping.OotdBookmark, com.upstyle.upstyle.domain.mapping.QOotdBookmark>createList("ootdBookmarkList", com.upstyle.upstyle.domain.mapping.OotdBookmark.class, com.upstyle.upstyle.domain.mapping.QOotdBookmark.class, PathInits.DIRECT2);
 
     public final ListPath<Ootd, QOotd> ootdList = this.<Ootd, QOotd>createList("ootdList", Ootd.class, QOotd.class, PathInits.DIRECT2);
 

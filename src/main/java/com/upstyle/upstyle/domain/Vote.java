@@ -18,6 +18,9 @@ public class Vote extends BaseEntity {
     private Long id;
 
     @Column(nullable = false, length = 255)
+    private String title;
+
+    @Column()
     private String body;
 
     @ManyToOne(fetch = FetchType.LAZY)

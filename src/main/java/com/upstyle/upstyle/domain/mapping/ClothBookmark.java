@@ -1,20 +1,18 @@
 package com.upstyle.upstyle.domain.mapping;
 
-import com.upstyle.upstyle.domain.Ootd;
+import com.upstyle.upstyle.domain.Cloth;
 import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.domain.common.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OotdBookmark extends BaseEntity {
+public class ClothBookmark extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,6 +22,6 @@ public class OotdBookmark extends BaseEntity {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ootd_id", nullable = false)
-    private Ootd ootd;
+    @JoinColumn(name = "cloth_id", nullable = false)
+    private Cloth cloth;
 }

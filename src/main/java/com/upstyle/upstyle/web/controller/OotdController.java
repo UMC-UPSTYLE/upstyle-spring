@@ -22,13 +22,13 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @Validated
-@RequestMapping(value = "/ootds", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+@RequestMapping(value = "/ootds")
 public class OotdController {
 
     private final OotdCommandService ootdCommandService;
+    private final OotdQueryService ootdQueryService;
 
-
-    @PostMapping("/")
+    @PostMapping(value = "/", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @Operation(summary = "ootd 생성 API")
     public ApiResponse<OotdResponseDTO.addOotdResultDTO> addOotd(
             @Parameter(description = "OOTD 데이터", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
@@ -40,6 +40,21 @@ public class OotdController {
 
         Ootd ootd = ootdCommandService.addOotd(request, ootdImages);
         return ApiResponse.onSuccess(OotdConverter.toAddOotdResultDTO(ootd));
+    }
+
+    @GetMapping("/{ootdId}")
+    @Operation(summary = "ootd 조회 API")
+    public ApiResponse<OotdResponseDTO.OotdDTO> getOotd(@PathVariable Long ootdId){
+        OotdResponseDTO.OotdDTO ootdDTO = ootdQueryService.getOotdById(ootdId);
+        return ApiResponse.onSuccess(ootdDTO);
+    }
+
+    @GetMapping("/calendar")
+    public ApiResponse<OotdResponseDTO.CalendarResponseDTO> getDateOotd(@RequestParam(value = "userId") Long userId,
+                                                                        @RequestParam(value = "year") int year,
+                                                                        @RequestParam(value = "month") int month){
+        OotdResponseDTO.CalendarResponseDTO CalendarResponse = ootdQueryService.getCalendarResponseDTO(userId, year, month);
+        return ApiResponse.onSuccess(CalendarResponse);
     }
 
 }

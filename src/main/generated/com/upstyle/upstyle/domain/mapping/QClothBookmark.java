@@ -11,50 +11,50 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QOotdBookmark is a Querydsl query type for OotdBookmark
+ * QClothBookmark is a Querydsl query type for ClothBookmark
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QOotdBookmark extends EntityPathBase<OotdBookmark> {
+public class QClothBookmark extends EntityPathBase<ClothBookmark> {
 
-    private static final long serialVersionUID = -42248973L;
+    private static final long serialVersionUID = -1893359677L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QOotdBookmark ootdBookmark = new QOotdBookmark("ootdBookmark");
+    public static final QClothBookmark clothBookmark = new QClothBookmark("clothBookmark");
 
     public final com.upstyle.upstyle.domain.common.QBaseEntity _super = new com.upstyle.upstyle.domain.common.QBaseEntity(this);
+
+    public final com.upstyle.upstyle.domain.QCloth cloth;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final com.upstyle.upstyle.domain.QOotd ootd;
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public final com.upstyle.upstyle.domain.QUser user;
 
-    public QOotdBookmark(String variable) {
-        this(OotdBookmark.class, forVariable(variable), INITS);
+    public QClothBookmark(String variable) {
+        this(ClothBookmark.class, forVariable(variable), INITS);
     }
 
-    public QOotdBookmark(Path<? extends OotdBookmark> path) {
+    public QClothBookmark(Path<? extends ClothBookmark> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QOotdBookmark(PathMetadata metadata) {
+    public QClothBookmark(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QOotdBookmark(PathMetadata metadata, PathInits inits) {
-        this(OotdBookmark.class, metadata, inits);
+    public QClothBookmark(PathMetadata metadata, PathInits inits) {
+        this(ClothBookmark.class, metadata, inits);
     }
 
-    public QOotdBookmark(Class<? extends OotdBookmark> type, PathMetadata metadata, PathInits inits) {
+    public QClothBookmark(Class<? extends ClothBookmark> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.ootd = inits.isInitialized("ootd") ? new com.upstyle.upstyle.domain.QOotd(forProperty("ootd"), inits.get("ootd")) : null;
+        this.cloth = inits.isInitialized("cloth") ? new com.upstyle.upstyle.domain.QCloth(forProperty("cloth"), inits.get("cloth")) : null;
         this.user = inits.isInitialized("user") ? new com.upstyle.upstyle.domain.QUser(forProperty("user")) : null;
     }
 

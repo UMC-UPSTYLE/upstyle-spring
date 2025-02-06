@@ -1,6 +1,9 @@
 package com.upstyle.upstyle.service.OotdService;
 
+import com.upstyle.upstyle.apiPayload.code.status.ErrorStatus;
+import com.upstyle.upstyle.apiPayload.exception.handler.OotdHandler;
 import com.upstyle.upstyle.converter.OotdConverter;
+import com.upstyle.upstyle.domain.Ootd;
 import com.upstyle.upstyle.repository.ClothRepository;
 import com.upstyle.upstyle.repository.OotdRepository;
 import com.upstyle.upstyle.web.dto.OotdResponseDTO;
@@ -24,14 +27,28 @@ public class OotdQueryServiceImpl implements OotdQueryService{
     public OotdResponseDTO.CalendarResponseDTO getCalendarResponseDTO(Long userId, int year, int month){
         List<Object[]> results = ootdRepository.findAllByUserIdAndYearAndMonth(userId,year,month);
 
-        List<OotdResponseDTO.DateOotdDTO> dateOotdDTOList = results.stream()
-                .map (result -> new OotdResponseDTO.DateOotdDTO(
-                        (Long) result[0],  // ootdId
-                        (LocalDateTime) result[1], //date
+        List<OotdResponseDTO.OotdPreviewDTO> dateOotdDTOList = results.stream()
+                .map (result -> new OotdResponseDTO.OotdPreviewDTO(
+                        (Long) result[0],  // id
+                        (LocalDate) result[1], //date
                         (String) result[2] // imageUrl
                 ))
                 .collect(Collectors.toList());
 
         return OotdConverter.toCalendarResponseDTO(userId,dateOotdDTOList);
+    }
+
+    @Override
+    @Transactional
+    public OotdResponseDTO.OotdDTO getOotdById(Long ootdId){
+        Ootd ootdWithClothList = ootdRepository.findWithClothList(ootdId)
+                .orElseThrow(() -> new OotdHandler(ErrorStatus.OOTD_NOT_FOUND));
+
+        Ootd ootdWithImageList = ootdRepository.findWithImageList(ootdId)
+                .orElseThrow(() -> new OotdHandler(ErrorStatus.OOTD_NOT_FOUND));
+
+        ootdWithClothList.setOotdImageList(ootdWithImageList.getOotdImageList());
+
+        return OotdConverter.toOotdDTO(ootdWithClothList);
     }
 }

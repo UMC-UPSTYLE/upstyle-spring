@@ -13,25 +13,6 @@ public class ClothResponseDTO {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ClothKindListDTO {
-        Long userId;
-        String userName;
-        List<ClothKindDTO> clothKindList;
-    }
-
-    @Builder
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ClothKindDTO {
-        Long id;
-        OotdDTO ootd;
-    }
-
-    @Builder
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class ClothPreviewListDTO {
         List<ClothPreviewDTO> clothPreviewList;
         Integer listSize;
@@ -48,9 +29,14 @@ public class ClothResponseDTO {
     public static class ClothPreviewDTO {
         Long id;
         Long kindId;
+        String kindName;
         Long categoryId;
+        String categoryName;
         Long fitId;
+        String fitName;
         Long colorId;
+        String colorName;
+        String additionalInfo;
         OotdDTO ootd;
     }
 
