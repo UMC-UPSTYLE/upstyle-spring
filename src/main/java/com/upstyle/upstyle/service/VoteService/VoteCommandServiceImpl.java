@@ -56,7 +56,7 @@ public class VoteCommandServiceImpl implements VoteCommandService{
 
     @Override
     @Transactional
-    public VoteResponseDTO.ResponseVoteResultDTO responseVote(VoteRequestDTO.ResponseVoteDTO responseVoteDTO) {
+    public VoteResponseDTO.ResponseVoteResultDTO responseVote(Long voteId, VoteRequestDTO.ResponseVoteDTO responseVoteDTO) {
         // User 조회
         User user = userRepository.findById(responseVoteDTO.getUserId())
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
@@ -64,6 +64,11 @@ public class VoteCommandServiceImpl implements VoteCommandService{
         // VoteOption 조회
         VoteOption voteOption = voteOptionRepository.findById(responseVoteDTO.getOptionId())
                 .orElseThrow(() -> new VoteHandler(ErrorStatus.VOTE_OPTION_NOT_FOUND));
+
+        // optionId가 voteId에 속해 있는지 검증
+        if (!voteOption.getVote().getId().equals(voteId)) {
+            throw new VoteHandler(ErrorStatus.VOTE_OPTION_MISMATCH);
+        }
 
         // 응답 수 증가 및 저장
         voteOption.setResponseCount(voteOption.getResponseCount() + 1);
