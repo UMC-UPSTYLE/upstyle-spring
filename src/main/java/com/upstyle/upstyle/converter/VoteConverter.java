@@ -22,7 +22,7 @@ public class VoteConverter {
     }
 
     // VoteOptionRequest -> VoteOption 엔티티 변환
-    public static VoteOption toVoteOptionEntity(VoteRequestDTO.VoteOptionDTO optionDTO, Vote vote) {
+    public static VoteOption toVoteOptionEntity(VoteRequestDTO.AddVoteOptionDTO optionDTO, Vote vote) {
         VoteOption voteOption = new VoteOption();
         voteOption.setVote(vote);
         voteOption.setImageUrl(optionDTO.getImageUrl());

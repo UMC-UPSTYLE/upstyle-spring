@@ -51,7 +51,7 @@ public class User extends BaseEntity {
     private String imageUrl;
 
     @ColumnDefault("0")
-    private Integer reward;
+    private Integer reward = 0;
 
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
     private String status;
