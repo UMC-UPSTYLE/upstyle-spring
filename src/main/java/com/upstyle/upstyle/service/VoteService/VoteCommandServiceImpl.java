@@ -3,6 +3,8 @@ package com.upstyle.upstyle.service.VoteService;
 
 import com.upstyle.upstyle.apiPayload.code.status.ErrorStatus;
 import com.upstyle.upstyle.apiPayload.exception.handler.UserHandler;
+import com.upstyle.upstyle.apiPayload.exception.handler.VoteHandler;
+import com.upstyle.upstyle.converter.VoteConverter;
 import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.domain.Vote;
 import com.upstyle.upstyle.domain.VoteOption;
@@ -10,9 +12,12 @@ import com.upstyle.upstyle.repository.UserRepository;
 import com.upstyle.upstyle.repository.VoteOptionRepository;
 import com.upstyle.upstyle.repository.VoteRepository;
 import com.upstyle.upstyle.web.dto.VoteRequestDTO;
+import com.upstyle.upstyle.web.dto.VoteResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -47,5 +52,25 @@ public class VoteCommandServiceImpl implements VoteCommandService{
         }
 
         return vote;
+    }
+
+    @Override
+    @Transactional
+    public VoteResponseDTO.ResponseVoteResultDTO responseVote(VoteRequestDTO.ResponseVoteDTO responseVoteDTO) {
+        // User 조회
+        User user = userRepository.findById(responseVoteDTO.getUserId())
+                .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
+
+        // VoteOption 조회
+        VoteOption voteOption = voteOptionRepository.findById(responseVoteDTO.getOptionId())
+                .orElseThrow(() -> new VoteHandler(ErrorStatus.VOTE_OPTION_NOT_FOUND));
+
+        // 응답 수 증가 및 저장
+        voteOption.setResponseCount(voteOption.getResponseCount() + 1);
+        voteOptionRepository.save(voteOption);
+
+        // 응답 결과 리스트 반환
+        List<VoteOption> options = voteOptionRepository.findByVoteId(voteOption.getVote().getId());
+        return VoteConverter.toResponseVoteResultDTO(options);
     }
 }
