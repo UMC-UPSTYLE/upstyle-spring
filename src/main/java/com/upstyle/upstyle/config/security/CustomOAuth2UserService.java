@@ -66,4 +66,5 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         return userRepository.save(member);
     }
+    //테스트
 }
