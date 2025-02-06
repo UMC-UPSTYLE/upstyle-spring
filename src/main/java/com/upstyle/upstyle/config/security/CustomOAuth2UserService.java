@@ -4,6 +4,7 @@ import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.domain.enums.Gender;
 import com.upstyle.upstyle.domain.enums.Role;
 import com.upstyle.upstyle.repository.UserRepository;
+import com.upstyle.upstyle.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -23,6 +24,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TokenService tokenService;
+
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -37,9 +40,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         // 사용자 정보 저장 또는 업데이트
         User user = saveOrUpdateUser(email, nickname);
 
-        // 이메일을 Principal로 사용하기 위해 attributes 수정
+        String jwt = tokenService.generateToken(user.getNickname(), user.getEmail(), user.getRole().name());
+
+
         Map<String, Object> modifiedAttributes = new HashMap<>(attributes);
         modifiedAttributes.put("email", email);
+        modifiedAttributes.put("jwt", jwt);
 
         return new DefaultOAuth2User(
                 oAuth2User.getAuthorities(),
