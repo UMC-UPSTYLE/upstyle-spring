@@ -24,9 +24,9 @@ public class AuthController {
 
     private final UserCommandService userCommandService;
 
-    @GetMapping("/login/google")
-    @Operation(summary = "구글 로그인 API")
-    public ApiResponse<AuthResponseDTO.JwtDTO> googleLogin(@AuthenticationPrincipal OAuth2User oAuth2User) {
+    @GetMapping("/login/kakao")
+    @Operation(summary = "카카오 로그인 후 jwt 반환")
+    public ApiResponse<AuthResponseDTO.JwtDTO> kakaoLogin(@AuthenticationPrincipal OAuth2User oAuth2User) {
         String jwt = (String) oAuth2User.getAttributes().get("jwt");
         return ApiResponse.onSuccess(AuthResponseDTO.JwtDTO.builder().jwt(jwt).build());
     }
