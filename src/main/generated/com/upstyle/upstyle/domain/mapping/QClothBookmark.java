@@ -31,6 +31,10 @@ public class QClothBookmark extends EntityPathBase<ClothBookmark> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final NumberPath<Long> ootdId = createNumber("ootdId", Long.class);
+
+    public final StringPath ootdImageUrl = createString("ootdImageUrl");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 

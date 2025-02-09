@@ -29,7 +29,7 @@ public class OotdController {
     private final OotdQueryService ootdQueryService;
 
     @PostMapping(value = "/", consumes = "application/json")
-    @Operation(summary = "OOTD 생성 API")
+    @Operation(summary = "ootd 생성 API")
     public ApiResponse<OotdResponseDTO.addOotdResultDTO> addOotd(
             @RequestBody @Valid OotdRequestDTO.addOotdDTO request) {
 
@@ -38,7 +38,7 @@ public class OotdController {
     }
 
     @GetMapping("/{ootdId}")
-    @Operation(summary = "ootd 조회 API")
+    @Operation(summary = "ootd 상세 조회 API")
     public ApiResponse<OotdResponseDTO.OotdDTO> getOotd(@PathVariable Long ootdId){
         OotdResponseDTO.OotdDTO ootdDTO = ootdQueryService.getOotdById(ootdId);
         return ApiResponse.onSuccess(ootdDTO);

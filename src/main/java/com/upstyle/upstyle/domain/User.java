@@ -50,7 +50,7 @@ public class User extends BaseEntity {
     @Column(nullable = true, length = 255)
     private String imageUrl;
 
-    @ColumnDefault("0")
+    @Builder.Default
     private Integer reward = 0;
 
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
