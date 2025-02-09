@@ -33,6 +33,7 @@ public class AuthController {
 
     private final UserCommandService userCommandService;
 
+
     @GetMapping("/login/kakao")
     @Operation(summary = "카카오 로그인 후 jwt 반환")
     public ApiResponse<AuthResponseDTO.KakaoJwtDTO> kakaoLogin( OAuth2AuthenticationToken authenticationToken, @AuthenticationPrincipal OAuth2User oAuth2User) {
