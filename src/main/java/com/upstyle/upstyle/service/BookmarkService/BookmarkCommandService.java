@@ -5,5 +5,5 @@ import com.upstyle.upstyle.web.dto.BookmarkRequestDTO;
 import com.upstyle.upstyle.web.dto.BookmarkResponseDTO;
 
 public interface BookmarkCommandService {
-    BookmarkResponseDTO addBookmark(BookmarkRequestDTO bookmarkRequestDTO);
+    BookmarkResponseDTO.AddBookmarkResultDTO addBookmark(BookmarkRequestDTO.AddBookmarkDTO bookmarkRequestDTO);
 }

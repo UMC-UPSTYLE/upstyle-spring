@@ -32,4 +32,9 @@ public interface OotdRepository extends JpaRepository<Ootd, Long> {
             "LEFT JOIN FETCH o.ootdImageList " +
             "WHERE o.id = :ootdId")
     Optional<Ootd> findWithImageList(@Param("ootdId") Long ootdId);
+
+    @Query("SELECT o FROM Ootd o JOIN o.ootdClothList oc " +
+            "WHERE oc.cloth.id = :clothId " +
+            "ORDER BY o.createdAt DESC LIMIT 1")
+    Ootd findLatestOotdByClothId(@Param("clothId") Long clothId);
 }

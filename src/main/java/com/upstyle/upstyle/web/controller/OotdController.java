@@ -28,28 +28,24 @@ public class OotdController {
     private final OotdCommandService ootdCommandService;
     private final OotdQueryService ootdQueryService;
 
-    @PostMapping(value = "/", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/", consumes = "application/json")
     @Operation(summary = "ootd 생성 API")
     public ApiResponse<OotdResponseDTO.addOotdResultDTO> addOotd(
-            @Parameter(description = "OOTD 데이터", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
-            @RequestPart("request") @Valid OotdRequestDTO.addOotdDTO request,
+            @RequestBody @Valid OotdRequestDTO.addOotdDTO request) {
 
-            @Parameter(description = "이미지 파일들", content = @Content(mediaType = MediaType.APPLICATION_OCTET_STREAM_VALUE,
-                    array = @ArraySchema(schema = @Schema(type = "string", format = "binary"))))
-            @RequestPart("ootdImages") MultipartFile[] ootdImages) {
-
-        Ootd ootd = ootdCommandService.addOotd(request, ootdImages);
+        Ootd ootd = ootdCommandService.addOotd(request);
         return ApiResponse.onSuccess(OotdConverter.toAddOotdResultDTO(ootd));
     }
 
     @GetMapping("/{ootdId}")
-    @Operation(summary = "ootd 조회 API")
+    @Operation(summary = "ootd 상세 조회 API")
     public ApiResponse<OotdResponseDTO.OotdDTO> getOotd(@PathVariable Long ootdId){
         OotdResponseDTO.OotdDTO ootdDTO = ootdQueryService.getOotdById(ootdId);
         return ApiResponse.onSuccess(ootdDTO);
     }
 
     @GetMapping("/calendar")
+    @Operation(summary = "캘린더 조회 API")
     public ApiResponse<OotdResponseDTO.CalendarResponseDTO> getDateOotd(@RequestParam(value = "userId") Long userId,
                                                                         @RequestParam(value = "year") int year,
                                                                         @RequestParam(value = "month") int month){

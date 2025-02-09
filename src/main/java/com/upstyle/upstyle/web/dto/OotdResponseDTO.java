@@ -18,6 +18,7 @@ public class OotdResponseDTO {
         Long id;
         Long userId;
         LocalDate date;
+        List<String> imageUrls;
         List<ClothResponseDTO> clothResponseList;
     }
 
@@ -61,7 +62,7 @@ public class OotdResponseDTO {
         Long id;
         User user;
         LocalDate date;
-        String imageUrl;
+        List<String> imageUrls;
         List<ClothDTO> clothList;
     }
 

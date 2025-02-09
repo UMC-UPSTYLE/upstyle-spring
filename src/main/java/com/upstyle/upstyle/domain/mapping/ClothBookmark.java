@@ -24,4 +24,8 @@ public class ClothBookmark extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cloth_id", nullable = false)
     private Cloth cloth;
+
+    // 유저가 북마크했을 때의 OOTD 정보 저장
+    private Long ootdId;
+    private String ootdImageUrl;
 }
