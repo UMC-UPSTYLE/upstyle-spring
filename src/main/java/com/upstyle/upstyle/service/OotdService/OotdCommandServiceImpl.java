@@ -10,6 +10,7 @@ import com.upstyle.upstyle.domain.mapping.OotdCloth;
 import com.upstyle.upstyle.repository.*;
 import com.upstyle.upstyle.web.dto.OotdRequestDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,74 +37,58 @@ public class OotdCommandServiceImpl implements OotdCommandService {
 
     @Override
     @Transactional
-    public Ootd addOotd(OotdRequestDTO.addOotdDTO ootdRequest, MultipartFile[] ootdImages){
+    public Ootd addOotd(OotdRequestDTO.addOotdDTO ootdRequest) {
         User user = userRepository.findById(ootdRequest.getUserId())
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
-        Ootd newOotd = OotdConverter.toOotd(ootdRequest,user);
+        // OOTD 생성 및 저장
+        Ootd newOotd = OotdConverter.toOotd(ootdRequest, user);
         ootdRepository.save(newOotd);
 
-        List<OotdCloth> OotdclothList = ootdRequest.getClothRequestDTOList().stream()
-                .map(ClothRequest -> {
-                    //OotdConverter로 ClothRequestDTO -> Cloth 엔티티로 변환.
-                    if(ClothRequest.getClothId() == 0){
-                        Cloth newCloth = OotdConverter.toCloth(ClothRequest, user);
-
-                        //ClothRequestDTO로 받은 Cloth의 각 속성 id, 레포지토리에서 찾아 Cloth 엔티티에 set.
-                        ClothCategory category = clothCategoryRepository.findById(ClothRequest.getClothCategoryId())
-                                .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_CATEGORY_NOT_FOUND));
-                        newCloth.setCategory(category);
-
-                        ClothFit fit = clothFitRepository.findById(ClothRequest.getFitCategoryId())
-                                .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_FIT_NOT_FOUND));
-                        newCloth.setFit(fit);
-
-                        ClothColor color = clothColorRepository.findById(ClothRequest.getColorCategoryId())
-                                .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_COLOR_NOT_FOUND));
-                        newCloth.setColor(color);
-
-                        ClothKind kind = clothKindRepository.findById(ClothRequest.getClothKindId())
-
-                                .orElseThrow(()-> new ClothHandler((ErrorStatus.CLOTH_KIND_NOT_FOUND)));
-
-                        newCloth.setKind(kind);
-
-                        clothRepository.save(newCloth);
-
-                        OotdCloth NewOotdCloth = new OotdCloth();
-                        NewOotdCloth.setOotd(newOotd);
-                        NewOotdCloth.setCloth(newCloth);
-                        ootdClothRepository.save(NewOotdCloth);
-                        return NewOotdCloth;
-
-
-                    }
-                    else{
-                        Cloth cloth = clothRepository.findById(ClothRequest.getClothId())
-                                .orElseThrow(() -> new UserHandler(ErrorStatus.CLOTH_ID_NOT_FOUND));
-                        OotdCloth NewOotdCloth = new OotdCloth();
-                        NewOotdCloth.setOotd(newOotd);
-                        NewOotdCloth.setCloth(cloth);
-                        ootdClothRepository.save(NewOotdCloth);
-                        return NewOotdCloth;
-                    }
-
+        // OOTD-Cloth 연결
+        List<OotdCloth> ootdClothList = ootdRequest.getClothRequestDTOList().stream()
+                .map(request -> {
+                    Cloth cloth = (request.getClothId() == 0) ? createNewCloth(request, user) : fetchExistingCloth(request.getClothId());
+                    return createAndSaveOotdCloth(newOotd, cloth);
                 }).collect(Collectors.toList());
 
-        newOotd.setOotdClothList(OotdclothList);
-        ootdRepository.save(newOotd);
+        newOotd.setOotdClothList(ootdClothList);
 
-        // 다중 이미지 업로드 처리
-        for (MultipartFile ootdImage : ootdImages) {
-            String uuid = UUID.randomUUID().toString();
-            Uuid savedUuid = uuidRepository.save(Uuid.builder().uuid(uuid).build());
-            String imageUrl = s3Manager.uploadFile(s3Manager.generateOotdKeyName(savedUuid), ootdImage);
+        // OOTD-Image 저장
+        List<OotdImage> ootdImageList = ootdRequest.getImageUrls().stream()
+                .map(url -> OotdConverter.toOotdImage(url, newOotd))
+                .collect(Collectors.toList());
 
-            OotdImage ootdImageEntity = OotdConverter.toOotdImage(imageUrl, newOotd);
-            ootdImageRepository.save(ootdImageEntity);
-        }
+        ootdImageRepository.saveAll(ootdImageList);
+        newOotd.setOotdImageList(ootdImageList);
 
         return ootdRepository.save(newOotd);
+    }
 
+    private Cloth createNewCloth(OotdRequestDTO.ClothRequestDTO request, User user) {
+        Cloth newCloth = OotdConverter.toCloth(request, user);
+
+        newCloth.setCategory(fetchEntity(request.getClothCategoryId(), clothCategoryRepository, ErrorStatus.CLOTH_CATEGORY_NOT_FOUND));
+        newCloth.setFit(fetchEntity(request.getFitCategoryId(), clothFitRepository, ErrorStatus.CLOTH_FIT_NOT_FOUND));
+        newCloth.setColor(fetchEntity(request.getColorCategoryId(), clothColorRepository, ErrorStatus.CLOTH_COLOR_NOT_FOUND));
+        newCloth.setKind(fetchEntity(request.getClothKindId(), clothKindRepository, ErrorStatus.CLOTH_KIND_NOT_FOUND));
+
+        return clothRepository.save(newCloth);
+    }
+
+    private Cloth fetchExistingCloth(Long clothId) {
+        return clothRepository.findById(clothId)
+                .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_ID_NOT_FOUND));
+    }
+
+    private <T> T fetchEntity(Long id, JpaRepository<T, Long> repository, ErrorStatus error) {
+        return repository.findById(id).orElseThrow(() -> new ClothHandler(error));
+    }
+
+    private OotdCloth createAndSaveOotdCloth(Ootd ootd, Cloth cloth) {
+        OotdCloth ootdCloth = new OotdCloth();
+        ootdCloth.setOotd(ootd);
+        ootdCloth.setCloth(cloth);
+        return ootdClothRepository.save(ootdCloth);
     }
 }

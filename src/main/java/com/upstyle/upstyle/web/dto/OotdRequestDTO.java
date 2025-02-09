@@ -1,25 +1,36 @@
 package com.upstyle.upstyle.web.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class OotdRequestDTO {
+
     @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class addOotdDTO {
-        Long userId;
-        LocalDate date;
-        List<ClothRequestDTO> clothRequestDTOList;
+        private Long userId;
+        private LocalDate date;
+        private List<String> imageUrls;
+        private List<ClothRequestDTO> clothRequestDTOList;
     }
 
     @Getter
-    public static class ClothRequestDTO{
-        Long clothId;
-        Long clothKindId;
-        Long clothCategoryId;
-        Long fitCategoryId;
-        Long colorCategoryId;
-        String additionalInfo;
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ClothRequestDTO {
+        private Long clothId;
+        private Long clothKindId;
+        private Long clothCategoryId;
+        private Long fitCategoryId;
+        private Long colorCategoryId;
+        private String additionalInfo;
     }
 }

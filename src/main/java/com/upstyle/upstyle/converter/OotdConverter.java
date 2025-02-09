@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 
 
 public class OotdConverter {
-    //addOotdDTO를 Ootd 엔티티로 변환.
+
+    // addOotdDTO를 Ootd 엔티티로 변환
     public static Ootd toOotd(OotdRequestDTO.addOotdDTO request, User user) {
         Ootd newOotd = new Ootd();
         newOotd.setUser(user);
@@ -18,7 +19,7 @@ public class OotdConverter {
         return newOotd;
     }
 
-    //ClothRequestDTO를 cloth엔티티로 변환. fit, color등의 속성 매칭은 service 딴에서 수행.
+    // ClothRequestDTO를 Cloth 엔티티로 변환
     public static Cloth toCloth(OotdRequestDTO.ClothRequestDTO request, User user) {
         Cloth newCloth = new Cloth();
         newCloth.setUser(user);
@@ -26,7 +27,7 @@ public class OotdConverter {
         return newCloth;
     }
 
-    //ootd 엔티티를 addOotdResultDTO로 변환.
+    // Ootd 엔티티 -> addOotdResultDTO 변환
     public static OotdResponseDTO.addOotdResultDTO toAddOotdResultDTO(Ootd ootd) {
         List<OotdResponseDTO.ClothResponseDTO> clothResponseDTOList = ootd.getOotdClothList().stream()
                 .map(ootdCloth -> {
@@ -36,18 +37,25 @@ public class OotdConverter {
                             .categoryId(cloth.getCategory().getId())
                             .fitId(cloth.getFit().getId())
                             .colorId(cloth.getColor().getId())
+                            .kindId(cloth.getKind().getId())
                             .build();
                 }).collect(Collectors.toList());
+
+        // 이미지 URL 리스트로 변환
+        List<String> imageUrls = ootd.getOotdImageList().stream()
+                .map(OotdImage::getImageUrl)
+                .collect(Collectors.toList());
 
         return OotdResponseDTO.addOotdResultDTO.builder()
                 .id(ootd.getId())
                 .userId(ootd.getUser().getId())
                 .clothResponseList(clothResponseDTOList)
                 .date(ootd.getDate())
+                .imageUrls(imageUrls)  // 다중 이미지 URL 반환
                 .build();
     }
 
-    // imageUrl과 Ootd를 이용해 OotdImage를 생성
+    // imageUrl과 Ootd를 이용해 OotdImage 엔티티 생성
     public static OotdImage toOotdImage(String imageUrl, Ootd ootd) {
         return OotdImage.builder()
                 .imageUrl(imageUrl)
@@ -55,9 +63,9 @@ public class OotdConverter {
                 .build();
     }
 
-    public static OotdResponseDTO.CalendarResponseDTO toCalendarResponseDTO(Long userid, List<OotdResponseDTO.OotdPreviewDTO> ootdPreviewList) {
+    public static OotdResponseDTO.CalendarResponseDTO toCalendarResponseDTO(Long userId, List<OotdResponseDTO.OotdPreviewDTO> ootdPreviewList) {
         return OotdResponseDTO.CalendarResponseDTO.builder()
-                .userId(userid)
+                .userId(userId)
                 .ootdPreviewList(ootdPreviewList)
                 .build();
     }
@@ -80,6 +88,11 @@ public class OotdConverter {
                             .build();
                 }).collect(Collectors.toList());
 
+        // 이미지 URL 리스트로 변환
+        List<String> imageUrls = ootd.getOotdImageList().stream()
+                .map(OotdImage::getImageUrl)
+                .collect(Collectors.toList());
+
         // UserDTO 생성
         OotdResponseDTO.User userDTO = OotdResponseDTO.User.builder()
                 .id(ootd.getUser().getId())
@@ -91,7 +104,7 @@ public class OotdConverter {
                 .id(ootd.getId())
                 .user(userDTO)
                 .date(ootd.getDate())
-                .imageUrl(ootd.getOotdImageList().isEmpty() ? null : ootd.getOotdImageList().get(0).getImageUrl())
+                .imageUrls(imageUrls)  // 다중 이미지 URL 포함
                 .clothList(clothList)
                 .build();
     }
