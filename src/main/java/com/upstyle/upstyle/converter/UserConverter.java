@@ -1,11 +1,8 @@
 package com.upstyle.upstyle.converter;
 
 import com.upstyle.upstyle.domain.User;
-import com.upstyle.upstyle.domain.enums.Gender;
 import com.upstyle.upstyle.web.dto.UserRequestDTO;
 import com.upstyle.upstyle.web.dto.UserResponseDTO;
-
-import java.time.LocalDateTime;
 
 public class UserConverter {
 
@@ -15,7 +12,7 @@ public class UserConverter {
                 .id(user.getId())
                 .nickname(user.getNickname())
                 .email(user.getEmail())
-                .gender(user.getGender() != null ? user.getGender().name() : null)
+                .gender(user.getGender())
                 .height(user.getHeight())
                 .weight(user.getWeight())
                 .build();
