@@ -26,4 +26,5 @@ public class OotdBookmark extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ootd_id", nullable = false)
     private Ootd ootd;
+
 }

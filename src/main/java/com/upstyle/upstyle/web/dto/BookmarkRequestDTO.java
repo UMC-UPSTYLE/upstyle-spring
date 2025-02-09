@@ -1,15 +1,14 @@
 package com.upstyle.upstyle.web.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class BookmarkRequestDTO {
-    private Long userId;
-    private Long clothId;
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AddBookmarkDTO {
+        private Long userId;
+        private Long clothId;
+    }
 }
