@@ -31,11 +31,22 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
+        // 카카오 응답을 로그로 출력
+        System.out.println("OAuth2 Response: " + oAuth2User.getAttributes());
+
         Map<String, Object> attributes = oAuth2User.getAttributes();
+
+        //카카오 응답에서 사용자 정보 추출
+        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
         Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
 
+        //카카오에서 제공하는 이메일 가져오기
+        String email = (String) kakaoAccount.get("email");
+        if (email == null) {
+            throw new IllegalArgumentException("카카오 계정에 이메일 정보가 없습니다.");
+        }
+
         String nickname = (String) properties.get("nickname");
-        String email = nickname + "@kakao.com"; // 임시 이메일 생성
 
         // 사용자 정보 저장 또는 업데이트
         User user = saveOrUpdateUser(email, nickname);
