@@ -15,6 +15,7 @@ public class BookmarkConverter {
                 .id(bookmark.getId())
                 .userId(bookmark.getUser().getId())
                 .clothId(bookmark.getCloth().getId())
+                .isBookmarked(true)
                 .build();
     }
 

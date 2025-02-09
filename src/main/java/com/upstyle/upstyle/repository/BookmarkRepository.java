@@ -17,4 +17,6 @@ public interface BookmarkRepository extends JpaRepository<ClothBookmark, Long> {
             "AND (:kindId IS NULL OR b.cloth.kind.id = :kindId) " +
             "ORDER BY b.createdAt DESC")
     Page<ClothBookmark> findBookmarkedClothes(@Param("userId") Long userId, @Param("kindId") Long kindId, Pageable pageable);
+
+    ClothBookmark findByUserIdAndClothId(Long userId, Long clothId);
 }

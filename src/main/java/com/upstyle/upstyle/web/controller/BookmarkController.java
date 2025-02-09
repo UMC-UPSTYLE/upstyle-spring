@@ -22,7 +22,7 @@ public class BookmarkController {
     private final BookmarkQueryService bookmarkQueryService;
 
     @PostMapping(value = "/")
-    @Operation(summary = "북마크 저장 API")
+    @Operation(summary = "북마크 저장/취소 API")
     public ApiResponse<BookmarkResponseDTO.AddBookmarkResultDTO> addBookmark(
             @RequestBody @Valid BookmarkRequestDTO.AddBookmarkDTO request)
     {

@@ -36,6 +36,20 @@ public class BookmarkCommandServiceImpl implements BookmarkCommandService {
         Cloth cloth = clothRepository.findById(bookmarkRequest.getClothId())
                 .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_ID_NOT_FOUND));
 
+        // 이미 북마크되어 있는지 확인
+        ClothBookmark existingBookmark = bookmarkRepository.findByUserIdAndClothId(bookmarkRequest.getUserId(), bookmarkRequest.getClothId());
+
+        if (existingBookmark != null) {
+            // 이미 북마크되어 있으면 삭제
+            bookmarkRepository.delete(existingBookmark);
+            return BookmarkResponseDTO.AddBookmarkResultDTO.builder()
+                    .id(existingBookmark.getId())
+                    .userId(user.getId())
+                    .clothId(cloth.getId())
+                    .isBookmarked(false)
+                    .build();  // 삭제 후 정보 반환
+        }
+
         // 가장 최근 OOTD 찾기
         Ootd latestOotd = ootdRepository.findLatestOotdByClothId(bookmarkRequest.getClothId());
 

@@ -14,6 +14,7 @@ public class BookmarkResponseDTO {
         private Long id;
         private Long userId;
         private Long clothId;
+        private Boolean isBookmarked;
     }
 
     @Builder
