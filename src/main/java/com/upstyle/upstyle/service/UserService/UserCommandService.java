@@ -5,4 +5,6 @@ import com.upstyle.upstyle.web.dto.UserRequestDTO;
 
 public interface UserCommandService {
     User updateUserInfo(String email, UserRequestDTO.AdditionalInfoRequestDTO additionalInfoRequestDTO);
+    User updateNickname(String email, String newNickname);
+
 }

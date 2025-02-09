@@ -1,6 +1,7 @@
 package com.upstyle.upstyle.converter;
 
 import com.upstyle.upstyle.domain.User;
+import com.upstyle.upstyle.domain.enums.Gender;
 import com.upstyle.upstyle.web.dto.UserRequestDTO;
 import com.upstyle.upstyle.web.dto.UserResponseDTO;
 
@@ -24,5 +25,22 @@ public class UserConverter {
         user.setGender(additionalInfoRequestDTO.getGender());
         user.setHeight(additionalInfoRequestDTO.getHeight());
         user.setWeight(additionalInfoRequestDTO.getWeight());
+    }
+
+    public static UserResponseDTO.AccountInfoDTO toAccountInfoDTO(User user) {
+        return UserResponseDTO.AccountInfoDTO.builder()
+                .nickname(user.getNickname())
+                .email(user.getEmail())
+                .build();
+    }
+
+    public static UserResponseDTO.MyhomeInfoDTO toMyhomeInfoDTO(User user) {
+        return UserResponseDTO.MyhomeInfoDTO.builder()
+                .email(user.getEmail())
+                .nickname(user.getNickname())
+                .height(user.getHeight())
+                .weight(user.getWeight())
+                .gender(user.getGender())
+                .build();
     }
 }

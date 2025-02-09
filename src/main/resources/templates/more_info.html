@@ -13,7 +13,7 @@
 
             const token = localStorage.getItem('jwt'); // JWT를 localStorage에서 가져옴
 
-            fetch('http://localhost:8080/users/additional-info', {
+            fetch('http://ec2-3-37-185-8.ap-northeast-2.compute.amazonaws.com:8080/users/additional-info', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
