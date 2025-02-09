@@ -45,6 +45,7 @@ public class OotdController {
     }
 
     @GetMapping("/calendar")
+    @Operation(summary = "캘린더 조회 API")
     public ApiResponse<OotdResponseDTO.CalendarResponseDTO> getDateOotd(@RequestParam(value = "userId") Long userId,
                                                                         @RequestParam(value = "year") int year,
                                                                         @RequestParam(value = "month") int month){
