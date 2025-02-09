@@ -26,10 +26,10 @@ spring:
             client-authentication-method: client_secret_post
             client-id: ${KAKAO_CLIENT_ID}
             client-secret: ${KAKAO_CLIENT_SECRET}
-            #redirect-uri: http://localhost:8080/login/oauth2/code/kakao
-            redirect-uri: http://ec2-3-37-185-8.ap-northeast-2.compute.amazonaws.com:8080/login/oauth2/code/kakao
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+            #redirect-uri: http://ec2-3-37-185-8.ap-northeast-2.compute.amazonaws.com:8080/login/oauth2/code/kakao
             authorization-grant-type: authorization_code
-            scope: profile_nickname
+            scope: profile_nickname, account_email
             client-name: Kakao
         provider:
           kakao:
@@ -50,3 +50,7 @@ cloud:
     credentials:
       accessKey: ${AWS_ACCESS_KEY}
       secretKey: ${AWS_SECRET_KEY}
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.upstyle: DEBUG
