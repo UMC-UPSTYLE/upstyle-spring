@@ -18,6 +18,7 @@ public class VoteConverter {
         vote.setUser(user);
         vote.setTitle(request.getTitle());
         vote.setBody(request.getBody());
+        vote.setImageUrl(request.getImageUrl());
         return vote;
     }
 
@@ -41,6 +42,7 @@ public class VoteConverter {
                 .id(vote.getId())
                 .title(vote.getTitle())
                 .body(vote.getBody())
+                .imageUrl(vote.getImageUrl())
                 .user(VoteResponseDTO.User.builder()
                         .id(vote.getUser().getId())
                         .nickname(vote.getUser().getNickname())

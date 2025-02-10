@@ -16,6 +16,7 @@ public class VoteRequestDTO {
         private Long userId;
         private String title;
         private String body;
+        private String imageUrl;
         private List<VoteRequestDTO.AddVoteOptionDTO> optionList;
     }
 
