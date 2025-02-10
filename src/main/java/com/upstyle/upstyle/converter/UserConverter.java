@@ -29,13 +29,6 @@ public class UserConverter {
 
     public static UserResponseDTO.AccountInfoDTO toAccountInfoDTO(User user) {
         return UserResponseDTO.AccountInfoDTO.builder()
-                .nickname(user.getNickname())
-                .email(user.getEmail())
-                .build();
-    }
-
-    public static UserResponseDTO.MyhomeInfoDTO toMyhomeInfoDTO(User user) {
-        return UserResponseDTO.MyhomeInfoDTO.builder()
                 .email(user.getEmail())
                 .nickname(user.getNickname())
                 .height(user.getHeight())
@@ -43,4 +36,5 @@ public class UserConverter {
                 .gender(user.getGender())
                 .build();
     }
+
 }
