@@ -1,7 +1,7 @@
 package com.upstyle.upstyle.domain.mapping;
 
 import com.upstyle.upstyle.domain.Cloth;
-import com.upstyle.upstyle.domain.OotdResponse;
+import com.upstyle.upstyle.domain.CodiResponse;
 import com.upstyle.upstyle.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OotdResponseCloth extends BaseEntity {
+public class CodiResponseCloth extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,5 +25,5 @@ public class OotdResponseCloth extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "response_id", nullable = false)
-    private OotdResponse response;
+    private CodiResponse response;
 }

@@ -24,6 +24,10 @@ public class QUser extends EntityPathBase<User> {
 
     public final ListPath<com.upstyle.upstyle.domain.mapping.ClothBookmark, com.upstyle.upstyle.domain.mapping.QClothBookmark> clothBookmarkList = this.<com.upstyle.upstyle.domain.mapping.ClothBookmark, com.upstyle.upstyle.domain.mapping.QClothBookmark>createList("clothBookmarkList", com.upstyle.upstyle.domain.mapping.ClothBookmark.class, com.upstyle.upstyle.domain.mapping.QClothBookmark.class, PathInits.DIRECT2);
 
+    public final ListPath<CodiRequest, QCodiRequest> codiRequestList = this.<CodiRequest, QCodiRequest>createList("codiRequestList", CodiRequest.class, QCodiRequest.class, PathInits.DIRECT2);
+
+    public final ListPath<CodiResponse, QCodiResponse> codiResponseList = this.<CodiResponse, QCodiResponse>createList("codiResponseList", CodiResponse.class, QCodiResponse.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
@@ -42,10 +46,6 @@ public class QUser extends EntityPathBase<User> {
     public final StringPath nickname = createString("nickname");
 
     public final ListPath<Ootd, QOotd> ootdList = this.<Ootd, QOotd>createList("ootdList", Ootd.class, QOotd.class, PathInits.DIRECT2);
-
-    public final ListPath<OotdRequest, QOotdRequest> ootdRequestList = this.<OotdRequest, QOotdRequest>createList("ootdRequestList", OotdRequest.class, QOotdRequest.class, PathInits.DIRECT2);
-
-    public final ListPath<OotdResponse, QOotdResponse> ootdResponseList = this.<OotdResponse, QOotdResponse>createList("ootdResponseList", OotdResponse.class, QOotdResponse.class, PathInits.DIRECT2);
 
     public final StringPath password = createString("password");
 

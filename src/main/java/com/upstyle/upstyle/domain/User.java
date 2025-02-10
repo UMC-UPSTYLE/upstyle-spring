@@ -6,7 +6,6 @@ import com.upstyle.upstyle.domain.mapping.ClothBookmark;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -72,11 +71,11 @@ public class User extends BaseEntity {
 
     @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<OotdRequest> ootdRequestList = new ArrayList<>();
+    private List<CodiRequest> codiRequestList = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<OotdResponse> ootdResponseList = new ArrayList<>();
+    private List<CodiResponse> codiResponseList = new ArrayList<>();
 
     public void encodePassword(String password) {
         this.password = password;
