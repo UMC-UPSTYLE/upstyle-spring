@@ -47,10 +47,10 @@ public class CodiReqConverter {
 
     public static CodiResResponseDTO.CodiResViewDTO toCodiResViewDTO(CodiResponse codiRes){
         //아이디, 바디, 이미지url, clothResponseLIst, 닉네임
-        List<CodiResResponseDTO.ClothResponseDTO> clothList = codiRes.getCodiResponseClothList().stream()
+        List<CodiResResponseDTO.CodiClothResponseDTO> clothList = codiRes.getCodiResponseClothList().stream()
                 .map(CodiResponseCloth -> {
                     Cloth cloth = CodiResponseCloth.getCloth();
-                    return CodiResResponseDTO.ClothResponseDTO.builder()
+                    return CodiResResponseDTO.CodiClothResponseDTO.builder()
                             .id(cloth.getId())
                             .kindName(cloth.getKind().getName())
                             .categoryName(cloth.getCategory().getName())
@@ -61,7 +61,10 @@ public class CodiReqConverter {
 
         return new CodiResResponseDTO.CodiResViewDTO().builder()
                 .id(codiRes.getId())
-                .nickname(codiRes.getUser().getNickname())
+                .user(CodiResResponseDTO.User.builder()
+                        .id(codiRes.getUser().getId())
+                        .nickname(codiRes.getUser().getNickname())
+                        .build())
                 .body(codiRes.getBody())
                 .ImageUrl(Optional.ofNullable(codiRes.getImageUrl()).orElse(null))
                 .clothResponseList(clothList)
@@ -85,17 +88,22 @@ public class CodiReqConverter {
                 .map(CodiResponse -> {
                     return CodiReqResponseDTO.CodiResPreviewDTO.builder()
                             .id(CodiResponse.getId())
-                            .userid(CodiResponse.getUser().getId())
-                            .nickname(CodiResponse.getUser().getNickname())
+                            .user(CodiReqResponseDTO.User.builder()
+                                    .id(CodiResponse.getUser().getId())
+                                    .nickname(CodiResponse.getUser().getNickname())
+                                    .build())
                             .build();
                 }).collect(Collectors.toList());
 
         return CodiReqResponseDTO.CodiReqDetailviewDTO.builder()
                 .id(Codireq.getId())
                 .title(Codireq.getTitle())
-                .nickname(Codireq.getUser().getNickname())
-                .Body(Codireq.getBody())
+                .body(Codireq.getBody())
                 .ImageUrl(Optional.ofNullable(Codireq.getImageUrl()).orElse(null))
+                .user(CodiReqResponseDTO.User.builder()
+                        .id(Codireq.getUser().getId())
+                        .nickname(Codireq.getUser().getNickname())
+                        .build())
                 .codiResPreviewList(CodiResList)
                 .build();
 
