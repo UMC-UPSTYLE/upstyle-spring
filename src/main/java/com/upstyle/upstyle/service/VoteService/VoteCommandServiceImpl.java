@@ -38,6 +38,7 @@ public class VoteCommandServiceImpl implements VoteCommandService{
         vote.setUser(user);
         vote.setTitle(voteRequestDTO.getTitle());
         vote.setBody(voteRequestDTO.getBody());
+        vote.setImageUrl(voteRequestDTO.getImageUrl());
         vote = voteRepository.save(vote);  // 저장 후 업데이트된 객체 받기
 
         // VoteOption 저장 로직
