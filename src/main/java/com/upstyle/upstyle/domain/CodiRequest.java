@@ -1,12 +1,12 @@
 package com.upstyle.upstyle.domain;
 
 import com.upstyle.upstyle.domain.common.BaseEntity;
-import com.upstyle.upstyle.domain.mapping.OotdResponseCloth;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,22 +16,28 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OotdResponse extends BaseEntity {
+public class CodiRequest extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "TEXT")
-    private String body;
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "request_id", nullable = false)
-    private OotdRequest request;
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String body;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "response", cascade = CascadeType.ALL)
-    private List<OotdResponseCloth> ootdResponseClothList = new ArrayList<>();
+    @Column(nullable = true)
+    private String imageUrl;
+
+    @Column(nullable = false)
+    @ColumnDefault("0")
+    private Integer responseCount = 0;
+
+    @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
+    private List<CodiResponse> codiResponseList = new ArrayList<>();
 }

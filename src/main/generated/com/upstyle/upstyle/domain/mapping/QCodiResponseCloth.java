@@ -11,16 +11,16 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QOotdResponseCloth is a Querydsl query type for OotdResponseCloth
+ * QCodiResponseCloth is a Querydsl query type for CodiResponseCloth
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QOotdResponseCloth extends EntityPathBase<OotdResponseCloth> {
+public class QCodiResponseCloth extends EntityPathBase<CodiResponseCloth> {
 
-    private static final long serialVersionUID = 2129197244L;
+    private static final long serialVersionUID = -2104435525L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QOotdResponseCloth ootdResponseCloth = new QOotdResponseCloth("ootdResponseCloth");
+    public static final QCodiResponseCloth codiResponseCloth = new QCodiResponseCloth("codiResponseCloth");
 
     public final com.upstyle.upstyle.domain.common.QBaseEntity _super = new com.upstyle.upstyle.domain.common.QBaseEntity(this);
 
@@ -31,31 +31,31 @@ public class QOotdResponseCloth extends EntityPathBase<OotdResponseCloth> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final com.upstyle.upstyle.domain.QOotdResponse response;
+    public final com.upstyle.upstyle.domain.QCodiResponse response;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
-    public QOotdResponseCloth(String variable) {
-        this(OotdResponseCloth.class, forVariable(variable), INITS);
+    public QCodiResponseCloth(String variable) {
+        this(CodiResponseCloth.class, forVariable(variable), INITS);
     }
 
-    public QOotdResponseCloth(Path<? extends OotdResponseCloth> path) {
+    public QCodiResponseCloth(Path<? extends CodiResponseCloth> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QOotdResponseCloth(PathMetadata metadata) {
+    public QCodiResponseCloth(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QOotdResponseCloth(PathMetadata metadata, PathInits inits) {
-        this(OotdResponseCloth.class, metadata, inits);
+    public QCodiResponseCloth(PathMetadata metadata, PathInits inits) {
+        this(CodiResponseCloth.class, metadata, inits);
     }
 
-    public QOotdResponseCloth(Class<? extends OotdResponseCloth> type, PathMetadata metadata, PathInits inits) {
+    public QCodiResponseCloth(Class<? extends CodiResponseCloth> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.cloth = inits.isInitialized("cloth") ? new com.upstyle.upstyle.domain.QCloth(forProperty("cloth"), inits.get("cloth")) : null;
-        this.response = inits.isInitialized("response") ? new com.upstyle.upstyle.domain.QOotdResponse(forProperty("response"), inits.get("response")) : null;
+        this.response = inits.isInitialized("response") ? new com.upstyle.upstyle.domain.QCodiResponse(forProperty("response"), inits.get("response")) : null;
     }
 
 }
