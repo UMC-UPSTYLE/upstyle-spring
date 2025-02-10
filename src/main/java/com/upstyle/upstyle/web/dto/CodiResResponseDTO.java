@@ -12,10 +12,10 @@ public class CodiResResponseDTO {
     @AllArgsConstructor
     public static class CodiResViewDTO {
         private Long id;
-        private String nickname;
+        private CodiResResponseDTO.User user;
         private String body;
         private String ImageUrl;
-        private List<ClothResponseDTO> clothResponseList;
+        private List<CodiClothResponseDTO> clothResponseList;
     }
 
     @Builder
@@ -23,7 +23,7 @@ public class CodiResResponseDTO {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ClothResponseDTO {
+    public static class CodiClothResponseDTO {
         Long id;
         String kindName;
         String categoryName;
@@ -53,5 +53,15 @@ public class CodiResResponseDTO {
         Long totalElements;
         Boolean isFirst;
         Boolean isLast;
+    }
+
+    @Builder
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class User{
+        private Long id;
+        private String nickname;
     }
 }

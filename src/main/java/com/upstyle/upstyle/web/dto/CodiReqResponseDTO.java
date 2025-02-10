@@ -36,9 +36,9 @@ public class CodiReqResponseDTO {
     public static class CodiReqDetailviewDTO{
         private Long id;
         private String title;
-        private String nickname;
-        private String Body;
+        private String body;
         private String ImageUrl;
+        private CodiReqResponseDTO.User user;
         private List<CodiReqResponseDTO.CodiResPreviewDTO> codiResPreviewList;
     }
 
@@ -49,7 +49,16 @@ public class CodiReqResponseDTO {
     @AllArgsConstructor
     public static class CodiResPreviewDTO{
         private Long id;
-        private Long userid;
+        private CodiReqResponseDTO.User user;
+    }
+
+    @Builder
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class User{
+        private Long id;
         private String nickname;
     }
 
