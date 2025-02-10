@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/ootd-request")
+@RequestMapping("/ootd-requests")
 @RequiredArgsConstructor
 @Validated
 public class CodiReqController {
@@ -51,7 +51,7 @@ public class CodiReqController {
         return ApiResponse.onSuccess(CodiReqDTO);
     }
 
-    @GetMapping(value = "/{responseId}")
+    @GetMapping(value = "/response/{responseId}")
     @Operation(summary = "특정 코디요청 글의 특정 댓글 상세보기 API")
     public ApiResponse<CodiResResponseDTO.CodiResViewDTO> getCodiresResView(@PathVariable(value = "responseId") Long responseId) {
         CodiResResponseDTO.CodiResViewDTO CodiResDTO = codiReqQueryService.getCodiResponse(responseId);

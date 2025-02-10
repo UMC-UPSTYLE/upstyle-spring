@@ -43,8 +43,8 @@ public class UserController {
         return ApiResponse.onSuccess(UserConverter.toUserInfoDTO(updatedUser));
     }
 
-    @GetMapping("/account")
-    @Operation(summary = "계정 정보 조회 API")
+    @GetMapping("/")
+    @Operation(summary = "유저 정보 조회 API")
     public ApiResponse<UserResponseDTO.AccountInfoDTO> getAccountInfo(Authentication authentication) {
         // 현재 로그인한 사용자의 OAuth2User 정보 가져오기
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
