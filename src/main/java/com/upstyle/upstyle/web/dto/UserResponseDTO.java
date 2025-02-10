@@ -24,21 +24,13 @@ public class UserResponseDTO {
     @AllArgsConstructor
     @Builder
     public static class AccountInfoDTO {
-        private String nickname;
-        private String email;
-    }
-
-    @Getter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class MyhomeInfoDTO {
         private String email;
         private String nickname;
         private Float height;
         private Float weight;
         private Gender gender;
     }
+
 
     @Getter
     @AllArgsConstructor
