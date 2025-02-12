@@ -17,10 +17,6 @@ public class UserViewController {
         return "login";
     }
 
-    @GetMapping("/more_info")
-    public String moreInfoPage() {
-        return "more_info"; // resources/templates/more_info.html
-    }
 
     @GetMapping("/home")
     public String home() {

@@ -52,7 +52,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         User user = saveOrUpdateUser(email, nickname);
 
         // 카카오 액세스 토큰 가져오기
-        String kakaoAccessToken = userRequest.getAccessToken().getTokenValue();
 
         String jwt = tokenService.generateToken(user.getNickname(), user.getEmail(), user.getRole().name());
 
@@ -60,7 +59,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         Map<String, Object> modifiedAttributes = new HashMap<>(attributes);
         modifiedAttributes.put("email", email);
         modifiedAttributes.put("jwt", jwt);
-        modifiedAttributes.put("kakao_access_token", kakaoAccessToken);  // 카카오 액세스 토큰 추가
 
 
         return new DefaultOAuth2User(

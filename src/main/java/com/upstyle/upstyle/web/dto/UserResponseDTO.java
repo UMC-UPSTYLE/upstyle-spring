@@ -1,5 +1,6 @@
 package com.upstyle.upstyle.web.dto;
 
+import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.domain.enums.Gender;
 import lombok.*;
 
@@ -29,6 +30,17 @@ public class UserResponseDTO {
         private Float height;
         private Float weight;
         private Gender gender;
+
+        public static AccountInfoDTO fromEntity(User user) {
+            return AccountInfoDTO.builder()
+                    .email(user.getEmail())
+                    .nickname(user.getNickname())
+                    .gender(user.getGender())
+                    .weight(user.getWeight())
+                    .height(user.getHeight())
+                    .build();
+        }
+
     }
 
 
