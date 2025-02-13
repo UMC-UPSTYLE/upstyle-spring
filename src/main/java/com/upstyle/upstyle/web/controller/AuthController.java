@@ -24,6 +24,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -61,21 +62,36 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    @Operation(summary = "카카오 로그아웃 API")
+    @Operation(summary = "카카오 로그아웃 API(로그아웃은 Authorization header값이 jwt가 아닌 accessToken입니다.)")
     public ApiResponse<String> kakaoLogout(@RequestHeader("Authorization") String accessToken) {
         String kakaoLogoutUrl = "https://kapi.kakao.com/v1/user/logout";
 
+        // Token이 올바르게 설정되었는지 로그로 확인
+        System.out.println("📌 Kakao Access Token: " + accessToken);
+
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", accessToken.startsWith("Bearer ") ? accessToken : "Bearer " + accessToken);
-        HttpEntity<String> request = new HttpEntity<>(headers);
-        ResponseEntity<String> response = restTemplate.exchange(kakaoLogoutUrl, HttpMethod.POST, request, String.class);
 
-        if (response.getStatusCode() == HttpStatus.OK) {
-            SecurityContextHolder.clearContext(); // Spring Security 컨텍스트 초기화
-            return ApiResponse.onSuccess("로그아웃 성공");
-        } else {
-            throw new RuntimeException("카카오 로그아웃 실패");
+        // Bearer 토큰 포맷 설정
+        headers.set("Authorization", accessToken.startsWith("Bearer ") ? accessToken : "Bearer " + accessToken);
+
+        HttpEntity<String> request = new HttpEntity<>(headers);
+
+        try {
+            // API 요청 보내기
+            ResponseEntity<String> response = restTemplate.exchange(kakaoLogoutUrl, HttpMethod.POST, request, String.class);
+
+            // 성공 여부에 따른 처리
+            if (response.getStatusCode() == HttpStatus.OK) {
+                SecurityContextHolder.clearContext(); // Spring Security 컨텍스트 초기화
+                return ApiResponse.onSuccess("로그아웃 성공");
+            } else {
+                throw new RuntimeException("카카오 로그아웃 실패, 응답 코드: " + response.getStatusCode());
+            }
+        } catch (HttpClientErrorException e) {
+            // 401 오류 발생 시 로그를 통해 원인 파악
+            System.out.println("❌ 카카오 로그아웃 실패, 오류 메시지: " + e.getMessage());
+            throw new RuntimeException("카카오 로그아웃 실패", e);
         }
     }
 }
