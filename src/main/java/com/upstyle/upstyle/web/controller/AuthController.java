@@ -3,8 +3,11 @@ package com.upstyle.upstyle.web.controller;
 import com.upstyle.upstyle.apiPayload.ApiResponse;
 import com.upstyle.upstyle.converter.UserConverter;
 import com.upstyle.upstyle.domain.User;
+import com.upstyle.upstyle.service.AuthService.KakaoAuthService;
 import com.upstyle.upstyle.service.UserService.UserCommandService;
 import com.upstyle.upstyle.web.dto.AuthResponseDTO;
+import com.upstyle.upstyle.web.dto.KakaoTokenResponse;
+import com.upstyle.upstyle.web.dto.KakaoUserInfoResponseDto;
 import com.upstyle.upstyle.web.dto.UserResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -32,25 +35,29 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class AuthController {
 
     private final UserCommandService userCommandService;
+    private final KakaoAuthService kakaoAuthService;
 
+    @GetMapping("/kakao/login")
+    @Operation(summary = "사용 X")
+    public ResponseEntity<String> redirectToKakaoLogin() {
+        String kakaoLoginUrl = kakaoAuthService.getKakaoLoginUrl();
+        return ResponseEntity.status(HttpStatus.FOUND).header("Location", kakaoLoginUrl).build();
+    }
 
-    @GetMapping("/login/kakao")
-    @Operation(summary = "카카오 로그인 후 jwt 반환")
-    public ApiResponse<AuthResponseDTO.KakaoJwtDTO> kakaoLogin( OAuth2AuthenticationToken authenticationToken, @AuthenticationPrincipal OAuth2User oAuth2User) {
+    // 인가 코드 받아서 액세스 토큰 발급
+    @GetMapping("/kakao/callback")
+    @Operation(summary = "인가코드 요청해서 액세스 토큰 응답받음")
+    public ResponseEntity<KakaoTokenResponse> getKakaoToken(@RequestParam("code") String code) {
+        KakaoTokenResponse tokenResponse = kakaoAuthService.getAccessToken(code);
+        return ResponseEntity.ok(tokenResponse);
+    }
 
-        // JWT 토큰 가져오기 (기존 로직 유지)
-        String jwt = (String) oAuth2User.getAttributes().get("jwt");
-
-        // OAuth2 인증 객체에서 카카오 액세스 토큰 가져오기
-//
-//        if (kakaoAccessToken == null) {
-//            throw new RuntimeException("카카오 액세스 토큰을 가져올 수 없습니다.");
-//        }
-
-        return ApiResponse.onSuccess(AuthResponseDTO.KakaoJwtDTO.builder()
-                .jwt(jwt)
-                //.kakaoAccessToken(kakaoAccessToken)
-                .build());
+    @GetMapping("/kakao/loginJWT")
+    @Operation(summary = "액세스 토큰으로 사용자 정보 받고 저장 후 jwt토큰으로 반환")
+    public ResponseEntity<String> loginWithKakao(@RequestParam("access_token") String accessToken) {
+        // 카카오 액세스 토큰으로 JWT 토큰 발급
+        String jwtToken = kakaoAuthService.loginWithKakao(accessToken);
+        return ResponseEntity.ok(jwtToken);
     }
 
     @PostMapping("/logout")
@@ -60,8 +67,7 @@ public class AuthController {
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + accessToken);
-
+        headers.set("Authorization", accessToken.startsWith("Bearer ") ? accessToken : "Bearer " + accessToken);
         HttpEntity<String> request = new HttpEntity<>(headers);
         ResponseEntity<String> response = restTemplate.exchange(kakaoLogoutUrl, HttpMethod.POST, request, String.class);
 
