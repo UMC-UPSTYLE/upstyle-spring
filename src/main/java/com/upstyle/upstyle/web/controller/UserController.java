@@ -34,10 +34,13 @@ public class UserController {
     @Operation(summary = "사용자 추가 정보 입력 API")
     public ApiResponse<UserResponseDTO.UserInfoDTO> addAdditionalInfo(
             @RequestBody @Valid UserRequestDTO.AdditionalInfoRequestDTO additionalInfoRequestDTO,
-            Authentication authentication) {
+            @RequestHeader("Authorization") String authorizationHeader) {
 
-        // 이메일을 attributes에서 가져오기
-        String email = jwtTokenProvider.getEmail(authentication.getName());
+        // Authorization 헤더에서 "Bearer" 제거하고 JWT 토큰만 추출
+        String token = authorizationHeader.replace("Bearer ", "");
+
+        // 이메일 추출
+        String email = jwtTokenProvider.getEmail(token); // 토큰에서 이메일 추출
 
         // 추가 정보 저장 후 업데이트된 사용자 정보 가져오기
         User updatedUser = userCommandService.updateUserInfo(email, additionalInfoRequestDTO);
@@ -48,11 +51,14 @@ public class UserController {
 
     @GetMapping("/")
     @Operation(summary = "유저 정보 조회 API")
-    public ApiResponse<UserResponseDTO.AccountInfoDTO> getAccountInfo(Authentication authentication) {
+    public ApiResponse<UserResponseDTO.AccountInfoDTO> getAccountInfo(
+            @RequestHeader("Authorization") String authorizationHeader) {
 
-        // 이메일을 attributes에서 가져오기
-        String email = jwtTokenProvider.getEmail(authentication.getName());
+        // Authorization 헤더에서 "Bearer" 제거하고 JWT 토큰만 추출
+        String token = authorizationHeader.replace("Bearer ", "");
 
+        // 이메일 추출
+        String email = jwtTokenProvider.getEmail(token); // 토큰에서 이메일 추출
 
         // 사용자 정보 조회
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
@@ -66,9 +72,13 @@ public class UserController {
     @Operation(summary = "닉네임 변경 API")
     public ApiResponse<UserResponseDTO.NicknameDTO> updateNickname(
             @RequestBody @Valid UserRequestDTO.NicknameRequestDTO requestDTO,
-            Authentication authentication) {
+            @RequestHeader("Authorization") String authorizationHeader) {
 
-        String email = jwtTokenProvider.getEmail(authentication.getName());
+        // Authorization 헤더에서 "Bearer" 제거하고 JWT 토큰만 추출
+        String token = authorizationHeader.replace("Bearer ", "");
+
+        // 이메일 추출
+        String email = jwtTokenProvider.getEmail(token); // 토큰에서 이메일 추출
 
         // 닉네임 변경
         User updatedUser = userCommandService.updateNickname(email, requestDTO.getNickname());
