@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/ootd-request")
+@RequestMapping("/codi-requests")
 @RequiredArgsConstructor
 @Validated
 public class CodiReqController {
@@ -36,6 +36,13 @@ public class CodiReqController {
         return ApiResponse.onSuccess(previewList);
     }
 
+    @GetMapping(value = "/{requestId}")
+    @Operation(summary = "코디요청 글 상세 보기 API")
+    public ApiResponse<CodiReqResponseDTO.CodiReqDetailviewDTO> getCodiReqDetailView(@PathVariable(value = "requestId") Long requestId) {
+        CodiReqResponseDTO.CodiReqDetailviewDTO CodiReqDTO = codiReqQueryService.getCodiReqDetailview(requestId);
+        return ApiResponse.onSuccess(CodiReqDTO);
+    }
+
     @PostMapping(value = "/{requestId}/response", consumes = "application/json")
     @Operation(summary = "코디요청 응답 작성 API")
     public ApiResponse<CodiResResponseDTO.CodiResViewDTO> createCodiresponse(@PathVariable(value = "requestId") Long requestId, @RequestBody CodiResRequestDTO.addCodiResDTO CodiResRequestDTO) {
@@ -44,15 +51,8 @@ public class CodiReqController {
         return ApiResponse.onSuccess(CodiReqConverter.toCodiResViewDTO(codiResponse));
     }
 
-    @GetMapping(value = "/{requestId}")
-    @Operation(summary = "특정 코디요청 글 상세보기 API")
-    public ApiResponse<CodiReqResponseDTO.CodiReqDetailviewDTO> getCodiReqDetailView(@PathVariable(value = "requestId") Long requestId) {
-        CodiReqResponseDTO.CodiReqDetailviewDTO CodiReqDTO = codiReqQueryService.getCodiReqDetailview(requestId);
-        return ApiResponse.onSuccess(CodiReqDTO);
-    }
-
-    @GetMapping(value = "/{responseId}")
-    @Operation(summary = "특정 코디요청 글의 특정 댓글 상세보기 API")
+    @GetMapping(value = "/response/{responseId}")
+    @Operation(summary = "코디요청 글의 특정 응답 상세 보기 API")
     public ApiResponse<CodiResResponseDTO.CodiResViewDTO> getCodiresResView(@PathVariable(value = "responseId") Long responseId) {
         CodiResResponseDTO.CodiResViewDTO CodiResDTO = codiReqQueryService.getCodiResponse(responseId);
         return ApiResponse.onSuccess(CodiResDTO);

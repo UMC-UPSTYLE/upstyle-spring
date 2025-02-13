@@ -15,6 +15,7 @@ public class VoteResponseDTO {
         private VoteResponseDTO.User user;
         private String title;
         private String body;
+        private String imageUrl;
         private List<VoteResponseDTO.VoteOptionDTO> optionList;
     }
 
