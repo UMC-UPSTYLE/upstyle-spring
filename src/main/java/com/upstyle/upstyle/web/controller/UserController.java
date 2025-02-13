@@ -1,6 +1,7 @@
 package com.upstyle.upstyle.web.controller;
 
 import com.upstyle.upstyle.apiPayload.ApiResponse;
+import com.upstyle.upstyle.config.security.JwtTokenProvider;
 import com.upstyle.upstyle.converter.UserConverter;
 import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.repository.UserRepository;
@@ -27,7 +28,7 @@ public class UserController {
 
     private final UserCommandService userCommandService;
     private final UserRepository userRepository;
-    private final TokenService tokenService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/additional-info")
     @Operation(summary = "사용자 추가 정보 입력 API")
@@ -36,7 +37,7 @@ public class UserController {
             Authentication authentication) {
 
         // 이메일을 attributes에서 가져오기
-        String email = tokenService.getEmail(authentication.getName());
+        String email = jwtTokenProvider.getEmail(authentication.getName());
 
         // 추가 정보 저장 후 업데이트된 사용자 정보 가져오기
         User updatedUser = userCommandService.updateUserInfo(email, additionalInfoRequestDTO);
@@ -48,11 +49,10 @@ public class UserController {
     @GetMapping("/")
     @Operation(summary = "유저 정보 조회 API")
     public ApiResponse<UserResponseDTO.AccountInfoDTO> getAccountInfo(Authentication authentication) {
-        // 현재 로그인한 사용자의 OAuth2User 정보 가져오기
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
 
         // 이메일을 attributes에서 가져오기
-        String email = (String) oAuth2User.getAttributes().get("email");
+        String email = jwtTokenProvider.getEmail(authentication.getName());
+
 
         // 사용자 정보 조회
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
@@ -68,11 +68,7 @@ public class UserController {
             @RequestBody @Valid UserRequestDTO.NicknameRequestDTO requestDTO,
             Authentication authentication) {
 
-        // 현재 로그인한 사용자의 OAuth2User 정보 가져오기
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-
-        // 이메일을 attributes에서 가져오기
-        String email = (String) oAuth2User.getAttributes().get("email");
+        String email = jwtTokenProvider.getEmail(authentication.getName());
 
         // 닉네임 변경
         User updatedUser = userCommandService.updateNickname(email, requestDTO.getNickname());
