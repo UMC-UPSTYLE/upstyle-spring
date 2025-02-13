@@ -1,5 +1,6 @@
 package com.upstyle.upstyle.config.security;
 
+import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.service.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -42,9 +43,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             boolean isValid = tokenService.validateToken(token);
             System.out.println("📌 Is Token Valid?: " + isValid); // 🚀 로그 추가
 
+
             if (isValid) {
                 String email = tokenService.getEmail(token);
                 if (email != null) {
+
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(email, null, new ArrayList<>());
                     SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -52,8 +55,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 } else {
                     System.out.println("❌ Failed to extract email from token"); // 🚀 로그 추가
                 }
-            } else {
-                System.out.println("❌ Token validation failed"); // 🚀 로그 추가
             }
         }
 

@@ -38,7 +38,6 @@ public class AuthController {
     private final KakaoAuthService kakaoAuthService;
 
     @GetMapping("/kakao/login")
-    @Operation(summary = "인가코드 받기 위한 uri제공하는, 사용하지 않는 controller()")
     public ResponseEntity<String> redirectToKakaoLogin() {
         String kakaoLoginUrl = kakaoAuthService.getKakaoLoginUrl();
         return ResponseEntity.status(HttpStatus.FOUND).header("Location", kakaoLoginUrl).build();
@@ -46,14 +45,12 @@ public class AuthController {
 
     // 인가 코드 받아서 액세스 토큰 발급
     @GetMapping("/kakao/callback")
-    @Operation(summary = "인가코드를 보내서 AccessToken을 반환받음")
     public ResponseEntity<KakaoTokenResponse> getKakaoToken(@RequestParam("code") String code) {
         KakaoTokenResponse tokenResponse = kakaoAuthService.getAccessToken(code);
         return ResponseEntity.ok(tokenResponse);
     }
 
     @GetMapping("/kakao/loginJWT")
-    @Operation(summary = "AccessToken을 요청받아 사용자 정보를 불러온 뒤 저장하고 정보에 맞는 jwt토큰 반환")
     public ResponseEntity<String> loginWithKakao(@RequestParam("access_token") String accessToken) {
         // 카카오 액세스 토큰으로 JWT 토큰 발급
         String jwtToken = kakaoAuthService.loginWithKakao(accessToken);
@@ -61,7 +58,7 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    @Operation(summary = "카카오 로그아웃 API(아직 전체 구현 X)")
+    @Operation(summary = "카카오 로그아웃 API")
     public ApiResponse<String> kakaoLogout(@RequestHeader("Authorization") String accessToken) {
         String kakaoLogoutUrl = "https://kapi.kakao.com/v1/user/logout";
 

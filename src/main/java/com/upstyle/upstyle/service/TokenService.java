@@ -28,13 +28,18 @@ public class TokenService {
     }
 
     public String generateToken(String nickname, String email, String role) {
-        Claims claims = Jwts.claims();
-        claims.put("email", email);
-        claims.put("nickname", nickname);
-        claims.put("role", role);
+        System.out.println("📌 [generateToken] nickname: " + nickname);
+        System.out.println("📌 [generateToken] email: " + email);
+        System.out.println("📌 [generateToken] role: " + role);
 
-        return Jwts.builder().setClaims(claims)
-                .setSubject(email) // ✅ `sub`에 이메일을 저장
+        Claims claims = Jwts.claims();
+        claims.put("email", email);  // ✅ 이메일 필드 추가
+        claims.put("nickname", nickname);  // ✅ 닉네임 필드 추가
+        claims.put("role", role);  // ✅ 역할 필드 추가
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(email) // ✅ `sub`(subject)에 이메일 저장 (이메일 기반 인증을 고려)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_LENGTH))
                 .signWith(secretKey, SignatureAlgorithm.HS256)
@@ -56,13 +61,16 @@ public class TokenService {
     }
 
     public String getEmail(String token) {
+        System.out.println("📌 [getEmail] 입력된 JWT: " + token); // 🚀 로그 추가
+
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(secretKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-
-        return (String) claims.get("email"); // "email" 필드에서 값 가져오기
+        String email = (String) claims.get("email");
+        System.out.println("📌 [getEmail] 추출된 이메일: " + email); // 🚀 로그 추가
+        return email;
     }
 
 

@@ -114,7 +114,7 @@ public class KakaoAuthService {
         User user = saveOrUpdateUser(email, nickname);
 
         // JWT 토큰 생성 및 반환
-        return tokenService.generateToken(user.getEmail(), user.getNickname(), String.valueOf(user.getRole()));
+        return tokenService.generateToken(user.getNickname(), user.getEmail(), String.valueOf(user.getRole()));
     }
 
     private User saveOrUpdateUser(String email, String nickname) {
