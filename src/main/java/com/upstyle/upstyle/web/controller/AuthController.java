@@ -38,6 +38,7 @@ public class AuthController {
     private final KakaoAuthService kakaoAuthService;
 
     @GetMapping("/kakao/login")
+    @Operation(summary = "사용 X")
     public ResponseEntity<String> redirectToKakaoLogin() {
         String kakaoLoginUrl = kakaoAuthService.getKakaoLoginUrl();
         return ResponseEntity.status(HttpStatus.FOUND).header("Location", kakaoLoginUrl).build();
@@ -45,12 +46,14 @@ public class AuthController {
 
     // 인가 코드 받아서 액세스 토큰 발급
     @GetMapping("/kakao/callback")
+    @Operation(summary = "인가코드 요청해서 액세스 토큰 응답받음")
     public ResponseEntity<KakaoTokenResponse> getKakaoToken(@RequestParam("code") String code) {
         KakaoTokenResponse tokenResponse = kakaoAuthService.getAccessToken(code);
         return ResponseEntity.ok(tokenResponse);
     }
 
     @GetMapping("/kakao/loginJWT")
+    @Operation(summary = "액세스 토큰으로 사용자 정보 받고 저장 후 jwt토큰으로 반환")
     public ResponseEntity<String> loginWithKakao(@RequestParam("access_token") String accessToken) {
         // 카카오 액세스 토큰으로 JWT 토큰 발급
         String jwtToken = kakaoAuthService.loginWithKakao(accessToken);
