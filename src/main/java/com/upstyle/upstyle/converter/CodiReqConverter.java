@@ -52,7 +52,7 @@ public class CodiReqConverter {
                     Cloth cloth = CodiResponseCloth.getCloth();
                     return CodiResResponseDTO.CodiClothResponseDTO.builder()
                             .id(cloth.getId())
-                            .kindName(cloth.getKind().getName())
+                            .kindId(cloth.getKind().getId())
                             .categoryName(cloth.getCategory().getName())
                             .fitName(cloth.getFit().getName())
                             .colorName(cloth.getColor().getName())
