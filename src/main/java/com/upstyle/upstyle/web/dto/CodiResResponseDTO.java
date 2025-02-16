@@ -25,7 +25,7 @@ public class CodiResResponseDTO {
     @AllArgsConstructor
     public static class CodiClothResponseDTO {
         Long id;
-        String kindName;
+        Long kindId;
         String categoryName;
         String fitName;
         String colorName;
