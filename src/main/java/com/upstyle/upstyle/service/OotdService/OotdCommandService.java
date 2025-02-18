@@ -5,5 +5,5 @@ import com.upstyle.upstyle.web.dto.OotdRequestDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface OotdCommandService {
-    Ootd addOotd(OotdRequestDTO.addOotdDTO ootdRequest);
+    Ootd addOotd(Long userId, OotdRequestDTO.addOotdDTO ootdRequest);
 }

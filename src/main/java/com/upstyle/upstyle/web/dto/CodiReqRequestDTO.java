@@ -11,7 +11,6 @@ public class CodiReqRequestDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class AddCodiReqDTO {
-        private Long userId;
         private String title;
         private String body;
         private String ImageUrl;

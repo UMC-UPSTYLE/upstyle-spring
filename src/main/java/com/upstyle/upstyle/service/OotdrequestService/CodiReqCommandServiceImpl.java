@@ -36,8 +36,8 @@ public class CodiReqCommandServiceImpl implements CodiReqCommandService {
 
     @Override
     @Transactional
-    public CodiRequest addCodiReq(CodiReqRequestDTO.AddCodiReqDTO codiReqRequestDTO) {
-        User user = userRepository.findById(codiReqRequestDTO.getUserId())
+    public CodiRequest addCodiReq(Long userId, CodiReqRequestDTO.AddCodiReqDTO codiReqRequestDTO) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
         CodiRequest newCodiRequest = CodiReqConverter.toCodiReqEntity(codiReqRequestDTO, user);
@@ -48,9 +48,9 @@ public class CodiReqCommandServiceImpl implements CodiReqCommandService {
 
     @Override
     @Transactional
-    public CodiResponse addCodiRes(CodiResRequestDTO.addCodiResDTO codiResRequestDTO, Long requestId){
+    public CodiResponse addCodiRes(Long userId, CodiResRequestDTO.addCodiResDTO codiResRequestDTO, Long requestId){
         // User 조회
-        User user = userRepository.findById(codiResRequestDTO.getUserId())
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
         // 코디요청글 조회

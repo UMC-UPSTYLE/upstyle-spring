@@ -23,9 +23,9 @@ public class UserCommandServiceImpl implements UserCommandService {
     private final PasswordEncoder passwordEncoder;
     private static final String NICKNAME_PATTERN = "^[가-힣a-zA-Z0-9]+$";
 
-    public User updateUserInfo(String email, UserRequestDTO.AdditionalInfoRequestDTO additionalInfoRequestDTO) {
+    public User updateUserInfo(Long userId, UserRequestDTO.AdditionalInfoRequestDTO additionalInfoRequestDTO) {
         // 사용자의 정보를 찾아서 업데이트하는 로직
-        User user = userRepository.findByEmail(email)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         user.setNickname(additionalInfoRequestDTO.getNickname());
@@ -38,11 +38,11 @@ public class UserCommandServiceImpl implements UserCommandService {
 
 
     @Transactional
-    public User updateNickname(String email, String newNickname) {
+    public User updateNickname(Long userId, String newNickname) {
         // 닉네임 유효성 검사
         validateNickname(newNickname);
 
-        User user = userRepository.findByEmail(email)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
 
         // 중복 닉네임 검사

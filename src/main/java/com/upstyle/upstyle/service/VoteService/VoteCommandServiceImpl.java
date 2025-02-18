@@ -29,8 +29,8 @@ public class VoteCommandServiceImpl implements VoteCommandService{
 
     @Override
     @Transactional
-    public Vote addVote(VoteRequestDTO.AddVoteDTO voteRequestDTO) {
-        User user = userRepository.findById(voteRequestDTO.getUserId())
+    public Vote addVote(Long userId, VoteRequestDTO.AddVoteDTO voteRequestDTO) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
         // Vote 엔티티 생성 및 저장
@@ -57,9 +57,9 @@ public class VoteCommandServiceImpl implements VoteCommandService{
 
     @Override
     @Transactional
-    public VoteResponseDTO.ResponseVoteResultDTO responseVote(Long voteId, VoteRequestDTO.ResponseVoteDTO responseVoteDTO) {
+    public VoteResponseDTO.ResponseVoteResultDTO responseVote(Long userId, Long voteId, VoteRequestDTO.ResponseVoteDTO responseVoteDTO) {
         // User 조회
-        User user = userRepository.findById(responseVoteDTO.getUserId())
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
         // VoteOption 조회

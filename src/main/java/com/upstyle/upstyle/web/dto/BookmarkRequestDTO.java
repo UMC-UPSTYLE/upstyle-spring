@@ -8,7 +8,6 @@ public class BookmarkRequestDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class AddBookmarkDTO {
-        private Long userId;
         private Long clothId;
     }
 }

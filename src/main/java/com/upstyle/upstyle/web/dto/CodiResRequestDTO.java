@@ -14,7 +14,6 @@ public class CodiResRequestDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class addCodiResDTO {
-        private Long userId;
         private String body;
         private LocalDate date;
         private String imageUrl;

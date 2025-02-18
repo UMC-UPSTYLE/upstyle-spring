@@ -6,8 +6,10 @@ import com.upstyle.upstyle.domain.CodiRequest;
 import com.upstyle.upstyle.domain.CodiResponse;
 import com.upstyle.upstyle.service.OotdrequestService.CodiReqCommandService;
 import com.upstyle.upstyle.service.OotdrequestService.CodiReqQueryService;
+import com.upstyle.upstyle.service.TokenService;
 import com.upstyle.upstyle.web.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +22,20 @@ public class CodiReqController {
 
     private final CodiReqCommandService codiReqCommandService;
     private final CodiReqQueryService codiReqQueryService;
+    private final TokenService tokenService;
 
     @PostMapping(value = "/", consumes = "application/json")
     @Operation(summary = "코디요청 글 작성 API")
-    public ApiResponse<CodiReqResponseDTO.CodiReqPreviewDTO> createCodirequest(@RequestBody CodiReqRequestDTO.AddCodiReqDTO CodiReqRequestDTO) {
-        CodiRequest codiRequest = codiReqCommandService.addCodiReq(CodiReqRequestDTO);
+    public ApiResponse<CodiReqResponseDTO.CodiReqPreviewDTO> createCodirequest(
+            HttpServletRequest request,
+            @RequestBody CodiReqRequestDTO.AddCodiReqDTO codiReqRequestDTO)
+    {
+        String token = request.getHeader("Authorization");
+
+        token = token.substring(7); // "Bearer " 제거
+        Long userId = tokenService.getId(token); // JWT에서 userId 추출
+
+        CodiRequest codiRequest = codiReqCommandService.addCodiReq(userId, codiReqRequestDTO); // userId 전달
         return ApiResponse.onSuccess(CodiReqConverter.toCodiReqPreviewDTO(codiRequest));
     }
 
@@ -45,9 +56,17 @@ public class CodiReqController {
 
     @PostMapping(value = "/{requestId}/response", consumes = "application/json")
     @Operation(summary = "코디요청 응답 작성 API")
-    public ApiResponse<CodiResResponseDTO.CodiResViewDTO> createCodiresponse(@PathVariable(value = "requestId") Long requestId, @RequestBody CodiResRequestDTO.addCodiResDTO CodiResRequestDTO) {
-        CodiResponse codiResponse = codiReqCommandService.addCodiRes(CodiResRequestDTO, requestId);
+    public ApiResponse<CodiResResponseDTO.CodiResViewDTO> createCodiresponse(
+            HttpServletRequest request,
+            @PathVariable(value = "requestId") Long requestId,
+            @RequestBody CodiResRequestDTO.addCodiResDTO codiResRequestDTO)
+    {
+        String token = request.getHeader("Authorization");
 
+        token = token.substring(7); // "Bearer " 제거
+        Long userId = tokenService.getId(token); // JWT에서 userId 추출
+
+        CodiResponse codiResponse = codiReqCommandService.addCodiRes(userId, codiResRequestDTO, requestId); // userId 전달
         return ApiResponse.onSuccess(CodiReqConverter.toCodiResViewDTO(codiResponse));
     }
 

@@ -15,7 +15,6 @@ public class OotdRequestDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class addOotdDTO {
-        private Long userId;
         private LocalDate date;
         private List<String> imageUrls;
         private List<ClothRequestDTO> clothRequestDTOList;

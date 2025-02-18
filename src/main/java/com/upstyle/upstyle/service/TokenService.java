@@ -27,19 +27,21 @@ public class TokenService {
         secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
     }
 
-    public String generateToken(String nickname, String email, String role) {
+    public String generateToken(Long id, String nickname, String email, String role) {
+        System.out.println("📌 [generateToken] id: " + id);
         System.out.println("📌 [generateToken] nickname: " + nickname);
         System.out.println("📌 [generateToken] email: " + email);
         System.out.println("📌 [generateToken] role: " + role);
 
         Claims claims = Jwts.claims();
-        claims.put("email", email);  // ✅ 이메일 필드 추가
-        claims.put("nickname", nickname);  // ✅ 닉네임 필드 추가
-        claims.put("role", role);  // ✅ 역할 필드 추가
+        claims.put("id", id);  // ✅ 사용자 ID 추가
+        claims.put("email", email);  // ✅ 이메일 추가
+        claims.put("nickname", nickname);  // ✅ 닉네임 추가
+        claims.put("role", role);  // ✅ 역할 추가
 
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(email) // ✅ `sub`(subject)에 이메일 저장 (이메일 기반 인증을 고려)
+                .setSubject(email) // ✅ `sub`(subject)에 이메일 저장 (이메일 기반 인증 고려)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_LENGTH))
                 .signWith(secretKey, SignatureAlgorithm.HS256)
@@ -71,6 +73,20 @@ public class TokenService {
         String email = (String) claims.get("email");
         System.out.println("📌 [getEmail] 추출된 이메일: " + email); // 🚀 로그 추가
         return email;
+    }
+
+    public Long getId(String token) {
+        System.out.println("📌 [getId] 입력된 JWT: " + token); // 🚀 로그 추가
+
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        Long id = ((Number) claims.get("id")).longValue(); // ✅ id를 Number로 변환 후 Long으로 캐스팅
+        System.out.println("📌 [getId] 추출된 ID: " + id); // 🚀 로그 추가
+        return id;
     }
 
 
