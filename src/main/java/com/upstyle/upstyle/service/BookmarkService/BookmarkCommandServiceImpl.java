@@ -29,15 +29,15 @@ public class BookmarkCommandServiceImpl implements BookmarkCommandService {
 
     @Override
     @Transactional
-    public BookmarkResponseDTO.AddBookmarkResultDTO addBookmark(BookmarkRequestDTO.AddBookmarkDTO bookmarkRequest) {
-        User user = userRepository.findById(bookmarkRequest.getUserId())
+    public BookmarkResponseDTO.AddBookmarkResultDTO addBookmark(Long userId, BookmarkRequestDTO.AddBookmarkDTO bookmarkRequest) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
         Cloth cloth = clothRepository.findById(bookmarkRequest.getClothId())
                 .orElseThrow(() -> new ClothHandler(ErrorStatus.CLOTH_ID_NOT_FOUND));
 
         // 이미 북마크되어 있는지 확인
-        ClothBookmark existingBookmark = bookmarkRepository.findByUserIdAndClothId(bookmarkRequest.getUserId(), bookmarkRequest.getClothId());
+        ClothBookmark existingBookmark = bookmarkRepository.findByUserIdAndClothId(userId, bookmarkRequest.getClothId());
 
         if (existingBookmark != null) {
             // 이미 북마크되어 있으면 삭제

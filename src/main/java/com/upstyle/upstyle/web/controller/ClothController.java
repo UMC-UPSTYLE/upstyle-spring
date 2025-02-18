@@ -22,7 +22,9 @@ public class ClothController {
     @Operation(summary = "전체 사용자 옷 중 카테고리별 조회 API")
     public ApiResponse<ClothResponseDTO.ClothPreviewListDTO> getClothPreviewList(@RequestParam(value = "kindId", required = false) Long kindId,
                                                                                  @RequestParam(value = "categoryId", required = false) Long categoryId,
-                                                                                 @RequestParam(value = "colorIds", required = false) List<Long> colorId, @RequestParam(value = "fitId", required = false) Long fitId, @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                                                                 @RequestParam(value = "colorIds", required = false) List<Long> colorId,
+                                                                                 @RequestParam(value = "fitId", required = false) Long fitId,
+                                                                                 @RequestParam(value = "page", required = false, defaultValue = "0") int page,
                                                                                  @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
 
         ClothResponseDTO.ClothPreviewListDTO previewList = clothQueryService.getClothPreviewList(kindId, categoryId, colorId, fitId, page, size);

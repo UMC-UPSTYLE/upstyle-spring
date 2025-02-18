@@ -37,8 +37,8 @@ public class OotdCommandServiceImpl implements OotdCommandService {
 
     @Override
     @Transactional
-    public Ootd addOotd(OotdRequestDTO.addOotdDTO ootdRequest) {
-        User user = userRepository.findById(ootdRequest.getUserId())
+    public Ootd addOotd(Long userId, OotdRequestDTO.addOotdDTO ootdRequest) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
 
         // OOTD 생성 및 저장

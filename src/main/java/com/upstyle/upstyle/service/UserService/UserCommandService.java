@@ -4,7 +4,7 @@ import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.web.dto.UserRequestDTO;
 
 public interface UserCommandService {
-    User updateUserInfo(String email, UserRequestDTO.AdditionalInfoRequestDTO additionalInfoRequestDTO);
-    User updateNickname(String email, String newNickname);
+    User updateUserInfo(Long userId, UserRequestDTO.AdditionalInfoRequestDTO additionalInfoRequestDTO);
+    User updateNickname(Long userId, String newNickname);
     User saveOrUpdateUser(String email, String nickName);
 }

@@ -53,7 +53,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         // 카카오 액세스 토큰 가져오기
 
-        String jwt = tokenService.generateToken(user.getNickname(), user.getEmail(), user.getRole().name());
+        String jwt = tokenService.generateToken(user.getId(),user.getNickname(), user.getEmail(), user.getRole().name());
 
 
         Map<String, Object> modifiedAttributes = new HashMap<>(attributes);

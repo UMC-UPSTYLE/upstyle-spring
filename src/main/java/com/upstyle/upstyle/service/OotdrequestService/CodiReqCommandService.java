@@ -5,7 +5,7 @@ import com.upstyle.upstyle.domain.CodiResponse;
 import com.upstyle.upstyle.web.dto.*;
 
 public interface CodiReqCommandService {
-    CodiRequest addCodiReq(CodiReqRequestDTO.AddCodiReqDTO codiReqRequestDTO);
-    CodiResponse addCodiRes(CodiResRequestDTO.addCodiResDTO codiResRequestDTO, Long requestId);
+    CodiRequest addCodiReq(Long userId, CodiReqRequestDTO.AddCodiReqDTO codiReqRequestDTO);
+    CodiResponse addCodiRes(Long userId, CodiResRequestDTO.addCodiResDTO codiResRequestDTO, Long requestId);
 
 }

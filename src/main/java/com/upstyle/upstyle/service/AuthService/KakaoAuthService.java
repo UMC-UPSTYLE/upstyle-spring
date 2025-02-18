@@ -106,15 +106,14 @@ public class KakaoAuthService {
         System.out.println("Kakao nickname Info: " + userInfo.getKakaoAccount().getProfile().getNickName());
         System.out.println("Kakao email Info: " + userInfo.getKakaoAccount().getEmail());
 
-
         String email = userInfo.getKakaoAccount().getEmail();
         String nickname = userInfo.getKakaoAccount().getProfile().getNickName();
 
         // 사용자 정보로 회원가입 또는 로그인 처리
         User user = saveOrUpdateUser(email, nickname);
 
-        // JWT 토큰 생성 및 반환
-        return tokenService.generateToken(user.getNickname(), user.getEmail(), String.valueOf(user.getRole()));
+        // JWT 토큰 생성 및 반환 (id 추가)
+        return tokenService.generateToken(user.getId(), user.getNickname(), user.getEmail(), String.valueOf(user.getRole()));
     }
 
     private User saveOrUpdateUser(String email, String nickname) {

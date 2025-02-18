@@ -13,7 +13,6 @@ public class VoteRequestDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class AddVoteDTO {
-        private Long userId;
         private String title;
         private String body;
         private String imageUrl;
@@ -35,7 +34,6 @@ public class VoteRequestDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ResponseVoteDTO {
-        private Long userId;
         private Long optionId;
     }
 }
