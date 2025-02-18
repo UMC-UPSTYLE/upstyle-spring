@@ -31,7 +31,7 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정 추가
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/users/**", "/auth/**", "/ootds/**", "/clothes/**", "/closets/**", "/votes/**", "/login/oauth2/code/google", "/login", "/signin/**", "/more_info","/bookmarks/**","/ootd-request/**","/oauth2/**")
+                        .ignoringRequestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/users/**", "/auth/**", "/ootds/**", "/clothes/**", "/closets/**", "/votes/**", "/login/oauth2/code/google", "/login", "/signin/**", "/more_info","/bookmarks/**","/codi-requests/**","/oauth2/**")
                 )
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(
@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/users/**", "/auth/**", "/ootds/**", "/clothes/**",
                                 "/closets/**", "/votes/**", "/login/oauth2/code/google",
-                                "/login", "/more_info","/bookmarks/","/ootd-request/**"
+                                "/login", "/more_info","/bookmarks/","/codi-requests/**"
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
