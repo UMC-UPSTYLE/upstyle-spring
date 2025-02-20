@@ -26,14 +26,7 @@ public class ClosetController {
 
     @GetMapping("/")
     @Operation(summary = "특정 사용자 옷장 조회 API")
-    public ApiResponse<ClosetResponseDTO.ClothKindListDTO> getClothKindList(
-            HttpServletRequest request) // JWT를 가져오기 위해 HttpServletRequest 추가
-    {
-        String token = request.getHeader("Authorization");
-
-        token = token.substring(7); // "Bearer " 제거
-        Long userId = tokenService.getId(token); //  JWT에서 userId 추출
-
+    public ApiResponse<ClosetResponseDTO.ClothKindListDTO> getClothKindList(@RequestParam(value = "userId") Long userId) {
         ClosetResponseDTO.ClothKindListDTO clothKindList = closetQueryService.getClothKindList(userId);
         return ApiResponse.onSuccess(clothKindList);
     }
@@ -41,22 +34,14 @@ public class ClosetController {
     @GetMapping("/categories")
     @Operation(summary = "특정 사용자 옷장 내 카테고리별 조회 API")
     public ApiResponse<ClothResponseDTO.ClothPreviewListDTO> getClothPreviewList(
-            HttpServletRequest request,
+            @RequestParam(value = "userId") Long userId,
             @RequestParam(value = "kindId", required = false) Long kindId,
             @RequestParam(value = "categoryId", required = false) Long categoryId,
             @RequestParam(value = "colorId", required = false) List<Long> colorId,
             @RequestParam(value = "fitId", required = false) Long fitId,
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") int size)
-    {
-        String token = request.getHeader("Authorization");
-
-        token = token.substring(7); // "Bearer " 제거
-        Long userId = tokenService.getId(token); // JWT에서 userId 추출
-
-        ClothResponseDTO.ClothPreviewListDTO previewList =
-                closetQueryService.getClothPreviewList(userId, kindId, categoryId, colorId, fitId, page, size);
-
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+        ClothResponseDTO.ClothPreviewListDTO previewList = closetQueryService.getClothPreviewList(userId, kindId, categoryId, colorId, fitId, page, size);
         return ApiResponse.onSuccess(previewList);
     }
 
