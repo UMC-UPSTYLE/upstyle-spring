@@ -14,10 +14,14 @@ import java.util.List;
 public interface ClothRepository extends JpaRepository<Cloth, Long> {
 
     // 특정 사용자의 옷 종류별로 가장 최근 등록된 옷 조회
-    @Query("SELECT k.id AS kindId, k.name AS kindName, MAX(c.imageUrl) AS thumbnailUrl " +
+    @Query("SELECT k.id AS kindId, k.name AS kindName, COALESCE(img.imageUrl, NULL) AS thumbnailUrl " +
             "FROM ClothKind k " +
             "LEFT JOIN Cloth c ON k.id = c.kind.id AND c.user.id = :userId " +
-            "GROUP BY k.id, k.name")
+            "LEFT JOIN OotdCloth oc ON c.id = oc.cloth.id " +
+            "LEFT JOIN Ootd o ON oc.ootd.id = o.id " +
+            "LEFT JOIN OotdImage img ON o.id = img.ootd.id " +
+            "AND o.date = (SELECT MAX(o2.date) FROM Ootd o2 JOIN OotdCloth oc2 ON o2.id = oc2.ootd.id WHERE oc2.cloth.id = c.id) " +
+            "GROUP BY k.id, k.name, img.imageUrl")
     List<Object[]> findLatestClothByKindAndUserId(@Param("userId") Long userId);
 
     @Query("SELECT c FROM Cloth c " +

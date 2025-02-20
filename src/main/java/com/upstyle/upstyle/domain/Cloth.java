@@ -18,8 +18,6 @@ public class Cloth extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String imageUrl;
 
     @Column(length = 500, nullable = true)
     private String additionalInfo;
