@@ -37,8 +37,6 @@ public class QCloth extends EntityPathBase<Cloth> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final StringPath imageUrl = createString("imageUrl");
-
     public final QClothKind kind;
 
     public final ListPath<com.upstyle.upstyle.domain.mapping.OotdCloth, com.upstyle.upstyle.domain.mapping.QOotdCloth> ootdClothList = this.<com.upstyle.upstyle.domain.mapping.OotdCloth, com.upstyle.upstyle.domain.mapping.QOotdCloth>createList("ootdClothList", com.upstyle.upstyle.domain.mapping.OotdCloth.class, com.upstyle.upstyle.domain.mapping.QOotdCloth.class, PathInits.DIRECT2);
