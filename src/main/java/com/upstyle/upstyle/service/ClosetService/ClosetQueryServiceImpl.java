@@ -1,8 +1,12 @@
 package com.upstyle.upstyle.service.ClosetService;
 
+import com.upstyle.upstyle.apiPayload.code.status.ErrorStatus;
+import com.upstyle.upstyle.apiPayload.exception.handler.UserHandler;
 import com.upstyle.upstyle.converter.ClosetConverter;
 import com.upstyle.upstyle.domain.Cloth;
+import com.upstyle.upstyle.domain.User;
 import com.upstyle.upstyle.repository.ClothRepository;
+import com.upstyle.upstyle.repository.UserRepository;
 import com.upstyle.upstyle.web.dto.ClosetResponseDTO;
 import com.upstyle.upstyle.web.dto.ClothResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +20,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ClosetQueryServiceImpl implements ClosetQueryService {
     private final ClothRepository clothRepository;
+    private final UserRepository userRepository;
 
     @Override
     public ClosetResponseDTO.ClothKindListDTO getClothKindList(Long userId) {
         List<Object[]> clothData = clothRepository.findLatestClothByKindAndUserId(userId);
-        return ClosetConverter.toClothKindListDTO(userId, clothData);
+        User user=userRepository.findById(userId)
+                .orElseThrow(() -> new UserHandler(ErrorStatus.USER_NOT_FOUND));
+        String nickname=user.getNickname();
+        return ClosetConverter.toClothKindListDTO(userId, nickname, clothData);
     }
 
     @Override
